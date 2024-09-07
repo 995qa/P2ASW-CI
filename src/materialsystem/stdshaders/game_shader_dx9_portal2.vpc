@@ -13,7 +13,7 @@ $Configuration
 {
 	$Compiler
 	{
-		$PreprocessorDefinitions		"$BASE;PORTAL_ONLY"
+		$PreprocessorDefinitions		"$BASE;PORTAL_ONLY;P2ASW"
 	}
 }
 
