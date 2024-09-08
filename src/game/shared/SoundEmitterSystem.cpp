@@ -155,6 +155,17 @@ void WaveTrace( char const *wavname, char const *funcname )
 	}
 }
 
+// P2ASW pauses all sounds here (Portal 2 does it in the engine)
+// This function allows mods to switch the behavior dynamically if they want
+inline bool ShouldPauseAllSounds()
+{
+#ifdef P2ASW
+	return true;
+#endif
+
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 // Input  : &src - 
@@ -580,7 +591,7 @@ public:
 			params.soundname, 
 			params.soundlevel, 
 			params.volume, 
-			ep.m_nFlags, 
+			ep.m_nFlags,
 			params.pitch, 
 			ep.m_pOrigin, 
 			ep.m_flSoundTime,
@@ -612,7 +623,7 @@ public:
 			params.soundname,
 			params.volume,
 			(soundlevel_t)params.soundlevel,
-			ep.m_nFlags,
+			ShouldPauseAllSounds() ? ep.m_nFlags | SND_SHOULDPAUSE : ep.m_nFlags, 
 			params.pitch,
 			ep.m_pOrigin,
 			NULL,
@@ -705,7 +716,7 @@ public:
 				ep.m_pSoundName, 
 				ep.m_flVolume, 
 				ep.m_SoundLevel, 
-				ep.m_nFlags, 
+				ShouldPauseAllSounds() ? ep.m_nFlags | SND_SHOULDPAUSE : ep.m_nFlags, 
 				ep.m_nPitch, 
 				ep.m_pOrigin,
 				NULL, 
@@ -982,6 +993,9 @@ public:
 			params.volume = flVolume;
 		}
 
+		if (ShouldPauseAllSounds())
+			iFlags |= SND_SHOULDPAUSE;
+
 #if defined( CLIENT_DLL )
 		enginesound->EmitAmbientSound( params.soundname, params.volume, params.pitch, iFlags, soundtime );
 #else
@@ -1114,6 +1128,10 @@ public:
 		if ( bSwallowed )
 			return;
 #endif
+
+		if (ShouldPauseAllSounds())
+			flags |= SND_SHOULDPAUSE;
+
 
 		if ( pSample && ( Q_stristr( pSample, ".wav" ) || Q_stristr( pSample, ".mp3" )) )
 		{
@@ -1727,6 +1745,10 @@ int SENTENCEG_Lookup(const char *sample)
 
 void UTIL_EmitAmbientSound( int entindex, const Vector &vecOrigin, const char *samp, float vol, soundlevel_t soundlevel, int fFlags, int pitch, float soundtime /*= 0.0f*/, float *duration /*=NULL*/ )
 {
+
+	if (ShouldPauseAllSounds())
+		fFlags |= SND_SHOULDPAUSE;
+
 	if (samp && *samp == '!')
 	{
 		int sentenceIndex = SENTENCEG_Lookup(samp);
