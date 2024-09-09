@@ -1,3 +1,5 @@
+// P2ASw: DO NOT REMOVE THIS FILE!
+// It is only loaded from the "mod" directory.
 "splitscreenconfig"
 {
 	"nonwidescreen" // always split horizontally (top/bottom)
