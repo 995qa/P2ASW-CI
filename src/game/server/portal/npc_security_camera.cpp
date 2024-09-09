@@ -104,12 +104,16 @@ CNPC_SecurityCamera::CNPC_SecurityCamera( void )
 	m_bEnabled			= false;
 	m_vecCurrentAngles	= QAngle( 0.0f, 0.0f, 0.0f );
 
+	m_vecPingLocation   = Vector( 0.0f, 0.0f, 0.0f );
+
 	m_vecGoalAngles.Init();
 	m_vNoisePos = Vector( 0.0f, 0.0f, 0.0f );
 	m_iTicksTillNextNoise = 5;
 
 	m_pMovementSound = NULL;
 	m_hEyeGlow = NULL;
+
+	m_bDetectedNewPing = false;
 }
 
 CNPC_SecurityCamera::~CNPC_SecurityCamera( void )
@@ -507,6 +511,9 @@ void CNPC_SecurityCamera::ActiveThink( void )
 	//Get our shot positions
 	Vector vecMid = EyePosition();
 	Vector vecMidEnemy = pEnemy->GetAbsOrigin();
+
+	if (m_bLookAtPlayerPings)
+		vecMidEnemy = m_vecPingLocation;
 
 	//Store off our last seen location
 	UpdateEnemyMemory( pEnemy, vecMidEnemy );
