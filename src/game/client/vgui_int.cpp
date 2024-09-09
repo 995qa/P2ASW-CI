@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2005, Valve Corporation, All rights reserved. ============//
+//========= Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: 
 //
@@ -351,8 +351,8 @@ bool CSplitScreenLetterBox::GetSettings( bool *pbInsetHud, float *pflAspect, flo
 
 static CSplitScreenLetterBox g_LetterBox;
 
-#ifdef _X360
-CON_COMMAND( ss_reloadletterbox, "ss_reloadletterbox" )
+// #ifdef _X360
+CON_COMMAND( ss_reloadletterbox, "ss_reloadletterbox", FCVAR_CHEAT )
 {
 	g_LetterBox.Init();
 	VGui_OnSplitScreenStateChanged();
@@ -364,7 +364,7 @@ CON_COMMAND( ss_reloadletterbox, "ss_reloadletterbox" )
 		GetHud().OnSplitScreenStateChanged();
 	}
 }
-#endif
+// #endif
 
 static CHudTextureHandleProperty textureHandleConverter;
 
@@ -834,6 +834,14 @@ void VGui_OnSplitScreenStateChanged()
 	float flDummy, flFOV, flViewModelFOV;
 	g_LetterBox.GetSettings( &bDummy, &flDummy, &flFOV, &flViewModelFOV );
 
+#ifdef PORTAL2
+	ConVarRef cl_fov("cl_fov");
+	ConVarRef cl_viewmodelfov("cl_viewmodelfov");
+
+	DevMsg("Setting cl_fov to %f and cl_viewmodelfov to %f\n", flFOV, flViewModelFOV);
+	cl_fov.SetValue(flFOV);
+	cl_viewmodelfov.SetValue(flViewModelFOV);
+#endif
 
 	static SplitScreenConVarRef fov_desired( "fov_desired" );
 
