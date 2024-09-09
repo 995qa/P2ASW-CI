@@ -1309,8 +1309,9 @@ void CC_God_f (void)
 	if ( !pPlayer )
 		return;
 
-	if ( gpGlobals->deathmatch )
-		return;
+	// Portal 2 and later allow this
+	//if ( gpGlobals->deathmatch )
+	//	return;
 
 	pPlayer->ToggleFlag( FL_GODMODE );
 	if (!(pPlayer->GetFlags() & FL_GODMODE ) )
@@ -1577,8 +1578,11 @@ void CC_Notarget_f (void)
 	if ( !pPlayer )
 		return;
 
+#ifndef PORTAL2
+	// Only Portal 2 allows this
 	if ( gpGlobals->deathmatch )
 		return;
+#endif
 
 	pPlayer->ToggleFlag( FL_NOTARGET );
 	if ( !(pPlayer->GetFlags() & FL_NOTARGET ) )
