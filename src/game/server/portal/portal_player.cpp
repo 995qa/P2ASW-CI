@@ -4200,8 +4200,7 @@ bool CPortal_Player::FindRemoteTauntViewpoint( Vector *pOriginOut, QAngle *pAngl
 		VectorAngles( vecDir, *pAnglesOut );
 
 		m_hRemoteTauntCamera = pNPC;
-		// TODO:
-		//pNPC->TauntedByPlayer( this );
+		pNPC->TauntedByPlayer( this );
 	}
 
 	return true;

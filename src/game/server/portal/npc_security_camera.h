@@ -50,16 +50,10 @@
 #define SF_SECURITY_CAMERA_NEVERRETIRE		0x00000080
 #define SF_SECURITY_CAMERA_OUT_OF_AMMO		0x00000100
 
-#define CAMERA_DESTROYED_SCENE_1			"scenes/general/generic_security_camera_destroyed-1.vcd"
-#define CAMERA_DESTROYED_SCENE_2			"scenes/general/generic_security_camera_destroyed-2.vcd"
-#define CAMERA_DESTROYED_SCENE_3			"scenes/general/generic_security_camera_destroyed-3.vcd"
-#define CAMERA_DESTROYED_SCENE_4			"scenes/general/generic_security_camera_destroyed-4.vcd"
-#define CAMERA_DESTROYED_SCENE_5			"scenes/general/generic_security_camera_destroyed-5.vcd"
-
-//Heights
+// Normal turn speed
 #define	SECURITY_CAMERA_YAW_SPEED	7.0f
-
-#define SECURITY_CAMERA_TOTAL_TO_KNOCK_DOWN 33
+// Turn speed when looking at coop pings
+#define	SECURITY_CAMERA_YAW_SPEED_PING	8.0f
 
 //Turret states
 enum cameraState_e
@@ -72,15 +66,11 @@ enum cameraState_e
 	CAMERA_DEAD,
 };
 
-// Forces glados actor to play reaction scenes when player dismounts camera.
-void PlayDismountSounds( void );
-
-
 //
 // Security Camera
 //
 
-class CNPC_SecurityCamera : public CNPCBaseInteractive<CAI_BaseNPC>, public CDefaultPlayerPickupVPhysics
+class CNPC_SecurityCamera : public CNPCBaseInteractive<CAI_BaseNPC>, public CDefaultPlayerPickupVPhysics, public CGameEventListener
 {
 	DECLARE_CLASS( CNPC_SecurityCamera, CNPCBaseInteractive<CAI_BaseNPC> );
 public:
@@ -95,9 +85,14 @@ public:
 	virtual void	Activate( void );
 	bool			CreateVPhysics( void );
 	virtual void	UpdateOnRemove( void );
-	virtual void	NotifySystemEvent( CBaseEntity *pNotify, notify_system_event_t eventType, const notify_system_event_params_t &params );
+	virtual void	FireGameEvent(IGameEvent* event);
 	virtual int		ObjectCaps( void );
 	void			Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+
+	// Portal 2 stuff
+	virtual void NotifyPortalEvent(PortalEvent_t nEventType, CPortal_Base2D* pNotifier);
+	void TauntedByPlayer(CPortal_Player* pPlayer);
+	void TauntedByPlayerFinished(CPortal_Player* pPlayer);
 
 	// TODO: Use m_bEnabled or m_bActive?
 	bool IsActive( void ) { return m_bEnabled; }
@@ -106,6 +101,7 @@ public:
 	void	Retire( void );
 	void	Deploy( void );
 	void	ActiveThink( void );
+	void	DormantThink( void );
 	void	SearchThink( void );
 	void	DeathThink( void );
 
@@ -114,6 +110,9 @@ public:
 	void	InputEnable( inputdata_t &inputdata );
 	void	InputDisable( inputdata_t &inputdata );
 	void	InputRagdoll( inputdata_t &inputdata );
+	void	InputLookAtBlue( inputdata_t &inputdata );
+	void	InputLookAtOrange( inputdata_t &inputdata );
+	void	InputLookAllTeams( inputdata_t &inputdata );
 
 	void	SetLastSightTime();
 
@@ -124,8 +123,6 @@ public:
 	bool	ShouldSavePhysics() { return true; }
 
 	virtual bool CanBeAnEnemyOf( CBaseEntity *pEnemy );
-
-	bool TauntedByPlayerFinished( CPortal_Player *pPlayer ) { return false; } // FIXME!
 
 	Class_T	Classify( void ) 
 	{
@@ -165,6 +162,9 @@ protected:
 
 	bool	UpdateFacing( void );
 
+	void	Ragdoll();
+	bool	CheckRestingSurfaceForPortals();
+
 private:
 
 	CHandle<CSprite>		m_hEyeGlow;
@@ -173,6 +173,12 @@ private:
 	bool	m_bActive;		//Denotes the turret is deployed and looking for targets
 	bool	m_bBlinkState;
 	bool	m_bEnabled;		//Denotes whether the turret is able to deploy or not
+
+	// Portal 2 stuff
+	bool    m_bDetectedNewPing;
+	bool    m_bLookAtPlayerPings;
+	int     m_nTeamToLookAt;
+	int     m_nTeamPlayerToLookAt;
 	
 	float	m_flLastSight;
 	float	m_flPingTime;
@@ -182,10 +188,19 @@ private:
 	Vector	m_vNoisePos;
 	int		m_iTicksTillNextNoise;
 
+	Vector  m_vecPingLocation;
+
 	CSoundPatch		*m_pMovementSound;
 
 	COutputEvent m_OnDeploy;
 	COutputEvent m_OnRetire;
+
+	COutputEvent m_OnTaunted;
+	COutputEvent m_OnTauntedBlue;
+	COutputEvent m_OnTauntedOrange;
+	COutputEvent m_OnTauntedFinished;
+	COutputEvent m_OnTauntedBlueFinished;
+	COutputEvent m_OnTauntedOrangeFinished;
 
 	DECLARE_DATADESC();
 };
