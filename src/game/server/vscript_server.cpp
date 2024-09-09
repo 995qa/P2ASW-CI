@@ -15,6 +15,7 @@
 #include "sceneentity.h"		// for exposing scene precache function
 #include "isaverestore.h"
 #include "gamerules.h"
+#include "particle_parse.h"
 #ifdef _WIN32
 #include "vscript_server_nut.h"
 #include "spawn_helper_nut.h"
@@ -341,6 +342,25 @@ static void DoEntFire( const char *pszTarget, const char *pszAction, const char 
 	g_EventQueue.AddEvent( target, action, value, delay, ToEnt(hActivator), ToEnt(hCaller) );
 }
 
+static void DoRecordAchievementEvent( const char *pszAchievementname, int iPlayerIndex )
+{
+	if ( iPlayerIndex < 0 )
+	{
+		DevWarning( "DoRecordAchievementEvent called with invalid player index (%s, %d)!\n", pszAchievementname, iPlayerIndex );
+		return;
+	}
+	CBasePlayer *pPlayer = NULL;
+	if ( iPlayerIndex > 0 )
+	{
+		pPlayer = UTIL_PlayerByIndex( iPlayerIndex );
+		if ( !pPlayer )
+		{
+			DevWarning( "DoRecordAchievementEvent called with a player index that doesn't resolve to a player (%s, %d)!\n", pszAchievementname, iPlayerIndex );
+			return;
+		}
+	}
+	UTIL_RecordAchievementEvent( pszAchievementname, pPlayer );
+}
 
 bool DoIncludeScript( const char *pszScript, HSCRIPT hScope )
 {
@@ -350,6 +370,18 @@ bool DoIncludeScript( const char *pszScript, HSCRIPT hScope )
 		return false;
 	}
 	return true;
+}
+
+int GetDeveloperLevel()
+{
+	return developer.GetInt();
+}
+
+static void ScriptDispatchParticleEffect( const char *pszParticleName, const Vector &vOrigin, const Vector &vAngle )
+{
+	QAngle qAngle;
+	VectorAngles( vAngle, qAngle );
+	DispatchParticleEffect( pszParticleName, vOrigin, qAngle );
 }
 
 HSCRIPT CreateProp( const char *pszEntityName, const Vector &vOrigin, const char *pszModelName, int iAnim )
@@ -485,6 +517,9 @@ bool VScriptServerInit()
 				ScriptRegisterFunctionNamed( g_pScriptVM, NDebugOverlay::Line, "DebugDrawLine", "Draw a debug overlay box" );
 				ScriptRegisterFunction( g_pScriptVM, DoIncludeScript, "Execute a script (internal)" );
 				ScriptRegisterFunction( g_pScriptVM, CreateProp, "Create a physics prop");
+				ScriptRegisterFunctionNamed( g_pScriptVM, DoRecordAchievementEvent, "RecordAchievementEvent", "Records achievement event or progress" );
+				ScriptRegisterFunction( g_pScriptVM, GetDeveloperLevel, "Gets the level of 'developer'" );
+				ScriptRegisterFunctionNamed( g_pScriptVM, ScriptDispatchParticleEffect, "DispatchParticleEffect", "Dispatches a one-off particle system" );
 #if defined ( PORTAL2 )
 				ScriptRegisterFunction( g_pScriptVM, SetDucking, "Set the level of an audio ducking channel" );
 #endif

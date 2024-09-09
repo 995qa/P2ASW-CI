@@ -69,6 +69,11 @@ bool DoIncludeScript( const char *pszScript, HSCRIPT hScope )
 	return true;
 }
 
+int GetDeveloperLevel()
+{
+	return developer.GetInt();
+}
+
 bool VScriptClientInit()
 {
 	VMPROF_START
@@ -110,6 +115,7 @@ bool VScriptClientInit()
 				ScriptRegisterFunction( g_pScriptVM, GetMapName, "Get the name of the map.");
 				ScriptRegisterFunction( g_pScriptVM, Time, "Get the current server time" );
 				ScriptRegisterFunction( g_pScriptVM, DoIncludeScript, "Execute a script (internal)");
+				ScriptRegisterFunction( g_pScriptVM, GetDeveloperLevel, "Gets the level of 'develoer'" );
 				
 				if ( GameRules() )
 				{
