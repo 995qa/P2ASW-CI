@@ -41,6 +41,18 @@ vgui::IInputInternal *g_InputInternal = NULL;
 bool IsWidescreen( void );
 
 
+void ss_pipsplit_changed( IConVar *pConVar, const char *pOldString, float flOldValue )
+{
+	VGui_OnSplitScreenStateChanged();
+}
+static ConVar ss_pipsplit( "ss_pipsplit", "1", 0, "If enabled, use PIP instead of splitscreen. (Only works for 2 players)", ss_pipsplit_changed );
+static ConVar ss_pipscale( "ss_pipscale", "0.3f", 0, "Scale of the PIP aspect ratio to our resolution.", ss_pipsplit_changed );
+static ConVar ss_pip_right_offset( "ss_pip_right_offset", "25", 0, "PIP offset vector from the right of the screen", ss_pipsplit_changed );
+static ConVar ss_pip_bottom_offset( "ss_pip_bottom_offset", "25", 0, "PIP offset vector from the bottom of the screen", ss_pipsplit_changed );
+static ConVar ss_force_primary_fullscreen( "ss_force_primary_fullscreen", "0", 0, "If enabled, all splitscreen users will only see the first user's screen full screen", ss_pipsplit_changed );
+bool VGui_UsePipSplit();
+
+
 void ss_verticalsplit_changed( IConVar *pConVar, const char *pOldString, float flOldValue )
 {
 	ConVarRef var( pConVar );
@@ -306,7 +318,7 @@ bool CSplitScreenLetterBox::GetSettings( bool *pbInsetHud, float *pflAspect, flo
 	Assert( pFOV );
 	Assert( pViewModelFOV );
 	static bool bUsedDefaultsLastTime = false;
-	if ( !m_bValid || m_nSplitScreenPlayers == 1 )
+	if ( !m_bValid || m_nSplitScreenPlayers == 1 || VGui_UsePipSplit() || ss_force_primary_fullscreen.GetBool() )
 	{
 		if ( !bUsedDefaultsLastTime )
 		{
@@ -352,7 +364,7 @@ bool CSplitScreenLetterBox::GetSettings( bool *pbInsetHud, float *pflAspect, flo
 static CSplitScreenLetterBox g_LetterBox;
 
 // #ifdef _X360
-CON_COMMAND( ss_reloadletterbox, "ss_reloadletterbox", FCVAR_CHEAT )
+CON_COMMAND_F( ss_reloadletterbox, "ss_reloadletterbox", FCVAR_CHEAT )
 {
 	g_LetterBox.Init();
 	VGui_OnSplitScreenStateChanged();
@@ -617,7 +629,30 @@ void VGUI_UpdateScreenSpaceBounds( int nNumSplits, int sx, int sy, int sw, int s
 		break;
 	case 2:
 		{
-			if ( ss_verticalsplit.GetBool() )
+			if ( ss_force_primary_fullscreen.GetBool() )
+			{
+				// fullscreen
+				VGUI_SetScreenSpaceBounds( validSlots[ 0 ], 0, 0, sw, sh );
+				VGUI_SetScreenSpaceBounds( validSlots[ 1 ], sw, sh, 1, 1 );
+			}
+			else if ( VGui_UsePipSplit() )
+			{
+				VGUI_SetScreenSpaceBounds( validSlots[ 0 ], sx, sy, sw, sh );
+				// scale with PIP resolution
+				float flPIPScale = ss_pipscale.GetFloat();
+				int pipWidth = sw * flPIPScale;
+				int pipHeight = sh * flPIPScale;
+				int x = sw - pipWidth - ss_pip_right_offset.GetInt();
+				int y = sh - pipHeight - ss_pip_bottom_offset.GetInt();
+				// round upper left corner down to the nearest multiple of 8 for X360 (resolve alignment requirements)
+				if ( IsX360() )
+				{
+					x &= (~7);
+					y &= (~7);
+				}
+				VGUI_SetScreenSpaceBounds( validSlots[ 1 ], x, y, pipWidth, pipHeight );
+			}
+			else if ( ss_verticalsplit.GetBool() )
 			{
 				sw /= 2;
 				// Stack two horiz, side by side
@@ -767,7 +802,8 @@ void VGui_OnScreenSizeChanged()
 	VGui_OnSplitScreenStateChanged();
 }
 
-static int g_nNumSplits = 1;
+static int g_nNumSplits = 1; //number of logical splits (local players + remote splits)
+static int g_nNumLocalSplits = 1; //number of local players sitting at this computer
 
 
 bool VGui_IsSplitScreen()
@@ -777,8 +813,12 @@ bool VGui_IsSplitScreen()
 
 bool VGui_IsSplitScreenPIP()
 {
-	// FIXME:
-	return VGui_IsSplitScreen(); //&& g_nNumLocalSplits == ss_pipsplit.GetInt();
+	return VGui_IsSplitScreen() && g_nNumLocalSplits == ss_pipsplit.GetInt();
+}
+
+bool VGui_UsePipSplit()
+{
+	return g_nNumLocalSplits <= ss_pipsplit.GetInt(); //ss_pipsplit 1 for remote splitscreen pip, ss_pipsplit 2 to use pip even with 2 local players
 }
 
 bool g_bSuppressConfigSystemLevelDueToPIPTransitions;
@@ -789,6 +829,7 @@ void VGui_OnSplitScreenStateChanged()
 
 	g_SplitScreenPlayers.ClearAll();
 	g_nNumSplits = 0;
+	g_nNumLocalSplits = 0;
 	for ( int i = engine->FirstValidSplitScreenSlot();				
 		i != -1;												
 		i = engine->NextValidSplitScreenSlot( i ) )	
@@ -796,6 +837,7 @@ void VGui_OnSplitScreenStateChanged()
 		g_SplitScreenPlayers.Set( i );
 		g_RemoteSplitScreenPlayers[i] = NULL; //actual splitscreen players nuke networked splitscreen players
 		++g_nNumSplits;
+		++g_nNumLocalSplits;
 	}
 
 	if( cl_enable_remote_splitscreen.GetBool() )
