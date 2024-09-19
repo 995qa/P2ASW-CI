@@ -485,6 +485,9 @@ void CWeaponPortalgun::SecondaryAttack( void )
 	{
 		FirePortal2();
 	}
+#if defined( GAME_DLL )
+	m_OnFiredPortal2.FireOutput( pPlayer, this );
+#endif
 
 	PostAttack();
 }
