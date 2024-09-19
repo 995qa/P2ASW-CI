@@ -68,6 +68,8 @@ BEGIN_DATADESC( CWeaponPortalgun )
 
 	DEFINE_INPUTFUNC( FIELD_VOID, "ChargePortal1", InputChargePortal1 ),
 	DEFINE_INPUTFUNC( FIELD_VOID, "ChargePortal2", InputChargePortal2 ),
+	DEFINE_INPUTFUNC( FIELD_VOID, "FirePortal1", FirePortal1Helper ),
+	DEFINE_INPUTFUNC( FIELD_VOID, "FirePortal2", FirePortal2Helper ),
 	DEFINE_INPUTFUNC( FIELD_VECTOR, "FirePortalDirection1", FirePortalDirection1 ),
 	DEFINE_INPUTFUNC( FIELD_VECTOR, "FirePortalDirection2", FirePortalDirection2 ),
 
@@ -320,6 +322,16 @@ void CWeaponPortalgun::FirePortalDirection2( inputdata_t &inputdata )
 	{
 		WeaponSound( DOUBLE_NPC );
 	}
+}
+
+void CWeaponPortalgun::FirePortal1Helper( inputdata_t& inputdata )
+{
+	FirePortal1();
+}
+
+void CWeaponPortalgun::FirePortal2Helper( inputdata_t& inputdata )
+{
+	FirePortal2();
 }
 
 //-----------------------------------------------------------------------------

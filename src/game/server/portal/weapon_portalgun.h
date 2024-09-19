@@ -97,6 +97,9 @@ public:
 	void FirePortal1( void );
 	void FirePortal2( void );
 
+	void FirePortal1Helper( inputdata_t& inputdata );
+	void FirePortal2Helper( inputdata_t& inputdata );
+
 	void InputChargePortal1( inputdata_t &inputdata );
 	void InputChargePortal2( inputdata_t &inputdata );
 	void FirePortalDirection1( inputdata_t &inputdata );
