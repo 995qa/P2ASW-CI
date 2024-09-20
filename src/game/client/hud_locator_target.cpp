@@ -887,6 +887,8 @@ CLocatorPanel::CLocatorPanel( Panel *parent, const char *name ) : EditablePanel(
 	m_textureID_ArrowUp = -1;
 	m_textureID_ArrowDown = -1;
 	m_textureID_SimpleArrow = -1;
+
+	SetScheme("basemodui_scheme");
 }
 
 //-----------------------------------------------------------------------------
