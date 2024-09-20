@@ -14,6 +14,7 @@
 #include "hudelement.h"
 #include <vgui_controls/Panel.h>
 #include "closedcaptions.h"
+#include "usermessages.h"
 
 class CSentence;
 class C_BaseFlex;
@@ -31,7 +32,7 @@ class CHudCloseCaption : public CHudElement, public vgui::Panel
 public:
 	DECLARE_MULTIPLY_INHERITED();
 
-					CHudCloseCaption( const char *pElementName );
+	explicit 		CHudCloseCaption( const char *pElementName );
 	virtual 		~CHudCloseCaption();
 
 	// Expire lingering items
@@ -41,12 +42,16 @@ public:
 
 	virtual void	LevelShutdown( void )
 	{
+		m_bLevelShutDown = true;
 		Reset();
+		m_bLevelShutDown = false;
 	}
 
 	// Painting methods
 	virtual void	Paint();
 
+	virtual void ApplySchemeSettings( vgui::IScheme *pScheme );
+	
 	void MsgFunc_CloseCaption(bf_read &msg);
 	void MsgFunc_CloseCaptionDirect(bf_read &msg);
 
@@ -61,7 +66,8 @@ public:
 	void			ProcessSentenceCaptionStream( char const *tokenstream );
 	void			PlayRandomCaption();
 
-	void			InitCaptionDictionary( char const *dbfile, bool bForce = false );
+	void			InitCaptionDictionary( char const *language, bool bForce = false );
+	bool 			AddFileToCaptionDictionary( const char *filename );
 	void			OnFinishAsyncLoad( int nFileIndex, int nBlockNum, AsyncCaptionData_t *pData );
 
 	void			Flush();
@@ -73,7 +79,7 @@ public:
 		CCFONT_ITALIC,
 		CCFONT_BOLD,
 		CCFONT_ITALICBOLD,
-		CCFONT_SMALL,
+		CCFONT_CONSOLE,
 		CCFONT_MAX
 	};
 
@@ -83,6 +89,8 @@ public:
 	void			Unlock( void );
 
 	void			FindSound( char const *pchANSI );
+
+	void			ClearCurrentLanguage();
 
 	struct CaptionRepeat
 	{
@@ -129,15 +137,18 @@ private:
 
 	void	DumpWork( CCloseCaptionItem *item );
 
-	void AddWorkUnit( 
-		CCloseCaptionItem *item,	
-		WorkUnitParams& params );
+	void	AddWorkUnit( CCloseCaptionItem *item, WorkUnitParams& params );
+
+	void	CreateFonts( void );
+
+	void	LoadColorMap( const char *pFilename );
+	bool	FindColorForTag( wchar_t *pTag, Color &tagColor );
 
 	CUtlVector< CCloseCaptionItem * > m_Items;
 
-	vgui::HFont		m_hFonts[CCFONT_MAX];
+	void SetUseAsianWordWrapping();
 
-	void			CreateFonts( void );
+	vgui::HFont		m_hFonts[CCFONT_MAX];
 
 	int			m_nLineHeight;
 
@@ -147,7 +158,6 @@ private:
 	float		m_flCurrentAlpha;
 	float		m_flGoalHeightStartTime;
 	float		m_flGoalHeightFinishTime;
-	bool		m_bMouseOverFade;
 
 	CPanelAnimationVar( float, m_flBackgroundAlpha, "BgAlpha", "192" );
 	CPanelAnimationVar( float, m_flGrowTime, "GrowTime", "0.25" );
@@ -161,6 +171,11 @@ private:
 	bool		m_bVisibleDueToDirect;
 	bool		m_bPaintDebugInfo;
 	CUtlSymbol	m_CurrentLanguage;
+
+	CUtlDict< Color, int >	m_ColorMap;
+	bool		m_bLevelShutDown;
+
+	bool		m_bUseAsianWordWrapping;
 };
 
 #endif // HUD_CLOSECAPTION_H

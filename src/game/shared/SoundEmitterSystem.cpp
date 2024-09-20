@@ -310,6 +310,17 @@ public:
 
 #endif
 
+#if !defined( CLIENT_DLL )
+	void LoadServerCaptions()
+	{
+		m_ServerCaptions.Purge();
+
+		// Server keys off of english file!!!
+		AddCaptionFile( "resource/closecaption_english.dat" );
+		AddCaptionFile( "resource/subtitles_english.dat" );
+	}
+#endif // !defined( CLIENT_DLL )
+
 	// IServerSystem stuff
 	virtual bool Init()
 	{
@@ -321,31 +332,52 @@ public:
 		Assert(g_pClosecaption);
 
 #if !defined( CLIENT_DLL )
-		// Server keys off of english file!!!
-		char dbfile [ 512 ];
-		Q_snprintf( dbfile, sizeof( dbfile ), "resource/closecaption_%s.dat", "english" );
-
-		m_ServerCaptions.Purge();
-
-		if ( IsX360() )
-		{
-			char fullpath[MAX_PATH];
-			char fullpath360[MAX_PATH];
-			filesystem->RelativePathToFullPath( dbfile, "GAME", fullpath, sizeof(fullpath) );
-			UpdateOrCreateCaptionFile( fullpath, fullpath360, sizeof( fullpath360 ) );
-			Q_strncpy( fullpath, fullpath360, sizeof( fullpath ) );
-		}
-
-		int idx = m_ServerCaptions.AddToTail();
-		AsyncCaption_t& entry = m_ServerCaptions[ idx ];
-		if ( !entry.LoadFromFile( dbfile ) )
-		{
-			m_ServerCaptions.Remove( idx );
-		}
+		LoadServerCaptions();
 #endif
 
 		return true;
 	}
+
+#if !defined( CLIENT_DLL )
+	void AddCaptionFile( const char *filename )
+	{
+		int searchPathLen = filesystem->GetSearchPath( "GAME", true, NULL, 0 );
+		char *searchPaths = (char *)stackalloc( searchPathLen + 1 );
+		filesystem->GetSearchPath( "GAME", true, searchPaths, searchPathLen );
+
+		for ( char *path = strtok( searchPaths, ";" ); path; path = strtok( NULL, ";" ) )
+		{
+			if ( IsGameConsole() && ( filesystem->GetDVDMode() == DVDMODE_STRICT ) && !V_stristr( path, ".zip" ) )
+			{
+				// only want zip paths
+				continue;
+			} 
+
+			char fullpath[MAX_PATH];
+			Q_snprintf( fullpath, sizeof( fullpath ), "%s%s", path, filename );
+			Q_FixSlashes( fullpath );
+			Q_strlower( fullpath );
+
+			if ( IsGameConsole() )
+			{
+				char fullpath360[MAX_PATH];
+				UpdateOrCreateCaptionFile( fullpath, fullpath360, sizeof( fullpath360 ) );
+				Q_strncpy( fullpath, fullpath360, sizeof( fullpath ) );
+			}
+
+			int idx = m_ServerCaptions.AddToTail();
+			AsyncCaption_t& entry = m_ServerCaptions[ idx  ];
+			if ( !entry.LoadFromFile( fullpath ) )
+			{
+				m_ServerCaptions.Remove( idx );
+			}
+			else
+			{
+				DevMsg( "Server: added caption file: %s\n", fullpath );
+			}
+		}
+	}
+#endif
 
 	virtual void Shutdown()
 	{

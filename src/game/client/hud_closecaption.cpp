@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2005, Valve Corporation, All rights reserved. ============//
+//========= Copyright (c) 1996-2005, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: 
 //
@@ -8,11 +8,29 @@
 
 #include "cbase.h"
 #include <ctype.h>
+#ifndef P2ASW
+#include <vstdlib/vstrtools.h>
+#endif
+#ifdef _PS3
+#include <wctype.h>
+int wcsnlen( wchar_t const *wsz, int nMaxLen )
+{
+	int nLen = 0;
+	while ( nMaxLen -- > 0 )
+	{
+		if ( *( wsz ++ ) )
+			++ nLen;
+		else
+			break;
+	}
+	return nLen;
+}
+#endif
 #include "sentence.h"
 #include "hud_closecaption.h"
 #include "tier1/strtools.h"
 #include <vgui_controls/Controls.h>
-#include <vgui/IVgui.h>
+#include <vgui/IVGui.h>
 #include <vgui/ISurface.h>
 #include <vgui/IScheme.h>
 #include <vgui/ILocalize.h>
@@ -21,30 +39,182 @@
 #include "checksum_crc.h"
 #include "filesystem.h"
 #include "datacache/idatacache.h"
-#include "soundemittersystem/isoundemittersystembase.h"
+#include "SoundEmitterSystem/isoundemittersystembase.h"
 #include "tier3/tier3.h"
-#ifdef INFESTED_DLL
-	#include "asw_input.h"
-#endif
+#include "characterset.h"
+#include "gamerules.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
 #define CC_INSET		12
 
+#ifdef P2ASW
+// Stuff related to Asian language word wrapping which usually is in tier1.
+// Unsure if there was much point to porting this since engine stuff won't
+// support it properly, but it didn't feel right to leave this broken
+
+namespace AsianWordWrap
+{
+	// Functions used by Asian language line wrapping to determine if a character can end a line, begin a line, or be broken up when repeated (eg: "...")
+	bool CanEndLine( wchar_t wcCandidate );
+	bool CanBeginLine( wchar_t wcCandidate );
+	bool CanBreakRepeated( wchar_t wcCandidate );
+
+	// Used to determine if we can break a line between the first two characters passed; calls the above functions on each character
+	bool CanBreakAfter( const wchar_t* wsz );
+}
+
+// The following characters are not allowed to begin a line for Asian language line-breaking
+// purposes.  They include the right parenthesis/bracket, space character, period, exclamation, 
+// question mark, and a number of language-specific characters for Chinese, Japanese, and Korean
+static const wchar_t wszCantBeginLine[] =
+{
+	0x0020, 0x0021, 0x0025, 0x0029,	0x002c, 0x002e, 0x003a, 0x003b,
+	0x003e, 0x003f, 0x005d, 0x007d,	0x00a2, 0x00a8, 0x00b0, 0x00b7, 
+	0x00bb,	0x02c7, 0x02c9,	0x2010, 0x2013, 0x2014, 0x2015,	0x2016, 
+	0x2019, 0x201d, 0x201e,	0x201f, 0x2020, 0x2021, 0x2022,	0x2025, 
+	0x2026, 0x2027, 0x203a, 0x203c,	0x2047, 0x2048, 0x2049, 0x2103,
+	0x2236, 0x2574, 0x3001, 0x3002,	0x3003, 0x3005, 0x3006, 0x3009,
+	0x300b, 0x300d, 0x300f, 0x3011,	0x3015, 0x3017, 0x3019, 0x301b,
+	0x301c,	0x301e, 0x301f, 0x303b, 0x3041, 0x3043, 0x3045, 0x3047, 
+	0x3049,	0x3063, 0x3083, 0x3085, 0x3087,	0x308e, 0x3095, 0x3096, 
+	0x30a0,	0x30a1, 0x30a3, 0x30a5, 0x30a7,	0x30a9, 0x30c3, 0x30e3, 
+	0x30e5,	0x30e7, 0x30ee, 0x30f5, 0x30f6,	0x30fb, 0x30fd, 0x30fe, 
+	0x30fc,	0x31f0, 0x31f1, 0x31f2, 0x31f3,	0x31f4, 0x31f5, 0x31f6, 
+	0x31f7,	0x31f8, 0x31f9, 0x31fa, 0x31fb,	0x31fc, 0x31fd, 0x31fe, 
+	0x31ff,	0xfe30, 0xfe31, 0xfe32, 0xfe33,	0xfe36, 0xfe38, 0xfe3a,	
+	0xfe3c, 0xfe3e, 0xfe40, 0xfe42, 0xfe44,	0xfe4f, 0xfe50, 0xfe51, 
+	0xfe52,	0xfe53, 0xfe54, 0xfe55, 0xfe56,	0xfe57, 0xfe58, 0xfe5a, 
+	0xfe5c, 0xfe5e, 0xff01,	0xff02, 0xff05, 0xff07, 0xff09,	0xff0c, 
+	0xff0e, 0xff1a, 0xff1b,	0xff1f, 0xff3d, 0xff40, 0xff5c,	0xff5d, 
+	0xff5e, 0xff60, 0xff64
+};
+
+// The following characters are not allowed to end a line for Asian Language line-breaking
+// purposes.  They include left parenthesis/bracket, currency symbols, and an number
+// of language-specific characters for Chinese, Japanese, and Korean
+static const wchar_t wszCantEndLine[] =
+{
+	0x0024, 0x0028, 0x002a, 0x003c, 0x005b, 0x005c, 0x007b, 0x00a3,	
+	0x00a5, 0x00ab, 0x00ac, 0x00b7, 0x02c6, 0x2018,	0x201c, 0x201f, 
+	0x2035, 0x2039, 0x3005, 0x3007,	0x3008, 0x300a, 0x300c, 0x300e, 
+	0x3010,	0x3014, 0x3016, 0x3018, 0x301a, 0x301d, 0xfe34, 0xfe35, 
+	0xfe37, 0xfe39, 0xfe3b, 0xfe3d, 0xfe3f,	0xfe41, 0xfe43, 0xfe59, 
+	0xfe5b,	0xfe5d, 0xff04, 0xff08, 0xff0e,	0xff3b, 0xff5b, 0xff5f, 
+	0xffe1,	0xffe5, 0xffe6
+};
+
+// Can't break between some repeated punctuation patterns ("--", "...", "<asian period repeated>")
+static const wchar_t wszCantBreakRepeated[] =
+{
+	0x002d, 0x002e, 0x3002
+};
+
+bool AsianWordWrap::CanEndLine( wchar_t wcCandidate )
+{
+	for( int i = 0; i < SIZE_OF_ARRAY( wszCantEndLine ); ++i )
+	{
+		if( wcCandidate == wszCantEndLine[i] )
+			return false;
+	}
+
+	return true;
+}
+
+bool AsianWordWrap::CanBeginLine( wchar_t wcCandidate )
+{
+	for( int i = 0; i < SIZE_OF_ARRAY( wszCantBeginLine ); ++i )
+	{
+		if( wcCandidate == wszCantBeginLine[i] )
+			return false;
+	}
+
+	return true;
+}
+
+bool AsianWordWrap::CanBreakRepeated( wchar_t wcCandidate )
+{
+	for( int i = 0; i < SIZE_OF_ARRAY( wszCantBreakRepeated ); ++i )
+	{
+		if( wcCandidate == wszCantBreakRepeated[i] )
+			return false;
+	}
+
+	return true;
+}
+
+#if defined( _PS3 ) || defined( LINUX )
+inline int __cdecl iswascii(wchar_t c) { return ((unsigned)(c) < 0x80); } // not defined in wctype.h on the PS3
+#endif
+
+// Used to determine if we can break a line between the first two characters passed
+bool AsianWordWrap::CanBreakAfter( const wchar_t* wsz )
+{
+	if( wsz == NULL || wsz[0] == '\0' || wsz[1] == '\0' )
+	{
+		return false;
+	}
+
+	wchar_t first_char = wsz[0];
+	wchar_t second_char = wsz[1];
+	if( ( iswascii( first_char ) && iswascii( second_char ) ) // If not both CJK, return early
+		|| ( iswalnum( first_char ) && iswalnum( second_char ) ) ) // both characters are alphanumeric - Don't split a number or a word!
+	{
+		return false;
+	}
+
+	if( !CanEndLine( first_char ) )
+	{
+		return false;
+	}
+
+	if( !CanBeginLine( second_char) )
+	{
+		return false;
+	}
+
+	// don't allow line wrapping in the middle of "--" or "..."
+	if( ( first_char == second_char ) && ( !CanBreakRepeated( first_char ) ) )
+	{
+		return false;
+	}
+
+	// If no rules would prevent us from breaking, assume it's safe to break here
+	return true;
+}
+
+// We use this function to determine where it is permissible to break lines
+// of text while wrapping them. On some platforms, the native iswspace() function
+// returns FALSE for the "non-breaking space" characters 0x00a0 and 0x202f, and so we don't
+// break on them. On others (including the X360 and PC), iswspace returns TRUE for them.
+// We get rid of the platform dependency by defining this wrapper which returns false
+// for &nbsp; and calls through to the library function for everything else.
+int isbreakablewspace( wchar_t ch )
+{
+	// 0x00a0 and 0x202f are the wide and narrow non-breaking space UTF-16 values, respectively
+	return ch != 0x00a0 && ch != 0x202f && iswspace(ch);
+}
+#endif // P2ASW
+
 extern ISoundEmitterSystemBase *soundemitterbase;
 
+static bool GetDefaultSubtitlesState()
+{
+	return XBX_IsLocalized() && !XBX_IsAudioLocalized();
+}
+
 // Marked as FCVAR_USERINFO so that the server can cull CC messages before networking them down to us!!!
-ConVar closecaption( "closecaption", "0", FCVAR_ARCHIVE | FCVAR_ARCHIVE_XBOX | FCVAR_USERINFO, "Enable close captioning." );
+ConVar closecaption( "closecaption", GetDefaultSubtitlesState() ? "1" : "0", FCVAR_ARCHIVE | FCVAR_ARCHIVE_XBOX, "Enable close captioning." );
 extern ConVar cc_lang;
 static ConVar cc_linger_time( "cc_linger_time", "1.0", FCVAR_ARCHIVE, "Close caption linger time." );
 static ConVar cc_predisplay_time( "cc_predisplay_time", "0.25", FCVAR_ARCHIVE, "Close caption delay before showing caption." );
 static ConVar cc_captiontrace( "cc_captiontrace", "1", 0, "Show missing closecaptions (0 = no, 1 = devconsole, 2 = show in hud)" );
-static ConVar cc_subtitles( "cc_subtitles", "0", FCVAR_ARCHIVE | FCVAR_ARCHIVE_XBOX, "If set, don't show sound effect captions, just voice overs (i.e., won't help hearing impaired players)." );
-ConVar english( "english", "1", FCVAR_USERINFO, "If set to 1, running the english language set of assets." );
+static ConVar cc_subtitles( "cc_subtitles", GetDefaultSubtitlesState() ? "1" : "0", FCVAR_ARCHIVE | FCVAR_ARCHIVE_XBOX, "If set, don't show sound effect captions, just voice overs (i.e., won't help hearing impaired players)." );
+// Still needs USERINFO in Swarm or we get console spam
+ConVar english( "english", "1", FCVAR_USERINFO | FCVAR_HIDDEN, "If set to 1, running the english language set of assets." );
 
-
-#define	MAX_CAPTION_CHARACTERS		4096
+#define	MAX_CAPTION_CHARACTERS		10200
 
 #define CAPTION_PAN_FADE_TIME		0.5			// The time it takes for a line to fade while panning over a large entry
 #define CAPTION_PAN_SLIDE_TIME		0.5			// The time it takes for a line to slide on while panning over a large entry
@@ -202,7 +372,11 @@ void CCloseCaptionWorkUnit::SetStream( const wchar_t *stream )
 	delete[] m_pszStream;
 	m_pszStream = NULL;
 
+#ifdef WIN32
 	int len = wcsnlen( stream, ( MAX_CAPTION_CHARACTERS - 1 ) );
+#else
+	int len = wcslen( stream );
+#endif
 	Assert( len < ( MAX_CAPTION_CHARACTERS - 1 ) );
 	m_pszStream = new wchar_t[ len + 1 ];
 	wcsncpy( m_pszStream, stream, len );
@@ -237,7 +411,9 @@ public:
 		float addedtime,
 		float predisplay,
 		bool valid,
-		bool fromplayer
+		bool fromplayer,
+		bool bSFXEntry,
+		bool bLowPriorityEntry
 	) :
 		m_flTimeToLive( 0.0f ),
 		m_flAddedTime( addedtime ),
@@ -245,8 +421,9 @@ public:
 		m_nTotalWidth( 0 ),
 		m_nTotalHeight( 0 ),
 		m_bSizeComputed( false ),
-		m_bFromPlayer( fromplayer )
-
+		m_bFromPlayer( fromplayer ),
+		m_bSFXEntry( bSFXEntry ),
+		m_bLowPriorityEntry( bLowPriorityEntry )
 	{
 		SetStream( stream );
 		SetTimeToLive( timetolive );
@@ -277,12 +454,7 @@ public:
 
 	void SetStream( const wchar_t *stream)
 	{
-#ifdef POSIX
-		// we persist to disk as ucs2 so convert back to real unicode here
-		V_UCS2ToUnicode( (ucs2 *)stream, m_szStream, sizeof(m_szStream) );
-#else
 		wcsncpy( m_szStream, stream, sizeof( m_szStream ) / sizeof( wchar_t ) );
-#endif
 	}
 
 	const wchar_t *GetStream() const
@@ -419,6 +591,16 @@ public:
 		return m_bFromPlayer;
 	}
 
+	bool	IsSFXEntry() const
+	{
+		return m_bSFXEntry;
+	}
+
+	bool	IsLowPriorityEntry() const
+	{
+		return m_bLowPriorityEntry;
+	}
+
 private:
 	wchar_t				m_szStream[ MAX_CAPTION_CHARACTERS ];
 
@@ -432,6 +614,8 @@ private:
 
 	bool				m_bSizeComputed;
 	bool				m_bFromPlayer;
+	bool				m_bSFXEntry;
+	bool				m_bLowPriorityEntry;
 
 	CUtlVector< CCloseCaptionWorkUnit * >	m_Work;
 
@@ -602,10 +786,11 @@ public:
 		DataCacheStatus_t status;
 		DataCacheLimits_t limits;
 		GetCacheSection()->GetStatus( &status, &limits );
-		int bytesUsed = status.nBytes;
-		int bytesTotal = limits.nMaxBytes;
-
-		float percent = 100.0f * (float)bytesUsed / (float)bytesTotal;
+		int bytesUsed, bytesTotal;
+		float percent;
+		bytesUsed = status.nBytes;
+		bytesTotal = limits.nMaxBytes;
+		percent = 100.0f * (float)bytesUsed / (float)bytesTotal;
 
 		int count = 0;
 		for ( int i = 0; i < m_Db.Count(); ++i )
@@ -827,10 +1012,13 @@ CHudCloseCaption::CHudCloseCaption( const char *pElementName )
 	vgui::Panel( NULL, "HudCloseCaption" ),
 	m_CloseCaptionRepeats( 0, 0, CaptionTokenLessFunc ),
 	m_CurrentLanguage( UTL_INVAL_SYMBOL ),
-	m_bPaintDebugInfo( false )
+	m_bPaintDebugInfo( false ),
+	m_ColorMap( k_eDictCompareTypeCaseInsensitive )
 {
 	vgui::Panel *pParent = GetFullscreenClientMode()->GetViewport();
 	SetParent( pParent );
+
+	SetProportional( true );
 
 	m_nGoalHeight = 0;
 	m_nCurrentHeight = 0;
@@ -840,8 +1028,6 @@ CHudCloseCaption::CHudCloseCaption( const char *pElementName )
 	m_flGoalHeightStartTime = 0;
 	m_flGoalHeightFinishTime = 0;
 
-	m_bMouseOverFade = false;
-
 	m_bLocked = false;
 	m_bVisibleDueToDirect = false;
 
@@ -850,7 +1036,7 @@ CHudCloseCaption::CHudCloseCaption( const char *pElementName )
 
 	vgui::ivgui()->AddTickSignal( GetVPanel(), 0 );
 
-	if ( !IsX360() )
+	if ( !IsGameConsole() )
 	{
 		g_pVGuiLocalize->AddFile( "resource/closecaption_%language%.txt", "GAME", true );
 	}
@@ -870,9 +1056,12 @@ CHudCloseCaption::CHudCloseCaption( const char *pElementName )
 		english.SetValue( 0 );
 	}
 
-	char dbfile [ 512 ];
-	Q_snprintf( dbfile, sizeof( dbfile ), "resource/closecaption_%s.dat", uilanguage );
-	InitCaptionDictionary( dbfile );
+	InitCaptionDictionary( uilanguage );
+
+	LoadColorMap( "resource/captioning_colors.txt" );
+
+	m_bLevelShutDown = false;
+	m_bUseAsianWordWrapping = false;
 }
 
 //-----------------------------------------------------------------------------
@@ -892,6 +1081,7 @@ CHudCloseCaption::~CHudCloseCaption()
 void CHudCloseCaption::LevelInit( void )
 {
 	CreateFonts();
+
 	// Reset repeat counters per level
 	m_CloseCaptionRepeats.RemoveAll();
 
@@ -1011,7 +1201,49 @@ void CHudCloseCaption::Paint( void )
 
 		visibleitems.AddToTail( si );
 
-		// Start popping really old items off the stack if we run out of space
+		int iSizeCheck = 0;
+
+		// Pop the oldest SFX items off the stack first if we're out of space
+		while ( totalheight > avail_height && 
+				visibleitems.Count() > cc_minvisibleitems.GetInt() &&
+				iSizeCheck <= visibleitems.Count() - 1 )
+		{
+			VisibleStreamItem & pop = visibleitems[ iSizeCheck ];
+			if ( pop.item->IsSFXEntry() )
+			{
+				totalheight -= pop.height;
+
+				// And make it die right away...
+				pop.item->SetTimeToLive( 0.0f );
+
+				visibleitems.Remove( iSizeCheck );
+				continue;
+			}
+			iSizeCheck++;
+		}	
+
+		iSizeCheck = 0;
+
+		// Pop the oldest low priority items off the stack next if we're still out of space
+		while ( totalheight > avail_height && 
+				visibleitems.Count() > cc_minvisibleitems.GetInt() &&
+				iSizeCheck <= visibleitems.Count() - 1 )
+		{
+			VisibleStreamItem & pop = visibleitems[ iSizeCheck ];
+			if ( pop.item->IsLowPriorityEntry() )
+			{
+				totalheight -= pop.height;
+
+				// And make it die right away...
+				pop.item->SetTimeToLive( 0.0f );
+
+				visibleitems.Remove( iSizeCheck );
+				continue;
+			}
+			iSizeCheck++;
+		}	
+
+		// Start popping really old items off the stack if we're still out of space
 		while ( itemheight <= avail_height && 
 				totalheight > avail_height && 
 				visibleitems.Count() > cc_minvisibleitems.GetInt() )
@@ -1027,32 +1259,6 @@ void CHudCloseCaption::Paint( void )
 	}
 
 	float desiredAlpha = visibleitems.Count() >= 1 ? 1.0f : 0.0f;
-
-	m_bMouseOverFade = false;
-
-#ifdef INFESTED_DLL
-	if ( desiredAlpha > 0.0f )
-	{
-		int nMouseX = 0;
-		int nMouseY = 0;
-		ASWInput()->GetFullscreenMousePos( &nMouseX, &nMouseY );
-		ScreenToLocal( nMouseX, nMouseY );
-
-		int nPosX, nPosY, nWide, nTall; 
-		GetBounds( nPosX, nPosY, nWide, nTall );
-
-		if ( nMouseX > rcText.left && nMouseX < rcText.right && 
-			 nMouseY > rcText.top && nMouseY < rcText.bottom )
-		{
-			m_bMouseOverFade = true;
-		}
-	}
-#endif
-
-	if ( m_bMouseOverFade )
-	{
-		desiredAlpha *= 0.25f;
-	}
 
 	// Always return at least one line height for drawing the surrounding box
 	totalheight = MAX( totalheight, m_nLineHeight ); 
@@ -1161,14 +1367,14 @@ void CHudCloseCaption::Paint( void )
 		{
 			// Figure out how many lines we'll need to move to see the whole caption
 			int units = item->GetNumWorkUnits();
- 			int iTotalMove = 0;
+			int extraheight = (height - avail_height);
 			for ( int j = 0 ; j < units; j++ )
 			{
 				CCloseCaptionWorkUnit *wu = item->GetWorkUnit( j );
-				iTotalMove += wu->GetHeight();
-				if ( iTotalMove >= (height - avail_height) )
+				extraheight -= wu->GetHeight();
+				if ( extraheight <= 0 )
 				{
-					units = j+1;
+					units = j+2; // Add an extra line since we want to scroll over the lifetime of the audio and the last scroll is at the end time
 					break;
 				}
 			}
@@ -1212,6 +1418,8 @@ void CHudCloseCaption::Paint( void )
 					flTimePostMove -= CAPTION_PAN_FADE_TIME;
  					float flSlideTime = clamp( flTimePostMove / 0.25, 0, 1 );
  					iHeightToMove += ceil((iCurrentLineHeight - iHeightToMove) * flSlideTime);
+					iFadeLine = iLinesToMove-1;
+					flFadeLineAlpha = 0.0f;
 				}
 				else
 				{
@@ -1322,17 +1530,25 @@ void CHudCloseCaption::OnTick( void )
 	}
 }
 
+void CHudCloseCaption::ApplySchemeSettings( vgui::IScheme *pScheme )
+{
+	BaseClass::ApplySchemeSettings( pScheme );
+
+	// must get/reget fonts when scheme changes due to video resolution changes
+	CreateFonts();
+
+	SetUseAsianWordWrapping();
+}
+
 void CHudCloseCaption::Reset( void )
 {
-	while ( m_Items.Count() > 0 )
+	if ( m_bLevelShutDown || !g_pGameRules || !g_pGameRules->IsMultiplayer() )
 	{
-		CCloseCaptionItem *i = m_Items[ 0 ];
-		delete i;
-		m_Items.Remove( 0 );
-	}
+		m_Items.PurgeAndDeleteElements();
 
-	ClearAsyncWork();
-	Unlock();
+		ClearAsyncWork();
+		Unlock();
+	}
 }
 
 bool CHudCloseCaption::SplitCommand( wchar_t const **ppIn, wchar_t *cmd, wchar_t *args ) const
@@ -1340,7 +1556,7 @@ bool CHudCloseCaption::SplitCommand( wchar_t const **ppIn, wchar_t *cmd, wchar_t
 	const wchar_t *in = *ppIn;
 	const wchar_t *oldin = in;
 
-	if ( in[0] != L'<' )
+	if ( *in != L'<' )
 	{
 		*ppIn += ( oldin - in );
 		return false;
@@ -1485,8 +1701,11 @@ void CHudCloseCaption::Process( const wchar_t *stream, float duration, bool from
 		return;
 	}
 
+	bool bSFXEntry = StreamHasCommand( stream, L"sfx" );
+	bool bLowPriorityEntry =  StreamHasCommand( stream, L"low" );
+
 	// If subtitling, don't show sfx captions at all
-	if ( cc_subtitles.GetBool() && StreamHasCommand( stream, L"sfx" ) )
+	if ( cc_subtitles.GetBool() && bSFXEntry )
 	{
 		return;
 	}
@@ -1554,7 +1773,7 @@ void CHudCloseCaption::Process( const wchar_t *stream, float duration, bool from
 
 				if ( phrase[ 0 ] != L'\0' )
 				{
-					CCloseCaptionItem *item = new CCloseCaptionItem( phrase, lifespan, addedlife, delay, valid, fromplayer );
+					CCloseCaptionItem *item = new CCloseCaptionItem( phrase, lifespan, addedlife, delay, valid, fromplayer, bSFXEntry, bLowPriorityEntry );
 					m_Items.AddToTail( item );
 					if ( StreamHasCommand( phrase, L"sfx" ) )
 					{
@@ -1591,7 +1810,7 @@ void CHudCloseCaption::Process( const wchar_t *stream, float duration, bool from
 	*out = L'\0';
 	if ( phrase[ 0 ] != L'\0' )
 	{
-		CCloseCaptionItem *item = new CCloseCaptionItem( phrase, lifespan, addedlife, delay, valid, fromplayer );
+		CCloseCaptionItem *item = new CCloseCaptionItem( phrase, lifespan, addedlife, delay, valid, fromplayer, bSFXEntry, bLowPriorityEntry );
 		m_Items.AddToTail( item );
 
 		if ( StreamHasCommand( phrase, L"sfx" ) )
@@ -1610,22 +1829,22 @@ void CHudCloseCaption::Process( const wchar_t *stream, float duration, bool from
 
 void CHudCloseCaption::CreateFonts( void )
 {
-	vgui::IScheme *pScheme = vgui::scheme()->GetIScheme( GetScheme() );
+	vgui::IScheme *pScheme = vgui::scheme()->GetIScheme( vgui::scheme()->GetScheme( "basemodui_scheme" ) );
 
-	if ( IsPC() )
+	if ( !IsGameConsole() )
 	{
-		m_hFonts[CCFONT_NORMAL] = pScheme->GetFont( "CloseCaption_Normal" );
-		m_hFonts[CCFONT_BOLD] = pScheme->GetFont( "CloseCaption_Bold" );
-		m_hFonts[CCFONT_ITALIC] = pScheme->GetFont( "CloseCaption_Italic" );
-		m_hFonts[CCFONT_ITALICBOLD] = pScheme->GetFont( "CloseCaption_BoldItalic" );
+		m_hFonts[CCFONT_NORMAL] = pScheme->GetFont( "CloseCaption_Normal", true );
+		m_hFonts[CCFONT_BOLD] = pScheme->GetFont( "CloseCaption_Bold", true );
+		m_hFonts[CCFONT_ITALIC] = pScheme->GetFont( "CloseCaption_Italic", true );
+		m_hFonts[CCFONT_ITALICBOLD] = pScheme->GetFont( "CloseCaption_BoldItalic", true );
 
 		m_nLineHeight = MAX( 6, vgui::surface()->GetFontTall( m_hFonts[ CCFONT_NORMAL ] ) );
 	}
 	else
 	{
-		m_hFonts[CCFONT_SMALL] = pScheme->GetFont( "CloseCaption_Small" );
+		m_hFonts[CCFONT_CONSOLE] = pScheme->GetFont( "CloseCaption_Console", true );
 
-		m_nLineHeight = MAX( 6, vgui::surface()->GetFontTall( m_hFonts[ CCFONT_SMALL ] ) );
+		m_nLineHeight = MAX( 6, vgui::surface()->GetFontTall( m_hFonts[ CCFONT_CONSOLE ] ) );
 	}	
 }
 
@@ -1732,6 +1951,8 @@ void CHudCloseCaption::ComputeStreamWork( int available_width, CCloseCaptionItem
 	const wchar_t *curpos = item->GetStream();
 	CUtlVector< Color > colorStack;
 
+	// Need to distinguish wspace breaks from Asian word wrapping breaks
+	bool most_recent_break_was_wspace = true;
 	const wchar_t *most_recent_space = NULL;
 	int	most_recent_space_w = -1;
 
@@ -1760,9 +1981,50 @@ void CHudCloseCaption::ComputeStreamWork( int available_width, CCloseCaptionItem
 				{
 					int r, g, b;
 					Color newcolor;
+					bool bColorValid = false;
 					if ( 3 == swscanf( args, L"%i,%i,%i", &r, &g, &b ) )
 					{
 						newcolor = Color( r, g, b, 255 );
+						bColorValid = true;
+					}
+
+					if ( bColorValid )
+					{
+						// lookup the alternate color using the color map
+						if ( curpos[0] == L'>' )
+						{
+							// identify a possible announcer tag
+							wchar_t announcerName[128];
+							const wchar_t *pColon = wcsstr( curpos+1, L":" );
+							if ( pColon )
+							{
+								// parse away any <???> commands after the color
+								const wchar_t *pStart = curpos + 1;
+								while ( pStart[0] == L'<' )
+								{
+									pStart = wcsstr( pStart, L">" );
+									if ( !pStart )
+									{
+										// should have found matched >
+										// go back to original position
+										pStart = curpos + 1;
+										break;
+									}
+									pStart++;
+								}
+
+								int nLength = MIN( sizeof( announcerName ), ( pColon - pStart + 1 ) * 2 );
+								V_wcsncpy( announcerName, pStart, nLength );
+
+								Color tagColor;
+								bool bFound = FindColorForTag( announcerName, tagColor );
+								if ( bFound )
+								{
+									newcolor = tagColor;
+								}
+							}
+						}
+
 						colorStack.AddToTail( newcolor );
 						params.clr = colorStack[ colorStack.Count() - 1 ];
 					}
@@ -1806,13 +2068,14 @@ void CHudCloseCaption::ComputeStreamWork( int available_width, CCloseCaptionItem
 		}
 
 		int font;
-		if ( IsPC() )
+		if ( !IsGameConsole() )
 		{
 			font = params.GetFontNumber();
 		}
 		else
 		{
-			font = CCFONT_SMALL; //always use small fonts on the 360
+			// consoles cannot support the varied fonts
+			font = CCFONT_CONSOLE;
 		}
 		vgui::HFont useF = m_hFonts[font];
 		params.font = useF;
@@ -1830,7 +2093,7 @@ void CHudCloseCaption::ComputeStreamWork( int available_width, CCloseCaptionItem
 			{
 				// Roll back to previous space character if there is one...
 				int goback = curpos - most_recent_space - 1;
-				params.out -= ( goback + 1 );
+				params.out -= ( goback + ( most_recent_break_was_wspace ? 1 : 0 ) ); // Don't drop the character before the wrap if it's not whitespace!
 				params.width = most_recent_space_w;
 				
 				wchar_t *extra = new wchar_t[ goback + 1 ];
@@ -1861,11 +2124,19 @@ void CHudCloseCaption::ComputeStreamWork( int available_width, CCloseCaptionItem
 		*params.out++ = *curpos;
 		params.width += w;
 
-		if ( iswspace( *curpos ) )
+
+		if ( isbreakablewspace( *curpos ) )
 		{
+			most_recent_break_was_wspace = true;
 			most_recent_space = curpos;
 			most_recent_space_w = params.width;
 		}
+ 		else if ( m_bUseAsianWordWrapping && AsianWordWrap::CanBreakAfter( curpos ) )
+ 		{
+ 			most_recent_break_was_wspace = false;
+ 			most_recent_space = curpos;
+ 			most_recent_space_w = params.width;
+ 		}
 	}
 
 	// Add the final unit.
@@ -1913,7 +2184,7 @@ void CHudCloseCaption::DrawStream( wrect_t &rcText, wrect_t &rcWindow, CCloseCap
 
 		// Adjust alpha to handle fade in/out at the top & bottom of the element.
 		// Used for single commentary entries that are too big to fit into the element.
-		float flLineAlpha = alpha * ( m_bMouseOverFade ? 0.25f : 1.0f );
+		float flLineAlpha = alpha;
 		if ( i == iFadeLine )
 		{
 			flLineAlpha *= flFadeLineAlpha;
@@ -1921,6 +2192,10 @@ void CHudCloseCaption::DrawStream( wrect_t &rcText, wrect_t &rcWindow, CCloseCap
 		else if ( rcOut.top < rcWindow.top )
 		{
 			// We're off the top of the element, so don't draw
+			continue;
+		}
+		else if ( rcOut.bottom > rcWindow.bottom )
+		{
 			continue;
 		}
 		else if ( rcOut.top > rcWindow.bottom )
@@ -1949,7 +2224,12 @@ void CHudCloseCaption::DrawStream( wrect_t &rcText, wrect_t &rcWindow, CCloseCap
 		vgui::surface()->DrawSetTextFont( useF );
 		vgui::surface()->DrawSetTextPos( rcOut.left, rcOut.top );
 		vgui::surface()->DrawSetTextColor( useColor );
-		vgui::surface()->DrawPrintText( wu->GetStream(), wcsnlen( wu->GetStream(), MAX_CAPTION_CHARACTERS ) );
+#ifdef WIN32
+		int len = wcsnlen( wu->GetStream(), MAX_CAPTION_CHARACTERS ) ;
+#else
+		int len = wcslen( wu->GetStream() ) ;
+#endif
+		vgui::surface()->DrawPrintText( wu->GetStream(), len );
 	}
 }
 
@@ -2051,7 +2331,7 @@ public:
 		for ( int i = 0; i < c; ++i )
 		{
 			caption_t *caption = m_Tokens[ i ];
-			if ( !caption || caption->stream != NULL )
+			if ( !caption || caption->stream != NULL || caption->fileindex != nFileIndex )
 				continue;
 
 			// Lookup the data
@@ -2102,7 +2382,11 @@ public:
 		for ( int i = 0; i < c; ++i )
 		{
 			caption_t *caption = m_Tokens[ i ];
+#ifdef WIN32
 			unsigned int len = wcsnlen( caption->stream, maxlen ) + 1;
+#else
+			unsigned int len = wcslen( caption->stream ) + 1;
+#endif
 			Assert( len < maxlen );
 
 			if ( curlen + len >= maxlen )
@@ -2294,7 +2578,11 @@ private:
 			if ( !in )
 				return;
 
+#ifdef WIN32
 			int len = wcsnlen( in, ( MAX_CAPTION_CHARACTERS - 1 ) );
+#else
+			int len = wcslen( in );
+#endif
 			Assert( len < ( MAX_CAPTION_CHARACTERS - 1 ) );
 
 			stream = new wchar_t[ len + 1 ];
@@ -2351,7 +2639,15 @@ void CHudCloseCaption::ProcessAsyncWork()
 			}
 			else
 			{
+#if defined( POSIX ) && !defined( PLATFORM_PS3 )
+				wchar_t localStream[ MAX_CAPTION_CHARACTERS ];
+				
+				// we persist to disk as ucs2 so convert back to real unicode here
+				V_UCS2ToUnicode( (ucs2 *)stream, localStream, sizeof(localStream) );
+				_ProcessCaption( localStream, item->GetHash(), item->GetDuration(), item->IsFromPlayer(), item->IsDirect() );
+#else
 				_ProcessCaption( stream, item->GetHash(), item->GetDuration(), item->IsFromPlayer(), item->IsDirect() );
+#endif
 			}
 		}
 
@@ -2617,8 +2913,10 @@ void CHudCloseCaption::MsgFunc_CloseCaptionDirect(bf_read &msg)
 
 int CHudCloseCaption::GetFontNumber( bool bold, bool italic )
 {
-	if ( !IsPC() )
-		return CHudCloseCaption::CCFONT_SMALL;
+	if ( IsGameConsole() )
+	{
+		return CHudCloseCaption::CCFONT_CONSOLE;
+	}
 
 	if ( bold || italic )
 	{
@@ -2646,19 +2944,19 @@ void CHudCloseCaption::Flush()
 	g_AsyncCaptionResourceManager.Flush();
 }
 
-void CHudCloseCaption::InitCaptionDictionary( const char *dbfile, bool bForce )
+void CHudCloseCaption::InitCaptionDictionary( const char *language, bool bForce )
 {
-	if ( !bForce && m_CurrentLanguage.IsValid() && !Q_stricmp( m_CurrentLanguage.String(), dbfile ) )
+	if ( !bForce && m_CurrentLanguage.IsValid() && !Q_stricmp( m_CurrentLanguage.String(), language ) )
 		return;
 
-	if ( !dbfile && bForce && m_CurrentLanguage.IsValid() )
+	if ( !language && bForce && m_CurrentLanguage.IsValid() )
 	{
 		// use existing language
-		dbfile = m_CurrentLanguage.String();
+		language = m_CurrentLanguage.String();
 	}
 	else
 	{
-		m_CurrentLanguage = dbfile;
+		m_CurrentLanguage = language;
 	}
 
 	// Make sure we've finished all out async work before rebuilding the dictionary
@@ -2681,24 +2979,74 @@ void CHudCloseCaption::InitCaptionDictionary( const char *dbfile, bool bForce )
 
 	g_AsyncCaptionResourceManager.Clear();
 
-	if ( IsX360() )
+	bool bAdded = AddFileToCaptionDictionary( VarArgs( "resource/closecaption_%s.dat", language ) );
+	if ( !bAdded && V_stricmp( language, "english" ) )
 	{
-		char fullpath[MAX_PATH];
-		char fullpath360[MAX_PATH];
-		filesystem->RelativePathToFullPath( dbfile, "GAME", fullpath, sizeof(fullpath) );
-		UpdateOrCreateCaptionFile( fullpath, fullpath360, sizeof( fullpath360 ) );
-		Q_strncpy( fullpath, fullpath360, sizeof( fullpath ) );
+		// non-english can fallback to english
+		AddFileToCaptionDictionary( "resource/closecaption_english.dat" );
 	}
 
-	int idx = m_AsyncCaptions.AddToTail();
-	AsyncCaption_t& entry = m_AsyncCaptions[ idx  ];
-	if ( !entry.LoadFromFile( dbfile ) )
+	bAdded = AddFileToCaptionDictionary( VarArgs( "resource/subtitles_%s.dat", language ) );
+	if ( !bAdded && V_stricmp( language, "english" ) )
 	{
-		m_AsyncCaptions.Remove( idx );
+		// non-english can fallback to english
+		AddFileToCaptionDictionary( "resource/subtitles_english.dat" );
 	}
 
 	g_AsyncCaptionResourceManager.SetDbInfo( m_AsyncCaptions );
 }
+
+bool CHudCloseCaption::AddFileToCaptionDictionary( const char *filename )
+{
+	int searchPathLen = filesystem->GetSearchPath( "GAME", true, NULL, 0 );
+	char *searchPaths = (char *)stackalloc( searchPathLen + 1 );
+	filesystem->GetSearchPath( "GAME", true, searchPaths, searchPathLen );
+	
+	bool bAddedCaptions = false;
+	for ( char *path = strtok( searchPaths, ";" ); path; path = strtok( NULL, ";" ) )
+	{
+		if ( IsGameConsole() && ( filesystem->GetDVDMode() == DVDMODE_STRICT ) && !V_stristr( path, ".zip" ) )
+		{
+			// only want zip paths
+			continue;
+		} 
+
+		if ( IsPS3() && !V_stristr( path, ".zip" ) )
+		{
+			// PS3 cannot convert dvddev subtitles files, must be in the zip
+			Warning( "Client: skipped dvddev caption file: %s\n", filename );
+			continue;
+		}
+
+		char fullpath[MAX_PATH];
+		Q_snprintf( fullpath, sizeof( fullpath ), "%s%s", path, filename );
+		Q_FixSlashes( fullpath );
+		Q_strlower( fullpath );
+
+		if ( IsGameConsole() )
+		{
+			char fullpath360[MAX_PATH];
+			UpdateOrCreateCaptionFile( fullpath, fullpath360, sizeof( fullpath360 ) );
+			Q_strncpy( fullpath, fullpath360, sizeof( fullpath ) );
+		}
+
+		int idx = m_AsyncCaptions.AddToTail();
+		AsyncCaption_t& entry = m_AsyncCaptions[ idx  ];
+		if ( !entry.LoadFromFile( fullpath ) )
+		{
+			m_AsyncCaptions.Remove( idx );
+		}
+		else
+		{
+			DevMsg( "Client: added caption file: %s\n", fullpath );
+			bAddedCaptions = true;
+		}
+	}
+
+	return bAddedCaptions;
+}
+
+
 
 void CHudCloseCaption::OnFinishAsyncLoad( int nFileIndex, int nBlockNum, AsyncCaptionData_t *pData )
 {
@@ -2718,8 +3066,7 @@ void CHudCloseCaption::OnFinishAsyncLoad( int nFileIndex, int nBlockNum, AsyncCa
 //-----------------------------------------------------------------------------
 void CHudCloseCaption::Lock( void )
 {
-	if ( !IsXbox() )
-		m_bLocked = true;
+	m_bLocked = true;
 }
 
 //-----------------------------------------------------------------------------
@@ -2733,7 +3080,7 @@ void CHudCloseCaption::Unlock( void )
 static int EmitCaptionCompletion( const char *partial, char commands[ COMMAND_COMPLETION_MAXITEMS ][ COMMAND_COMPLETION_ITEM_LENGTH ] )
 {
 	int current = 0;
-	if ( !g_pVGuiLocalize || IsX360() )
+	if ( !g_pVGuiLocalize || IsGameConsole() )
 		return current;
 
 	const char *cmdname = "cc_emit";
@@ -2828,20 +3175,30 @@ void OnCaptionLanguageChanged( IConVar *pConVar, const char *pOldString, float f
 	Q_snprintf( fn, sizeof( fn ), "resource/closecaption_%s.txt", var.GetString() );
 
 	// Re-adding the file, even if it's "english" will overwrite the tokens as needed
-	if ( !IsX360() )
+	if ( !IsGameConsole() )
 	{
 		g_pVGuiLocalize->AddFile( "resource/closecaption_%language%.txt", "GAME", true );
 	}
 
 	char uilanguage[ 64 ];
-	engine->GetUILanguage( uilanguage, sizeof( uilanguage ) );
+	if (engine)
+	{
+		engine->GetUILanguage( uilanguage, sizeof( uilanguage ) );
+	}
+	else
+	{
+		Msg( "Unable to get default ui language, using \'english\'\n" );
+		Q_strcpy( uilanguage, "english" );
+	}
 
 	CHudCloseCaption *hudCloseCaption = GET_FULLSCREEN_HUDELEMENT( CHudCloseCaption );
+	if ( !hudCloseCaption )
+		return;
 
 	// If it's not the default, load the language on top of the user's default language
 	if ( Q_strlen( var.GetString() ) > 0 && Q_stricmp( var.GetString(), uilanguage ) )
 	{
-		if ( !IsX360() )
+		if ( !IsGameConsole() )
 		{
 			if ( g_pFullFileSystem->FileExists( fn ) )
 			{
@@ -2857,21 +3214,11 @@ void OnCaptionLanguageChanged( IConVar *pConVar, const char *pOldString, float f
 			}
 		}
 
-		if ( hudCloseCaption )
-		{
-			char dbfile [ 512 ];
-			Q_snprintf( dbfile, sizeof( dbfile ), "resource/closecaption_%s.dat", var.GetString() );
-			hudCloseCaption->InitCaptionDictionary( dbfile );
-		}
+		hudCloseCaption->InitCaptionDictionary( var.GetString() );
 	}
 	else
 	{
-		if ( hudCloseCaption )
-		{
-			char dbfile [ 512 ];
-			Q_snprintf( dbfile, sizeof( dbfile ), "resource/closecaption_%s.dat", uilanguage );
-			hudCloseCaption->InitCaptionDictionary( dbfile );
-		}
+		hudCloseCaption->InitCaptionDictionary( uilanguage );
 	}
 	DevMsg( "cc_lang = %s\n", var.GetString() );
 }
@@ -2879,6 +3226,22 @@ void OnCaptionLanguageChanged( IConVar *pConVar, const char *pOldString, float f
 
 
 ConVar cc_lang( "cc_lang", "", FCVAR_ARCHIVE, "Current close caption language (emtpy = use game UI language)", OnCaptionLanguageChanged );
+
+#if defined( _GAMECONSOLE )
+// internal issued command evented by DLC mount, not meant for users
+CON_COMMAND_F( cc_reload, "", 0 )
+{
+	CHudCloseCaption *hudCloseCaption = GET_FULLSCREEN_HUDELEMENT( CHudCloseCaption );
+	if ( hudCloseCaption )
+	{
+		// minimal changes, TU DLC hack
+		// Clears a private store that otherwise prevents the cc's from a rull re-init, the language hasn't changed, but the underlying data has
+		// due to new search path mounts.
+		hudCloseCaption->ClearCurrentLanguage();
+		OnCaptionLanguageChanged( &cc_lang, cc_lang.GetString(), cc_lang.GetFloat() );
+	}
+}
+#endif
 
 CON_COMMAND( cc_findsound, "Searches for soundname which emits specified text." )
 {
@@ -2973,7 +3336,7 @@ void CHudCloseCaption::FindSound( char const *pchANSI )
 
 				if ( IsPC() )
 				{
-					for ( int r = g_pVGuiLocalize->GetFirstStringIndex(); r != vgui::INVALID_STRING_INDEX; r = g_pVGuiLocalize->GetNextStringIndex( r ) )
+					for ( LocalizeStringIndex_t r = g_pVGuiLocalize->GetFirstStringIndex(); r != vgui::INVALID_STRING_INDEX; r = g_pVGuiLocalize->GetNextStringIndex( r ) )
 					{
 						const char *strName = g_pVGuiLocalize->GetNameByIndex( r );
 
@@ -2990,4 +3353,98 @@ void CHudCloseCaption::FindSound( char const *pchANSI )
 
 		delete[] block;
 	}
+}
+
+void CHudCloseCaption::ClearCurrentLanguage()
+{
+	m_CurrentLanguage = UTL_INVAL_SYMBOL;
+}
+
+void CHudCloseCaption::LoadColorMap( const char *pFilename )
+{
+	CUtlBuffer colorMapBuffer( 0, 0, CUtlBuffer::TEXT_BUFFER );
+
+	if ( !g_pFullFileSystem->ReadFile( pFilename, "MOD", colorMapBuffer ) )
+		return;
+
+	characterset_t breakSet;
+	CharacterSetBuild( &breakSet, "" );
+
+	for ( ;; )
+	{
+		char tagToken[MAX_PATH];
+		int nTokenSize = colorMapBuffer.ParseToken( &breakSet, tagToken, sizeof( tagToken ) );
+		if ( nTokenSize <= 0 )
+		{
+			break;
+		}
+
+		char colorToken[MAX_PATH];
+		nTokenSize = colorMapBuffer.ParseToken( &breakSet, colorToken, sizeof( colorToken ) );
+		if ( nTokenSize <= 0 )
+		{
+			break;
+		}
+
+		if ( !StringHasPrefix( colorToken, "<clr:" ) )
+		{
+			// unrecognized color format
+			continue;
+		}
+
+		int r, g, b;
+		if ( sscanf( colorToken + V_strlen( "<clr:" ), "%i,%i,%i", &r, &g, &b ) != 3 )
+		{
+			// bad color format
+			continue;
+		}
+
+		Color tagColor = Color( r, g, b, 255 );
+
+		int iIndex = m_ColorMap.Find( tagToken );
+		if ( iIndex == m_ColorMap.InvalidIndex() )
+		{
+			iIndex = m_ColorMap.Insert( tagToken );
+		}
+		m_ColorMap[iIndex] = tagColor;
+	}
+}
+
+bool CHudCloseCaption::FindColorForTag( wchar_t *pTag, Color &tagColor )
+{
+	char buf[128];
+	g_pVGuiLocalize->ConvertUnicodeToANSI( pTag, buf, sizeof( buf ) );
+
+	int iIndex = m_ColorMap.Find( buf );
+	if ( iIndex != m_ColorMap.InvalidIndex() )
+	{
+		tagColor = m_ColorMap[iIndex];
+		return true;
+	}
+
+	// not found
+	return false;
+}
+
+void CHudCloseCaption::SetUseAsianWordWrapping()
+{
+	static bool bCheckForAsianLanguage = false;
+	static bool bIsAsianLanguage = false;
+
+	if ( !bCheckForAsianLanguage )
+	{
+		bCheckForAsianLanguage = true;
+		const char *pLanguage = vgui::scheme()->GetLanguage();
+		if ( pLanguage )
+		{
+			if ( !V_stricmp( pLanguage, "japanese" ) ||
+				!V_stricmp( pLanguage, "schinese" ) ||
+				!V_stricmp( pLanguage, "tchinese" ) )
+			{
+				bIsAsianLanguage = true;
+			}
+		}
+	}
+
+	m_bUseAsianWordWrapping = bIsAsianLanguage;
 }

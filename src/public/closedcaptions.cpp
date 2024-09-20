@@ -11,20 +11,9 @@
 #include "tier0/memdbgon.h"
 
 // Assumed to be set up by calling code
-bool AsyncCaption_t::LoadFromFile( const char *pRelativePath )
+bool AsyncCaption_t::LoadFromFile( char const *pchFullPath )
 {
-	char pRelativePathFixed[MAX_PATH];
-	Q_strncpy( pRelativePathFixed, pRelativePath, sizeof(pRelativePathFixed) );
-	Q_FixSlashes( pRelativePathFixed );
-	Q_strlower( pRelativePathFixed );
-	pRelativePath = pRelativePathFixed;
-
-	if ( Q_IsAbsolutePath( pRelativePath ) )
-	{
-		Warning( "AsyncCaption_t::LoadFromFile: Fullpath encountered! %s\n", pRelativePath );
-	}
-
-	FileHandle_t fh = g_pFullFileSystem->Open( pRelativePath, "rb", "GAME" );
+	FileHandle_t fh = g_pFullFileSystem->Open( pchFullPath, "rb" );
 	if ( FILESYSTEM_INVALID_HANDLE == fh )
 		return false;
 
@@ -35,11 +24,26 @@ bool AsyncCaption_t::LoadFromFile( const char *pRelativePath )
 	// Read the header
 	g_pFullFileSystem->Read( &m_Header, sizeof( m_Header ), fh );
 	if ( m_Header.magic != COMPILED_CAPTION_FILEID )
-		Error( "Invalid file id for %s\n", pRelativePath );
+	{
+		if( IsPS3() )
+			return false;
+		else
+			Error( "Invalid file id for %s\n", pchFullPath );
+	}
 	if ( m_Header.version != COMPILED_CAPTION_VERSION )
-		Error( "Invalid file version for %s\n", pRelativePath );
+	{
+		if( IsPS3() )
+			return false;
+		else
+			Error( "Invalid file version for %s\n", pchFullPath );
+	}
 	if ( m_Header.directorysize < 0 || m_Header.directorysize > 64 * 1024 )
-		Error( "Invalid directory size %d for %s\n", m_Header.directorysize, pRelativePath );
+	{
+		if( IsPS3() )
+			return false;
+		else
+			Error( "Invalid directory size %d for %s\n", m_Header.directorysize, pchFullPath );
+	}
 	//if ( m_Header.blocksize != MAX_BLOCK_SIZE )
 	//	Error( "Invalid block size %d, expecting %d for %s\n", m_Header.blocksize, MAX_BLOCK_SIZE, pchFullPath );
 
@@ -53,6 +57,6 @@ bool AsyncCaption_t::LoadFromFile( const char *pRelativePath )
 	m_CaptionDirectory.CopyArray( (const CaptionLookup_t *)dirbuffer.PeekGet(), m_Header.directorysize );
 	m_CaptionDirectory.RedoSort( true );
 
-	m_DataBaseFile = pRelativePath;
+	m_DataBaseFile = pchFullPath;
 	return true;
 }
