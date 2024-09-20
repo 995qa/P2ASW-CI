@@ -69,6 +69,9 @@ private:
 	BaseModHybridButton	*m_drpCaptioning;
 	BaseModHybridButton	*m_drpVoiceCommunication;
 	BaseModHybridButton *m_drpPuzzlemakerSounds;
+
+	// Added in Portal 2 update
+	BaseModHybridButton *m_drpCaptionLanguage;
 	
 	ELanguage			m_nSelectedAudioLanguage;
 	ELanguage			m_nCurrentAudioLanguage;

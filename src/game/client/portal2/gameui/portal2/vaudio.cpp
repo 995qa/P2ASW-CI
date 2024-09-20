@@ -271,6 +271,11 @@ void Audio::OnCommand(const char *command)
 		closecaption.SetValue( 1 );
 		cc_subtitles.SetValue( 0 );
 	}
+	else if (const char* szLangName = StringAfterPrefix( command, "cclang_" ))
+	{
+		CGameUIConVarRef cc_lang("cc_lang");
+		cc_lang.SetValue(szLangName);
+	}
 	else if ( StringHasPrefix( command, VIDEO_LANGUAGE_COMMAND_PREFIX ) )
 	{
 		int iCommandNumberPosition = Q_strlen( VIDEO_LANGUAGE_COMMAND_PREFIX );
@@ -557,6 +562,9 @@ void Audio::ApplySchemeSettings( vgui::IScheme *pScheme )
 	m_drpVoiceCommunication = dynamic_cast< BaseModHybridButton* >( FindChildByName( "DrpVoiceCommunication" ) );
 	m_drpPuzzlemakerSounds = dynamic_cast< BaseModHybridButton* >( FindChildByName( "DrpPuzzlemakerSounds" ) );
 
+	// Added in Portal 2 updates
+	m_drpCaptionLanguage = dynamic_cast< BaseModHybridButton* >( FindChildByName( "DrpCaptionLanguage" ) );
+
 	PrepareLanguageList();
 
 	if ( m_sldGameVolume )
@@ -640,6 +648,21 @@ void Audio::ApplySchemeSettings( vgui::IScheme *pScheme )
 			{
 				m_drpCaptioning->SetCurrentSelection( "#L4D360UI_AudioOptions_CaptionOn" );
 			}
+		}
+	}
+
+	if ( m_drpCaptionLanguage )
+	{
+		CGameUIConVarRef cc_subtitles( "cc_lang" );
+		const char* szLangName = cc_subtitles.GetString();
+
+		if (szLangName && szLangName[0])
+		{
+			m_drpCaptionLanguage->SetCurrentSelection( CFmtStr("#L4D360UI_AudioOptions_%s", szLangName) );
+		}
+		else
+		{
+			m_drpCaptionLanguage->SetCurrentSelection( "#L4D360UI_AudioOptions_UI" );
 		}
 	}
 
