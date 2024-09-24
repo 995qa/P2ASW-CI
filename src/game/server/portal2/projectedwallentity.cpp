@@ -10,7 +10,7 @@
 
 // TODO: Not sure where these should go
 #define PROJECTED_WALL_WIDTH 64.0f
-#define PROJECTED_WALL_THICKNESS 0.015625 // 1/64
+#define PROJECTED_WALL_HEIGHT 0.015625 // 1/64 - thickness of the bridge
 
 int CProjectedWallEntity::s_HardLightBridgeSurfaceProps = -1;
 
@@ -144,27 +144,18 @@ bool CProjectedWallEntity::CreateVPhysics( void )
 void CProjectedWallEntity::ProjectWall( void )
 {
 	// the decompiler in question:
-	float x; // xmm0_4
-	float y; // xmm2_4
-	float z; // xmm4_4
-	float v10; // xmm1_4
-	bool v11; // zf
-	float v12; // xmm3_4
-	float v13; // xmm5_4
 	float v18; // xmm5_4
 	float v19; // xmm4_4
 	float v20; // xmm3_4
-	float v22; // xmm4_4
-	float v24; // xmm3_4
 	solid_t solid; // [esp+64h] [ebp-724h] BYREF
-	Vector vSetMaxs; // [esp+6A4h] [ebp-E4h] BYREF
+	Vector vLocalMaxs; // [esp+6A4h] [ebp-E4h] BYREF
 	float flBackDist; // [esp+6B0h] [ebp-D8h] BYREF
 	Vector v38; // [esp+6B4h] [ebp-D4h] BYREF
 	float flFrontDist; // [esp+6C0h] [ebp-C8h]
 	Vector v40; // [esp+6C4h] [ebp-C4h] BYREF
 	float flRightDist; // [esp+6D0h] [ebp-B8h]
 	float flLeftDist; // [esp+6E0h] [ebp-A8h]
-	Vector vSetMins; // [esp+704h] [ebp-84h] BYREF
+	Vector vLocalMins; // [esp+704h] [ebp-84h] BYREF
 	Vector vMins; // [esp+738h] [ebp-50h] BYREF
 	Vector vMaxs; // [esp+744h] [ebp-44h] BYREF
 	Vector vUp; // [esp+750h] [ebp-38h] BYREF
@@ -192,15 +183,15 @@ void CProjectedWallEntity::ProjectWall( void )
 		Vector vFrontRight = vEndPoint + (vecRight * 32.0);
 		Vector vFrontLeft = vEndPoint - (vecRight * 32.0);
 
-		//flBackDist = vStartPoint.x - (vecRight.x * 32.0);
+		//flBackDist = vStartPoint.vMins_x - (vecRight.vMins_x * 32.0);
 
-		//flFrontDist = vEndPoint.y - (vecRight.y * 32.0);
+		//flFrontDist = vEndPoint.vMins_y - (vecRight.vMins_y * 32.0);
 
-		//v40.x = vEndPoint.z - (32.0 * vecRight.z);
-		//v40.y = (vecRight.x * 32.0) + vEndPoint.x;
-		//v40.z = (vecRight.y * 32.0) + vEndPoint.y;
+		//v40.vMins_x = vEndPoint.vMins_z - (32.0 * vecRight.vMins_z);
+		//v40.vMins_y = (vecRight.vMins_x * 32.0) + vEndPoint.vMins_x;
+		//v40.vMins_z = (vecRight.vMins_y * 32.0) + vEndPoint.vMins_y;
 
-		//flRightDist = (32.0 * vecRight.z) + vEndPoint.z;
+		//flRightDist = (32.0 * vecRight.vMins_z) + vEndPoint.vMins_z;
 
 		Vector *vVerts[4];
 
@@ -235,11 +226,7 @@ void CProjectedWallEntity::ProjectWall( void )
 					+ ((vStartPoint.y - vecRightDist.y) * vecLeft.y) 
 					+ ((vStartPoint.z - vecRightDist.z) * vecLeft.z);
 
-		Vector vecUpDist = vecUp * PROJECTED_WALL_THICKNESS / 2;
-
-		float v23 = (vecUp.x * 0.015625) * 0.5;
-		v22 = (vecUp.y * 0.015625) * 0.5;
-		v24 = (0.015625 * vecUp.z) * 0.5;
+		Vector vecUpDist = vecUp * PROJECTED_WALL_HEIGHT / 2;
 
 		float flUpDist = ((vStartPoint.x + vecUpDist.x) * vecUp.x) 
 						+ ((vStartPoint.y + vecUpDist.y) * vecUp.y) 
@@ -314,71 +301,40 @@ void CProjectedWallEntity::ProjectWall( void )
 		solid.params.pName = g_PhysDefaultObjectParams.pName;
 		solid.params.volume = g_PhysDefaultObjectParams.volume;
 		solid.params.dragCoefficient = g_PhysDefaultObjectParams.dragCoefficient;
-		// Swarm: FIXME?
 		solid.params.enableCollisions = g_PhysDefaultObjectParams.enableCollisions;
-		IPhysicsObject *v5 = PhysModelCreateCustom( this, m_pWallCollideable, vec3_origin, vec3_angle, "hard_light_bridge", true, &solid );
-		if (v5)
+		IPhysicsObject *physModel = PhysModelCreateCustom( this, m_pWallCollideable, vec3_origin, vec3_angle, "hard_light_bridge", true, &solid );
+		if (physModel)
 		{
 			if ( VPhysicsGetObject() )
 				VPhysicsDestroyObject();
-			VPhysicsSetObject( v5 );
-			v5->RecheckContactPoints();
-			if ( v5->GetCollide() )
+			VPhysicsSetObject( physModel );
+			physModel->RecheckContactPoints();
+			if ( physModel->GetCollide() )
 			{
 				vMaxs = vec3_origin;
 				vMins = vec3_origin;
-				physcollision->CollideGetAABB(&vMins, &vMaxs, v5->GetCollide(), vec3_origin, vec3_angle);
-				x = vMins.x;
+				physcollision->CollideGetAABB(&vMins, &vMaxs, physModel->GetCollide(), vec3_origin, vec3_angle);
+				m_vWorldSpace_WallMins = vMins;
+				m_vWorldSpace_WallMaxs = vMaxs;
 
-				if (vMins.x == m_vWorldSpace_WallMins.m_Value.x
-					&& (y = vMins.y, vMins.y == m_vWorldSpace_WallMins.m_Value.y)
-					&& (z = vMins.z, vMins.z == m_vWorldSpace_WallMins.m_Value.z))
-				{
-					v10 = vMaxs.x;
-					v11 = vMaxs.x == m_vWorldSpace_WallMaxs.m_Value.x;
-				}
-				else
-				{
-					NetworkStateChanged( &m_vWorldSpace_WallMins );
-					v10 = vMaxs.x;
-					x = vMins.x;
-					v11 = vMaxs.x == m_vWorldSpace_WallMaxs.m_Value.x;
-					y = vMins.y;
-					m_vWorldSpace_WallMins.m_Value.x = vMins.x;
-					z = vMins.z;
-					m_vWorldSpace_WallMins.m_Value.y = y;
-					m_vWorldSpace_WallMins.m_Value.z = z;
-				}
+				DevMsg("SET:\nWall Mins: %f %f %f\nWall Maxs: %f %f %f\n", m_vWorldSpace_WallMins.GetX(), m_vWorldSpace_WallMins.GetY(),m_vWorldSpace_WallMins.GetZ(),
+						m_vWorldSpace_WallMaxs.GetX(), m_vWorldSpace_WallMaxs.GetY(),m_vWorldSpace_WallMaxs.GetZ());
 
-				if (!v11
-					|| (v12 = vMaxs.y, vMaxs.y != m_vWorldSpace_WallMaxs.m_Value.y)
-					|| (v13 = vMaxs.z, vMaxs.z != m_vWorldSpace_WallMaxs.m_Value.z))
-				{
-					CBaseEntity::NetworkStateChanged( &m_vWorldSpace_WallMaxs);
-					v10 = vMaxs.x;
-					v12 = vMaxs.y;
-					v13 = vMaxs.z;
-					m_vWorldSpace_WallMaxs.m_Value.x = vMaxs.x;
-					m_vWorldSpace_WallMaxs.m_Value.y = v12;
-					m_vWorldSpace_WallMaxs.m_Value.z = v13;
-					x = vMins.x;
-					y = vMins.y;
-					z = vMins.z;
-				}
-				vSetMins.x = x - vStartPoint.x;
-				vSetMins.y = y - vStartPoint.y;
-				vSetMaxs.x = v10 - vStartPoint.x;
-				vSetMins.z = z - vStartPoint.z;
-				vSetMaxs.y = v12 - vStartPoint.y;
-				vSetMaxs.z = v13 - vStartPoint.z;
-				SetSize( vSetMins, vSetMaxs );
-				float v14 = sqrt(
-					(((vStartPoint.x - vEndPoint.x) * (vStartPoint.x - vEndPoint.x))
-					+ ((vStartPoint.y - vEndPoint.y) * (vStartPoint.y - vEndPoint.y)))
-					+ ((vStartPoint.z - vEndPoint.z) * (vStartPoint.z - vEndPoint.z)));
-				m_flLength = v14;
-				m_flWidth = 64.0;
-				m_flHeight = 0.015625;
+				// set entity size
+				vLocalMins = vMins - vStartPoint;
+				vLocalMaxs = vMaxs - vStartPoint;
+				SetSize( vLocalMins, vLocalMaxs );
+
+				// Unsure if they actually used this function or not...original code below
+				m_flLength = vStartPoint.DistTo(vEndPoint);
+				//m_flLength = sqrt(
+				//	(((vStartPoint.x - vEndPoint.x) * (vStartPoint.x - vEndPoint.x))
+				//	+ ((vStartPoint.y - vEndPoint.y) * (vStartPoint.y - vEndPoint.y)))
+				//	+ ((vStartPoint.z - vEndPoint.z) * (vStartPoint.z - vEndPoint.z)));
+
+				// How useless.
+				m_flWidth = PROJECTED_WALL_WIDTH;
+				m_flHeight = PROJECTED_WALL_HEIGHT;
 
 				CollisionProp()->MarkSurroundingBoundsDirty();
 				CollisionProp()->MarkPartitionHandleDirty();
@@ -387,6 +343,7 @@ void CProjectedWallEntity::ProjectWall( void )
 				m_bIsHorizontal = (vUp.z > STEEP_SLOPE || vUp.z < -STEEP_SLOPE) && vRight.z > -STEEP_SLOPE && vRight.z < STEEP_SLOPE;
 				DisplaceObstructingEntities();
 				m_nNumSegments = ceil( ( m_flLength / m_flSegmentLength ) );
+				// FIXME
 				//m_PaintPowers.SetCount( ceil( ( m_flLength / m_flSegmentLength ) ) );
 				CleansePaint();
 			}
@@ -432,8 +389,10 @@ int CProjectedWallEntity::ObjectCaps( void )
 
 void CProjectedWallEntity::ComputeWorldSpaceSurroundingBox( Vector *pWorldMins, Vector *pWorldMaxs )
 {
-	pWorldMins = &m_vWorldSpace_WallMins.m_Value;
-	pWorldMaxs = &m_vWorldSpace_WallMaxs.m_Value;
+	*pWorldMins = m_vWorldSpace_WallMins;
+	*pWorldMaxs = m_vWorldSpace_WallMaxs;
+	DevMsg("COMPUTED:\nWall Mins: %f %f %f\nWall Maxs: %f %f %f\n", m_vWorldSpace_WallMins.GetX(), m_vWorldSpace_WallMins.GetY(),m_vWorldSpace_WallMins.GetZ(),
+														m_vWorldSpace_WallMaxs.GetX(), m_vWorldSpace_WallMaxs.GetY(),m_vWorldSpace_WallMaxs.GetZ());
 }
 
 void CProjectedWallEntity::OnPreProjected( void )
@@ -459,7 +418,7 @@ void CProjectedWallEntity::CleanupWall( void )
 	if (m_pWallCollideable)
 	{
 		CPhysicsShadowClone::NotifyDestroy( m_pWallCollideable, this );
-#if 0 // Doesn't exist in Swarm
+#ifndef P2ASW // Doesn't exist in Swarm
 		physenv->DestroyCollideOnDeadObjectFlush( m_pWallCollideable );
 #else
 		physcollision->DestroyCollide( m_pWallCollideable );
