@@ -143,24 +143,6 @@ bool CProjectedWallEntity::CreateVPhysics( void )
 
 void CProjectedWallEntity::ProjectWall( void )
 {
-	// the decompiler in question:
-	float v18; // xmm5_4
-	float v19; // xmm4_4
-	float v20; // xmm3_4
-	solid_t solid; // [esp+64h] [ebp-724h] BYREF
-	Vector vLocalMaxs; // [esp+6A4h] [ebp-E4h] BYREF
-	float flBackDist; // [esp+6B0h] [ebp-D8h] BYREF
-	Vector v38; // [esp+6B4h] [ebp-D4h] BYREF
-	float flFrontDist; // [esp+6C0h] [ebp-C8h]
-	Vector v40; // [esp+6C4h] [ebp-C4h] BYREF
-	float flRightDist; // [esp+6D0h] [ebp-B8h]
-	float flLeftDist; // [esp+6E0h] [ebp-A8h]
-	Vector vLocalMins; // [esp+704h] [ebp-84h] BYREF
-	Vector vMins; // [esp+738h] [ebp-50h] BYREF
-	Vector vMaxs; // [esp+744h] [ebp-44h] BYREF
-	Vector vUp; // [esp+750h] [ebp-38h] BYREF
-	Vector vRight; // [esp+75Ch] [ebp-2Ch] BYREF
-
 	CleanupWall();
 	AddEffects( EF_NOINTERP );
 	CheckForPlayersOnBridge();
@@ -208,21 +190,20 @@ void CProjectedWallEntity::ProjectWall( void )
 		Vector vecDown = vecUp * -1.0f;
 		Vector vecLeft = vecRight * -1.0f;
 
-		flFrontDist = (vecForward.x * vEndPoint.x) + (vecForward.y * vEndPoint.y) + (vecForward.z * vEndPoint.z);
-
-		flBackDist = (vecBackward.x * vStartPoint.x) + (vecBackward.y * vStartPoint.y) + (vecBackward.z * vStartPoint.z);
+		float flFrontDist = DotProduct( vecForward, vEndPoint );
+		float flBackDist = DotProduct( vecBackward, vStartPoint );
 
 		Vector vecRightDist = vecRight * PROJECTED_WALL_WIDTH / 2;
 
-		v18 = (vecRight.x * 64.0) * 0.5;
-		v19 = (vecRight.y * 64.0) * 0.5;
-		v20 = (vecRight.z * 64.0) * 0.5;
+		//float v18 = (vecRight.x * 64.0) * 0.5;
+		//float v19 = (vecRight.y * 64.0) * 0.5;
+		//float v20 = (vecRight.z * 64.0) * 0.5;
 
-		flRightDist = ((vStartPoint.x + vecRightDist.x) * vecRight.x) 
+		float flRightDist = ((vStartPoint.x + vecRightDist.x) * vecRight.x) 
 					+ ((vStartPoint.y + vecRightDist.y) * vecRight.y) 
 					+ ((vStartPoint.z + vecRightDist.z) * vecRight.z);
 
-		flLeftDist = ((vStartPoint.x - vecRightDist.x) * vecLeft.x) 
+		float flLeftDist = ((vStartPoint.x - vecRightDist.x) * vecLeft.x) 
 					+ ((vStartPoint.y - vecRightDist.y) * vecLeft.y) 
 					+ ((vStartPoint.z - vecRightDist.z) * vecLeft.z);
 
@@ -290,7 +271,8 @@ void CProjectedWallEntity::ProjectWall( void )
 	m_pWallCollideable = physcollision->ConvertConvexToCollide( &pTempConvex, 1 );
 	if (m_pWallCollideable)
 	{
-		V_strncpy(solid.surfaceprop, "hard_light_bridge", 512);
+		solid_t solid;
+		V_strncpy( solid.surfaceprop, "hard_light_bridge", sizeof( solid.surfaceprop ) );
 		solid.params.massCenterOverride = g_PhysDefaultObjectParams.massCenterOverride;
 		solid.params.pGameData = this;
 		solid.params.mass = g_PhysDefaultObjectParams.mass;
@@ -311,8 +293,8 @@ void CProjectedWallEntity::ProjectWall( void )
 			physModel->RecheckContactPoints();
 			if ( physModel->GetCollide() )
 			{
-				vMaxs = vec3_origin;
-				vMins = vec3_origin;
+				Vector vMaxs = vec3_origin;
+				Vector vMins = vec3_origin;
 				physcollision->CollideGetAABB(&vMins, &vMaxs, physModel->GetCollide(), vec3_origin, vec3_angle);
 				m_vWorldSpace_WallMins = vMins;
 				m_vWorldSpace_WallMaxs = vMaxs;
@@ -321,8 +303,8 @@ void CProjectedWallEntity::ProjectWall( void )
 						m_vWorldSpace_WallMaxs.GetX(), m_vWorldSpace_WallMaxs.GetY(),m_vWorldSpace_WallMaxs.GetZ());
 
 				// set entity size
-				vLocalMins = vMins - vStartPoint;
-				vLocalMaxs = vMaxs - vStartPoint;
+				Vector vLocalMins = vMins - vStartPoint;
+				Vector vLocalMaxs = vMaxs - vStartPoint;
 				SetSize( vLocalMins, vLocalMaxs );
 
 				// Unsure if they actually used this function or not...original code below
@@ -339,6 +321,8 @@ void CProjectedWallEntity::ProjectWall( void )
 				CollisionProp()->MarkSurroundingBoundsDirty();
 				CollisionProp()->MarkPartitionHandleDirty();
 				CollisionProp()->UpdatePartition();
+				Vector vUp;
+				Vector vRight;
 				AngleVectors( GetAbsAngles(), NULL, &vRight, &vUp);
 				m_bIsHorizontal = (vUp.z > STEEP_SLOPE || vUp.z < -STEEP_SLOPE) && vRight.z > -STEEP_SLOPE && vRight.z < STEEP_SLOPE;
 				DisplaceObstructingEntities();
