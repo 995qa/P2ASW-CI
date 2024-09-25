@@ -107,10 +107,6 @@ C_Trigger_TractorBeam::C_Trigger_TractorBeam()
 	m_hProxyEntity = NULL;
 	m_hCoreEffect = NULL;
 	m_bDisabled = false;
-
-	m_pMaterial1 = NULL;
-	m_pMaterial2 = NULL;
-	m_pMaterial3 = NULL;
 }
 
 C_Trigger_TractorBeam::~C_Trigger_TractorBeam()
@@ -152,7 +148,7 @@ void C_Trigger_TractorBeam::UpdateOnRemove( void )
 
 	if (m_hCoreEffect)
 	{
-		ParticleProp()->StopEmission( m_hCoreEffect, 0, 0, 0, 1 );
+		ParticleProp()->StopEmission( m_hCoreEffect, false, false, false, true );
 	}
 
 	for ( int i = 1; i <= MAX_PLAYERS; ++i)
@@ -323,7 +319,6 @@ void C_Trigger_TractorBeam::DrawColumnSegment( CMeshBuilder &meshBuilder, Vector
 			meshBuilder.TangentT3fv( tangentt.Base() );
 
 		meshBuilder.AdvanceVertex();
-
 		// Vert 2
 		Vector vert = vDir * flLength + vecPosition;
 		meshBuilder.Color3fv( color );
@@ -427,7 +422,7 @@ void C_Trigger_TractorBeam::CreateParticles( void )
 {
 	if (m_hCoreEffect)
 	{
-		ParticleProp()->StopEmission( m_hCoreEffect, 0, 0, 0, 1 );
+		ParticleProp()->StopEmission( m_hCoreEffect, false, false, false, true );
 		m_hCoreEffect = NULL;
 	}
 	m_hCoreEffect = ParticleProp()->Create( "tractor_beam_core", PATTACH_CUSTOMORIGIN, -1, vec3_origin, 0 );
@@ -435,9 +430,9 @@ void C_Trigger_TractorBeam::CreateParticles( void )
 
 	if (m_hCoreEffect)
 	{
-		ParticleProp()->AddControlPoint( m_hCoreEffect, 1, this, PATTACH_CUSTOMORIGIN, 0, vec3_origin, 0 );
-		ParticleProp()->AddControlPoint( m_hCoreEffect, 2, this, PATTACH_CUSTOMORIGIN, 0, vec3_origin, 0 );
-		ParticleProp()->AddControlPoint( m_hCoreEffect, 3, this, PATTACH_CUSTOMORIGIN, 0, vec3_origin, 0 );
+		ParticleProp()->AddControlPoint( m_hCoreEffect, 1, this, PATTACH_CUSTOMORIGIN, NULL, vec3_origin, NULL );
+		ParticleProp()->AddControlPoint( m_hCoreEffect, 2, this, PATTACH_CUSTOMORIGIN, NULL, vec3_origin, NULL );
+		ParticleProp()->AddControlPoint( m_hCoreEffect, 3, this, PATTACH_CUSTOMORIGIN, NULL, vec3_origin, NULL );
 
 		Vector vDir;
 		vDir = m_vEnd - m_vStart;
