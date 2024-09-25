@@ -181,14 +181,7 @@ void CProjectedWallEntity::ProjectWall( void )
 	else
 	{
 		// Generates a 1/64 unit thick light bridge out of 6 planes
-		// Fairly certain this is how Valve wrote this code, based on other places where GeneratePolyhedronFromPlanes is used
-
-		Vector vecBackward = vecForward * -1.0f;
-		Vector vecDown = vecUp * -1.0f;
-		Vector vecLeft = vecRight * -1.0f;
-
-		Vector vecRightDist = vecRight * PROJECTED_WALL_WIDTH / 2;
-		Vector vecUpDist = vecUp * PROJECTED_WALL_HEIGHT / 2;
+		// Based on how Valve uses GeneratePolyhedronFromPlanes elsewhere they probably just did everything in-line like this
 
 		float fPlanes[6 * 4];
 
@@ -196,37 +189,37 @@ void CProjectedWallEntity::ProjectWall( void )
 		fPlanes[(0 * 4) + 0] = vecForward.x;
 		fPlanes[(0 * 4) + 1] = vecForward.y;
 		fPlanes[(0 * 4) + 2] = vecForward.z;
-		fPlanes[(0 * 4) + 3] = (vecForward.x * vEndPoint.x) + (vecForward.y * vEndPoint.y) + (vecForward.z * vEndPoint.z);
+		fPlanes[(0 * 4) + 3] = vecForward.Dot(vEndPoint);
 
 		// Back plane
 		fPlanes[(1 * 4) + 0] = -vecForward.x;
 		fPlanes[(1 * 4) + 1] = -vecForward.y;
 		fPlanes[(1 * 4) + 2] = -vecForward.z;
-		fPlanes[(1 * 4) + 3] = (vecBackward.x * vStartPoint.x) + (vecBackward.y * vStartPoint.y) + (vecBackward.z * vStartPoint.z);
+		fPlanes[(1 * 4) + 3] = -vecForward.Dot(vStartPoint);
 
 		// Right plane
 		fPlanes[(4 * 4) + 0] = vecRight.x;
 		fPlanes[(4 * 4) + 1] = vecRight.y;
 		fPlanes[(4 * 4) + 2] = vecRight.z;
-		fPlanes[(4 * 4) + 3] = ((vStartPoint.x + vecRightDist.x) * vecRight.x) + ((vStartPoint.y + vecRightDist.y) * vecRight.y) + ((vStartPoint.z + vecRightDist.z) * vecRight.z);
+		fPlanes[(4 * 4) + 3] = vecRight.Dot( vStartPoint + (vecRight * PROJECTED_WALL_WIDTH / 2) );
 
 		// Left plane
 		fPlanes[(5 * 4) + 0] = -vecRight.x;
 		fPlanes[(5 * 4) + 1] = -vecRight.y;
 		fPlanes[(5 * 4) + 2] = -vecRight.z;
-		fPlanes[(5 * 4) + 3] = ((vStartPoint.x - vecRightDist.x) * vecLeft.x) + ((vStartPoint.y - vecRightDist.y) * vecLeft.y) + ((vStartPoint.z - vecRightDist.z) * vecLeft.z);
+		fPlanes[(5 * 4) + 3] = -vecRight.Dot( vStartPoint - (vecRight * PROJECTED_WALL_WIDTH / 2) );
 
 		// Up plane
 		fPlanes[(2 * 4) + 0] = vecUp.x;
 		fPlanes[(2 * 4) + 1] = vecUp.y;
 		fPlanes[(2 * 4) + 2] = vecUp.z;
-		fPlanes[(2 * 4) + 3] = ((vStartPoint.x + vecUpDist.x) * vecUp.x) + ((vStartPoint.y + vecUpDist.y) * vecUp.y) + ((vStartPoint.z + vecUpDist.z) * vecUp.z);
+		fPlanes[(2 * 4) + 3] = vecUp.Dot( vStartPoint + (vecUp * PROJECTED_WALL_HEIGHT / 2) );
 
 		// Down plane
 		fPlanes[(3 * 4) + 0] = -vecUp.x;
 		fPlanes[(3 * 4) + 1] = -vecUp.y;
 		fPlanes[(3 * 4) + 2] = -vecUp.z;
-		fPlanes[(3 * 4) + 3] = ((vStartPoint.x - vecUpDist.x) * vecDown.x) + ((vStartPoint.y - vecUpDist.y) * vecDown.y) + ((vStartPoint.z - vecUpDist.z) * vecDown.z);
+		fPlanes[(3 * 4) + 3] = -vecUp.Dot( vStartPoint - (vecUp * PROJECTED_WALL_HEIGHT / 2) );
 
 		CPolyhedron *pPolyhedron = GeneratePolyhedronFromPlanes( fPlanes, 6, 0.0 );
 		if (!pPolyhedron)
