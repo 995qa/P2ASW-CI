@@ -156,3 +156,5 @@ game/portal2asw/cfg/video.txt
 src/portal2_client_vpc.lnk
 src/portal2_server_vpc.lnk
 src/.vscode
+game/*/screenshots
+.vscode
