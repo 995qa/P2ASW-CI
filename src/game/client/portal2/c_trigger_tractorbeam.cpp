@@ -107,6 +107,10 @@ C_Trigger_TractorBeam::C_Trigger_TractorBeam()
 	m_hProxyEntity = NULL;
 	m_hCoreEffect = NULL;
 	m_bDisabled = false;
+
+	m_pMaterial1 = NULL;
+	m_pMaterial2 = NULL;
+	m_pMaterial3 = NULL;
 }
 
 C_Trigger_TractorBeam::~C_Trigger_TractorBeam()
@@ -197,7 +201,7 @@ int C_Trigger_TractorBeam::DrawModel( int flags, const RenderableInstance_t &ins
 
 	if ((gpGlobals->curtime - m_flStartTime) < 0.5)
 	{
-		float flMod1; // xmm0_4
+		float flMod1;
 
 		// This code doesn't make any fucking sense
 		if (m_flStartTime == (m_flStartTime + 0.5))
@@ -238,7 +242,7 @@ int C_Trigger_TractorBeam::DrawModel( int flags, const RenderableInstance_t &ins
 	MatrixGetColumn( xform, 2, xAxis);
 	MatrixGetColumn( xform, 1, yAxis);
 
-	  C_Trigger_TractorBeam::DrawColumn( m_pMaterial1, m_vStart, vDir, flLength, xAxis, yAxis, 58.0, 1.0, m_bFromPortal, m_bToPortal, 0.0 );
+	C_Trigger_TractorBeam::DrawColumn( m_pMaterial1, m_vStart, vDir, flLength, xAxis, yAxis, 58.0, 1.0, m_bFromPortal, m_bToPortal, 0.0 );
 
 	if (bDrawOuterColumn)
 		C_Trigger_TractorBeam::DrawColumn( m_pMaterial2, m_vStart, vDir, flLength, xAxis, yAxis, 60.0, 1.0, m_bFromPortal, m_bToPortal, 0.0 );
@@ -248,9 +252,9 @@ int C_Trigger_TractorBeam::DrawModel( int flags, const RenderableInstance_t &ins
 void C_Trigger_TractorBeam::DrawColumn( IMaterial *pMaterial, Vector &vecStart, Vector vDir, float flLength,
 	Vector &vecXAxis, Vector &vecYAxis, float flRadius, float flAlpha, bool bPinchIn, bool bPinchOut, float flTextureOffset )
 {
-#if 0
+#if 1
 	CMatRenderContextPtr pRenderContext( materials );
-	IMesh* pMesh = pRenderContext->GetDynamicMesh();
+	IMesh* pMesh = pRenderContext->GetDynamicMesh( false, NULL, NULL, pMaterial );
 
 	CMeshBuilder meshBuilder;
 	meshBuilder.Begin( pMesh, MATERIAL_QUADS, 256 );
@@ -266,71 +270,114 @@ void C_Trigger_TractorBeam::DrawColumn( IMaterial *pMaterial, Vector &vecStart, 
 void C_Trigger_TractorBeam::DrawColumnSegment( CMeshBuilder &meshBuilder, Vector &vecStart, Vector &vDir, float flLength, Vector &vecXAxis,
 										Vector &vecYAxis, float flRadius, float flAlpha, float flTextureOffset, VertexFormat_t vertexFormat )
 {
+	bool bSetTangentS = (vertexFormat & VERTEX_TANGENT_S) != 0;
+	bool bSetTangentT = (vertexFormat & VERTEX_TANGENT_T) != 0;
 
 	float color[3];
-	if (m_bReversed)
+	if ( m_bReversed )
 	{
-		color[0] = 255;
-		color[1] = 32;
-		color[2] = 0;
+		color[0] = 1.0;
+		color[1] = 0.125;
 	}
 	else
 	{
-		color[0] = 10;
-		color[1] = 255;
-		color[2] = 0;
+		color[0] = 0.0390625;
+		color[1] = 1.0;
 	}
-
-	Vector point;
-	Vector source = vecStart;
-	float scale = m_flRadius;
+	color[2] = 0;
 	
-	Vector right, up;
-	float sr, cr;
-	
-	SinCos(flTextureOffset, &sr, &cr);
+	float flLastV = 0.0;
+	float flU = flLength * 0.00390625;
 
-	for ( int i = 0; i < 3; i++ )
-	{
-		right[i] = vDir[i] * cr + vDir[i] * sr;
-		up[i] = vDir[i] * -sr + vDir[i] * cr;
-	}
+	Vector vecPosition = vecStart + (vecXAxis *flRadius);
 
-	int i = 0;
-
+	int i = 1;
 	while (1)
 	{
-		meshBuilder.Color3fv(color);
-		meshBuilder.TexCoord2f(0, 0, 1);
-		VectorMA( source, -scale, up, point );
-		VectorMA( point, -scale, right, point );
-		meshBuilder.Position3fv(point.Base());
+		Vector vecLastPosition = vecPosition;
+		float fl = i * 0.098174773; // Unnamed
+		float flCos = cos( fl );
+		float flSin = sin( fl );
+		
+		float flV = i * 0.015625; 
+		vecPosition = (vecStart + ( vecXAxis * flCos ) * flRadius) + ( ( vecYAxis * flSin ) * flRadius );
+		Vector normal = vecStart - vecPosition;
+
+		Vector tangents = vDir;
+		VectorNormalize( tangents );
+		Vector tangentt = (tangents * normal) - (tangents * normal);
+		VectorNormalize( tangentt );
+		VectorNormalize( normal );
+		
+		// Vert 1
+		meshBuilder.Color3fv( color );
+		meshBuilder.TexCoord2f( 0, flV, 0 );
+		meshBuilder.Position3fv( vecPosition.Base() );
+
+		if ( vertexFormat & VERTEX_NORMAL )
+			meshBuilder.Normal3fv( normal.Base() );
+
+		if ( bSetTangentS )
+			meshBuilder.TangentS3fv( tangents.Base() );
+		if ( bSetTangentT )
+			meshBuilder.TangentT3fv( tangentt.Base() );
+
 		meshBuilder.AdvanceVertex();
 
-		meshBuilder.Color3fv(color);
-		meshBuilder.TexCoord2f(0, 0, 0);
-		VectorMA(source, scale, up, point);
-		VectorMA(point, -scale, right, point);
-		meshBuilder.Position3fv(point.Base());
-		meshBuilder.AdvanceVertex();
+		// Vert 2
+		Vector vert = vDir * flLength + vecPosition;
+		meshBuilder.Color3fv( color );
+		meshBuilder.TexCoord2f( 0, flV, flU );
+		meshBuilder.Position3fv( vert.Base() );
+		
+		if ( vertexFormat & VERTEX_NORMAL )
+			meshBuilder.Normal3fv( normal.Base() );
 
-		meshBuilder.Color3fv(color);
-		meshBuilder.TexCoord2f(0, 1, 0);
-		VectorMA(source, scale, up, point);
-		VectorMA(point, scale, right, point);
-		meshBuilder.Position3fv(point.Base());
-		meshBuilder.AdvanceVertex();
+		if ( bSetTangentS )
+			meshBuilder.TangentS3fv( tangents.Base() );
+		if ( bSetTangentT )
+			meshBuilder.TangentT3fv( tangentt.Base() );
 
-		meshBuilder.Color3fv(color);
-		meshBuilder.TexCoord2f(0, 1, 1);
-		VectorMA(source, -scale, up, point);
-		VectorMA(point, scale, right, point);
-		meshBuilder.Position3fv(point.Base());
+		meshBuilder.AdvanceVertex();
+		// Vert 3
+		Vector vStart = vDir * flLength + vecLastPosition;
+		normal = vecStart - vecLastPosition;
+		VectorNormalize( normal );
+		tangentt = (tangents * normal) - (tangents * normal);
+		VectorNormalize( tangentt );
+		
+		meshBuilder.Color3fv( color );
+		meshBuilder.TexCoord2f( 0, flLastV, flU );
+		meshBuilder.Position3fv( vert.Base() );
+		
+		if ( vertexFormat & VERTEX_NORMAL )
+			meshBuilder.Normal3fv( normal.Base() );
+
+		if ( bSetTangentS )
+			meshBuilder.TangentS3fv( tangents.Base() );
+		if ( bSetTangentT )
+			meshBuilder.TangentT3fv( tangentt.Base() );
+
+		meshBuilder.AdvanceVertex();
+		// Vert 4
+		meshBuilder.Color3fv( color );
+		meshBuilder.TexCoord2f( 0, flLastV, 0.0 );
+		meshBuilder.Position3fv( vecLastPosition.Base() );
+		
+		if ( vertexFormat & VERTEX_NORMAL )
+			meshBuilder.Normal3fv( normal.Base() );
+
+		if ( bSetTangentS )
+			meshBuilder.TangentS3fv( tangents.Base() );
+		if ( bSetTangentT )
+			meshBuilder.TangentT3fv( tangentt.Base() );
+
 		meshBuilder.AdvanceVertex();
 
 		if (++i > 64)
 			break;
 
+		flLastV = flV;
 	}
 
 	vecStart = vecStart + (vDir * flLength);
