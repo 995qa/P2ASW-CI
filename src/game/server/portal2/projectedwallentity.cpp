@@ -45,6 +45,9 @@ IMPLEMENT_SERVERCLASS_ST( CProjectedWallEntity, DT_ProjectedWallEntity )
 	
 	SendPropBool( SENDINFO( m_bIsHorizontal ) ),
 	SendPropInt( SENDINFO( m_nNumSegments ) ),
+
+	SendPropVector( SENDINFO( m_vWorldSpace_WallMins ) ),
+	SendPropVector( SENDINFO( m_vWorldSpace_WallMaxs ) ),
 END_SEND_TABLE()
 
 LINK_ENTITY_TO_CLASS( projected_wall_entity, CProjectedWallEntity )
@@ -242,7 +245,7 @@ void CProjectedWallEntity::ProjectWall( void )
 	if (m_pWallCollideable)
 	{
 		solid_t solid;
-		V_strncpy(solid.surfaceprop, "hard_light_bridge", 512);
+		V_strncpy( solid.surfaceprop, "hard_light_bridge", sizeof( solid.surfaceprop ) );
 		solid.params.massCenterOverride = g_PhysDefaultObjectParams.massCenterOverride;
 		solid.params.pGameData = this;
 		solid.params.mass = g_PhysDefaultObjectParams.mass;
