@@ -45,9 +45,6 @@ IMPLEMENT_SERVERCLASS_ST( CProjectedWallEntity, DT_ProjectedWallEntity )
 	
 	SendPropBool( SENDINFO( m_bIsHorizontal ) ),
 	SendPropInt( SENDINFO( m_nNumSegments ) ),
-
-	SendPropVector( SENDINFO( m_vWorldSpace_WallMins ) ),
-	SendPropVector( SENDINFO( m_vWorldSpace_WallMaxs ) ),
 END_SEND_TABLE()
 
 LINK_ENTITY_TO_CLASS( projected_wall_entity, CProjectedWallEntity )
@@ -160,23 +157,14 @@ void CProjectedWallEntity::ProjectWall( void )
 
 	CPhysConvex *pTempConvex;
 
-	// Ignoring this for now mostly - Kelsey
 	if (sv_thinnerprojectedwalls.GetInt())
 	{
+		// Generates an infinitely thin light bridge out of 4 vertices
+
 		Vector vBackRight = vStartPoint + (vecRight * 32.0);
 		Vector vBackLeft = vStartPoint - (vecRight * 32.0);
 		Vector vFrontRight = vEndPoint + (vecRight * 32.0);
 		Vector vFrontLeft = vEndPoint - (vecRight * 32.0);
-
-		//flBackDist = vStartPoint.vMins_x - (vecRight.vMins_x * 32.0);
-
-		//flFrontDist = vEndPoint.vMins_y - (vecRight.vMins_y * 32.0);
-
-		//v40.vMins_x = vEndPoint.vMins_z - (32.0 * vecRight.vMins_z);
-		//v40.vMins_y = (vecRight.vMins_x * 32.0) + vEndPoint.vMins_x;
-		//v40.vMins_z = (vecRight.vMins_y * 32.0) + vEndPoint.vMins_y;
-
-		//flRightDist = (32.0 * vecRight.vMins_z) + vEndPoint.vMins_z;
 
 		Vector *vVerts[4];
 
@@ -189,36 +177,15 @@ void CProjectedWallEntity::ProjectWall( void )
 	}
 	else
 	{
+		// Generates a 1/64 unit thick light bridge out of 6 planes
+		// Fairly certain this is how Valve wrote this code, based on other places where GeneratePolyhedronFromPlanes is used
+
 		Vector vecBackward = vecForward * -1.0f;
 		Vector vecDown = vecUp * -1.0f;
 		Vector vecLeft = vecRight * -1.0f;
 
-		float flFrontDist = DotProduct( vecForward, vEndPoint );
-		float flBackDist = DotProduct( vecBackward, vStartPoint );
-
 		Vector vecRightDist = vecRight * PROJECTED_WALL_WIDTH / 2;
-
-		//float v18 = (vecRight.x * 64.0) * 0.5;
-		//float v19 = (vecRight.y * 64.0) * 0.5;
-		//float v20 = (vecRight.z * 64.0) * 0.5;
-
-		float flRightDist = ((vStartPoint.x + vecRightDist.x) * vecRight.x) 
-					+ ((vStartPoint.y + vecRightDist.y) * vecRight.y) 
-					+ ((vStartPoint.z + vecRightDist.z) * vecRight.z);
-
-		float flLeftDist = ((vStartPoint.x - vecRightDist.x) * vecLeft.x) 
-					+ ((vStartPoint.y - vecRightDist.y) * vecLeft.y) 
-					+ ((vStartPoint.z - vecRightDist.z) * vecLeft.z);
-
 		Vector vecUpDist = vecUp * PROJECTED_WALL_HEIGHT / 2;
-
-		float flUpDist = ((vStartPoint.x + vecUpDist.x) * vecUp.x) 
-						+ ((vStartPoint.y + vecUpDist.y) * vecUp.y) 
-						+ ((vStartPoint.z + vecUpDist.z) * vecUp.z);
-
-		float flDownDist = ((vStartPoint.x - vecUpDist.x) * vecDown.x)
-						+ ((vStartPoint.y - vecUpDist.y) * vecDown.y)
-						+ ((vStartPoint.z - vecUpDist.z) * vecDown.z);
 
 		float fPlanes[6 * 4];
 
@@ -226,37 +193,37 @@ void CProjectedWallEntity::ProjectWall( void )
 		fPlanes[(0 * 4) + 0] = vecForward.x;
 		fPlanes[(0 * 4) + 1] = vecForward.y;
 		fPlanes[(0 * 4) + 2] = vecForward.z;
-		fPlanes[(0 * 4) + 3] = flFrontDist + m_flLength;
+		fPlanes[(0 * 4) + 3] = (vecForward.x * vEndPoint.x) + (vecForward.y * vEndPoint.y) + (vecForward.z * vEndPoint.z);
 
 		// Back plane
 		fPlanes[(1 * 4) + 0] = -vecForward.x;
 		fPlanes[(1 * 4) + 1] = -vecForward.y;
 		fPlanes[(1 * 4) + 2] = -vecForward.z;
-		fPlanes[(1 * 4) + 3] = flBackDist + m_flLength;
-
-		// Up plane
-		fPlanes[(2 * 4) + 0] = vecUp.x;
-		fPlanes[(2 * 4) + 1] = vecUp.y;
-		fPlanes[(2 * 4) + 2] = vecUp.z;
-		fPlanes[(2 * 4) + 3] = flUpDist + m_flHeight;
-
-		// Down plane
-		fPlanes[(3 * 4) + 0] = -vecUp.x;
-		fPlanes[(3 * 4) + 1] = -vecUp.y;
-		fPlanes[(3 * 4) + 2] = -vecUp.z;
-		fPlanes[(3 * 4) + 3] = flDownDist + m_flHeight;
+		fPlanes[(1 * 4) + 3] = (vecBackward.x * vStartPoint.x) + (vecBackward.y * vStartPoint.y) + (vecBackward.z * vStartPoint.z);
 
 		// Right plane
 		fPlanes[(4 * 4) + 0] = vecRight.x;
 		fPlanes[(4 * 4) + 1] = vecRight.y;
 		fPlanes[(4 * 4) + 2] = vecRight.z;
-		fPlanes[(4 * 4) + 3] = flRightDist + m_flWidth;
+		fPlanes[(4 * 4) + 3] = ((vStartPoint.x + vecRightDist.x) * vecRight.x) + ((vStartPoint.y + vecRightDist.y) * vecRight.y) + ((vStartPoint.z + vecRightDist.z) * vecRight.z);
 
 		// Left plane
 		fPlanes[(5 * 4) + 0] = -vecRight.x;
 		fPlanes[(5 * 4) + 1] = -vecRight.y;
 		fPlanes[(5 * 4) + 2] = -vecRight.z;
-		fPlanes[(5 * 4) + 3] = flLeftDist + m_flWidth;
+		fPlanes[(5 * 4) + 3] = ((vStartPoint.x - vecRightDist.x) * vecLeft.x) + ((vStartPoint.y - vecRightDist.y) * vecLeft.y) + ((vStartPoint.z - vecRightDist.z) * vecLeft.z);
+
+		// Up plane
+		fPlanes[(2 * 4) + 0] = vecUp.x;
+		fPlanes[(2 * 4) + 1] = vecUp.y;
+		fPlanes[(2 * 4) + 2] = vecUp.z;
+		fPlanes[(2 * 4) + 3] = ((vStartPoint.x + vecUpDist.x) * vecUp.x) + ((vStartPoint.y + vecUpDist.y) * vecUp.y) + ((vStartPoint.z + vecUpDist.z) * vecUp.z);
+
+		// Down plane
+		fPlanes[(3 * 4) + 0] = -vecUp.x;
+		fPlanes[(3 * 4) + 1] = -vecUp.y;
+		fPlanes[(3 * 4) + 2] = -vecUp.z;
+		fPlanes[(3 * 4) + 3] = ((vStartPoint.x - vecUpDist.x) * vecDown.x) + ((vStartPoint.y - vecUpDist.y) * vecDown.y) + ((vStartPoint.z - vecUpDist.z) * vecDown.z);
 
 		CPolyhedron *pPolyhedron = GeneratePolyhedronFromPlanes( fPlanes, 6, 0.0 );
 		if (!pPolyhedron)
@@ -275,7 +242,7 @@ void CProjectedWallEntity::ProjectWall( void )
 	if (m_pWallCollideable)
 	{
 		solid_t solid;
-		V_strncpy( solid.surfaceprop, "hard_light_bridge", sizeof( solid.surfaceprop ) );
+		V_strncpy(solid.surfaceprop, "hard_light_bridge", 512);
 		solid.params.massCenterOverride = g_PhysDefaultObjectParams.massCenterOverride;
 		solid.params.pGameData = this;
 		solid.params.mass = g_PhysDefaultObjectParams.mass;
@@ -287,6 +254,8 @@ void CProjectedWallEntity::ProjectWall( void )
 		solid.params.volume = g_PhysDefaultObjectParams.volume;
 		solid.params.dragCoefficient = g_PhysDefaultObjectParams.dragCoefficient;
 		solid.params.enableCollisions = g_PhysDefaultObjectParams.enableCollisions;
+
+		// create physics object
 		IPhysicsObject *physModel = PhysModelCreateCustom( this, m_pWallCollideable, vec3_origin, vec3_angle, "hard_light_bridge", true, &solid );
 		if (physModel)
 		{
@@ -294,6 +263,7 @@ void CProjectedWallEntity::ProjectWall( void )
 				VPhysicsDestroyObject();
 			VPhysicsSetObject( physModel );
 			physModel->RecheckContactPoints();
+
 			if ( physModel->GetCollide() )
 			{
 				Vector vMaxs = vec3_origin;
@@ -302,15 +272,12 @@ void CProjectedWallEntity::ProjectWall( void )
 				m_vWorldSpace_WallMins = vMins;
 				m_vWorldSpace_WallMaxs = vMaxs;
 
-				DevMsg("SET:\nWall Mins: %f %f %f\nWall Maxs: %f %f %f\n", m_vWorldSpace_WallMins.GetX(), m_vWorldSpace_WallMins.GetY(),m_vWorldSpace_WallMins.GetZ(),
-						m_vWorldSpace_WallMaxs.GetX(), m_vWorldSpace_WallMaxs.GetY(),m_vWorldSpace_WallMaxs.GetZ());
-
 				// set entity size
 				Vector vLocalMins = vMins - vStartPoint;
 				Vector vLocalMaxs = vMaxs - vStartPoint;
 				SetSize( vLocalMins, vLocalMaxs );
 
-				// Unsure if they actually used this function or not...original code below
+				// Unsure if they actually used this function or not...original decompiled code below
 				m_flLength = vStartPoint.DistTo(vEndPoint);
 				//m_flLength = sqrt(
 				//	(((vStartPoint.x - vEndPoint.x) * (vStartPoint.x - vEndPoint.x))
@@ -324,11 +291,13 @@ void CProjectedWallEntity::ProjectWall( void )
 				CollisionProp()->MarkSurroundingBoundsDirty();
 				CollisionProp()->MarkPartitionHandleDirty();
 				CollisionProp()->UpdatePartition();
-				Vector vUp;
+
 				Vector vRight;
+				Vector vUp;
 				AngleVectors( GetAbsAngles(), NULL, &vRight, &vUp);
 				m_bIsHorizontal = (vUp.z > STEEP_SLOPE || vUp.z < -STEEP_SLOPE) && vRight.z > -STEEP_SLOPE && vRight.z < STEEP_SLOPE;
 				DisplaceObstructingEntities();
+
 				m_nNumSegments = ceil( ( m_flLength / m_flSegmentLength ) );
 				// FIXME
 				//m_PaintPowers.SetCount( ceil( ( m_flLength / m_flSegmentLength ) ) );
@@ -378,8 +347,6 @@ void CProjectedWallEntity::ComputeWorldSpaceSurroundingBox( Vector *pWorldMins, 
 {
 	*pWorldMins = m_vWorldSpace_WallMins;
 	*pWorldMaxs = m_vWorldSpace_WallMaxs;
-	DevMsg("COMPUTED:\nWall Mins: %f %f %f\nWall Maxs: %f %f %f\n", m_vWorldSpace_WallMins.GetX(), m_vWorldSpace_WallMins.GetY(),m_vWorldSpace_WallMins.GetZ(),
-														m_vWorldSpace_WallMaxs.GetX(), m_vWorldSpace_WallMaxs.GetY(),m_vWorldSpace_WallMaxs.GetZ());
 }
 
 void CProjectedWallEntity::OnPreProjected( void )
