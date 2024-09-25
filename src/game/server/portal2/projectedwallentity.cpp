@@ -164,10 +164,10 @@ void CProjectedWallEntity::ProjectWall( void )
 	{
 		// Generates an infinitely thin light bridge out of 4 vertices
 
-		Vector vBackRight = vStartPoint + (vecRight * 32.0);
-		Vector vBackLeft = vStartPoint - (vecRight * 32.0);
-		Vector vFrontRight = vEndPoint + (vecRight * 32.0);
-		Vector vFrontLeft = vEndPoint - (vecRight * 32.0);
+		Vector vBackRight = vStartPoint + (vecRight * (PROJECTED_WALL_WIDTH / 2));
+		Vector vBackLeft = vStartPoint - (vecRight * (PROJECTED_WALL_WIDTH / 2));
+		Vector vFrontRight = vEndPoint + (vecRight * (PROJECTED_WALL_WIDTH / 2));
+		Vector vFrontLeft = vEndPoint - (vecRight * (PROJECTED_WALL_WIDTH / 2));
 
 		Vector *vVerts[4];
 
