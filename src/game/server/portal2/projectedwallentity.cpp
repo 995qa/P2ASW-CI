@@ -45,6 +45,9 @@ IMPLEMENT_SERVERCLASS_ST( CProjectedWallEntity, DT_ProjectedWallEntity )
 	
 	SendPropBool( SENDINFO( m_bIsHorizontal ) ),
 	SendPropInt( SENDINFO( m_nNumSegments ) ),
+
+	SendPropVector( SENDINFO( m_vWorldSpace_WallMins ) ),
+	SendPropVector( SENDINFO( m_vWorldSpace_WallMaxs ) ),
 END_SEND_TABLE()
 
 LINK_ENTITY_TO_CLASS( projected_wall_entity, CProjectedWallEntity )

@@ -14,6 +14,9 @@ IMPLEMENT_CLIENTCLASS_DT( C_ProjectedWallEntity, DT_ProjectedWallEntity, CProjec
 	
 	RecvPropBool( RECVINFO( m_bIsHorizontal ) ),
 	RecvPropInt( RECVINFO( m_nNumSegments ) ),
+	
+	RecvPropVector( RECVINFO( m_vWorldSpace_WallMins ) ),
+	RecvPropVector( RECVINFO( m_vWorldSpace_WallMaxs ) ),
 END_RECV_TABLE()
 
 BEGIN_PREDICTION_DATA( C_ProjectedWallEntity )
@@ -33,7 +36,7 @@ void C_ProjectedWallEntity::Spawn( void )
 {
 	//C_BaseEntity::ThinkSet(&v1, this, (BASEPTR)349LL, 0.0, 0);
 
-	// Skip BaseClass??
+	// Skip BaseClass
 	C_BaseEntity::Spawn();
 }
 
@@ -106,34 +109,42 @@ RenderableTranslucencyType_t C_ProjectedWallEntity::ComputeTranslucencyType( voi
 	return RENDERABLE_IS_TRANSLUCENT;
 }
 
+ConVar cl_projected_wall_debugdraw( "cl_projected_wall_debugdraw", "0", FCVAR_NONE );
 int C_ProjectedWallEntity::DrawModel( int flags, const RenderableInstance_t &instance )
 {
-	return 0;
+	if ( cl_projected_wall_debugdraw.GetBool() )
+	{
+		//NDebugOverlay::BoxAngles( vec3_origin, m_vWorldSpace_WallMins, m_vWorldSpace_WallMaxs, angles, 0, 128, 255, 64, gpGlobals->frametime );
+		NDebugOverlay::Box( vec3_origin, m_vWorldSpace_WallMins, m_vWorldSpace_WallMaxs, 0, 128, 255, 64, gpGlobals->frametime );
+	}
+	return 1;
 }
 
-void C_ProjectedWallEntity::ComputeWorldSpaceSurroundingBox( Vector *mins, Vector *maxs )
+void C_ProjectedWallEntity::ComputeWorldSpaceSurroundingBox( Vector *pWorldMins, Vector *pWorldMaxs )
 {
-	BaseClass::ComputeWorldSpaceSurroundingBox( mins, maxs );
+	*pWorldMins = m_vWorldSpace_WallMins;
+	*pWorldMaxs = m_vWorldSpace_WallMaxs;
 }
 
-void C_ProjectedWallEntity::GetRenderBounds( Vector& mins, Vector& maxs )
+void C_ProjectedWallEntity::GetRenderBounds( Vector& vecMins, Vector& vecMaxs )
 {
-	BaseClass::GetRenderBounds( mins, maxs );
+	vecMins = m_vWorldSpace_WallMins - GetRenderOrigin();
+	vecMaxs = m_vWorldSpace_WallMaxs - GetRenderOrigin();
 }
 
-void C_ProjectedWallEntity::GetProjectionExtents( Vector &outmins, Vector& outmaxs )
+void C_ProjectedWallEntity::GetProjectionExtents( Vector &outMins, Vector& outMaxs )
 {
-	BaseClass::GetProjectionExtents( outmins, outmaxs );
+	GetExtents( outMins, outMaxs, 0.5 );
 }
 
 bool C_ProjectedWallEntity::ShouldDraw( void )
 {
-	return BaseClass::ShouldDraw();
+	return true;
 }
 
 CollideType_t C_ProjectedWallEntity::GetCollideType( void )
 {
-	return BaseClass::GetCollideType();
+	return ENTITY_SHOULD_COLLIDE;
 }
 
 void C_ProjectedWallEntity::GetToolRecordingState( KeyValues *msg )
