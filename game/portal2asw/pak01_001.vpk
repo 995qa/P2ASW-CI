@@ -1,0 +1,165 @@
+UnlitGeneric
+{
+$basetexture "skybox/sky_blackbk.vtf"
+$hdrbasetexture "skybox/sky_blackbk.vtf"
+$ignorez 1
+
+}
+UnlitGeneric
+{
+$basetexture "skybox/sky_blackdn.vtf"
+$hdrbasetexture "skybox/sky_blackdn.vtf"
+$ignorez 1
+
+}
+UnlitGeneric
+{
+$basetexture "skybox/sky_blackft.vtf"
+$hdrbasetexture "skybox/sky_blackft.vtf"
+$ignorez 1
+
+}
+UnlitGeneric
+{
+$basetexture "skybox/sky_blacklf.vtf"
+$hdrbasetexture "skybox/sky_blacklf.vtf"
+$ignorez 1
+
+}
+UnlitGeneric
+{
+$basetexture "skybox/sky_blackrt.vtf"
+$hdrbasetexture "skybox/sky_blackrt.vtf"
+$ignorez 1
+
+}
+UnlitGeneric
+{
+$basetexture "skybox/sky_blackup.vtf"
+$hdrbasetexture "skybox/sky_blackup.vtf"
+$ignorez 1
+
+}
+UnlitGeneric
+{
+$basetexture "skybox/sky_blackbk.vtf"
+$hdrbasetexture "skybox/sky_blackbk.vtf"
+$nofog 1
+$ignorez 1
+}
+UnlitGeneric
+{
+$basetexture "skybox/sky_blackdn.vtf"
+$hdrbasetexture "skybox/sky_blackdn.vtf"
+$nofog 1
+$ignorez 1
+}
+UnlitGeneric
+{
+$basetexture "skybox/sky_blackft.vtf"
+$hdrbasetexture "skybox/sky_blackft.vtf"
+$nofog 1
+$ignorez 1
+}
+UnlitGeneric
+{
+$basetexture "skybox/sky_blacklf.vtf"
+$hdrbasetexture "skybox/sky_blacklf.vtf"
+$nofog 1
+$ignorez 1
+}
+UnlitGeneric
+{
+$basetexture "skybox/sky_blackrt.vtf"
+$hdrbasetexture "skybox/sky_blackrt.vtf"
+$nofog 1
+}
+UnlitGeneric
+{
+$basetexture "skybox/sky_blackup.vtf"
+$hdrbasetexture "skybox/sky_blackup.vtf"
+$nofog 1
+}
+UnlitGeneric
+{
+$color "{70 85 100}"
+$ignorez 1
+
+
+}
+UnlitGeneric
+{
+$color "{70 85 100}"
+$ignorez 1
+
+}
+UnlitGeneric
+{
+$color "{70 85 100}"
+$ignorez 1
+
+
+}
+UnlitGeneric
+{
+$color "{70 85 100}"
+$ignorez 1
+
+
+}
+UnlitGeneric
+{
+$color "{70 85 100}"
+$ignorez 1
+
+
+}
+UnlitGeneric
+{
+$color "{70 85 100}"
+$ignorez 1
+
+
+}
+UnlitGeneric
+{
+$basetexture "skybox/sky_whitebk.vtf"
+$hdrbasetexture "skybox/sky_whitebk.vtf"
+$nofog 1
+$ignorez 1
+}
+UnlitGeneric
+{
+$basetexture "skybox/sky_whitedn.vtf"
+$hdrbasetexture "skybox/sky_whitedn.vtf"
+$nofog 1
+$ignorez 1
+}
+UnlitGeneric
+{
+$basetexture "skybox/sky_whiteft.vtf"
+$hdrbasetexture "skybox/sky_whiteft.vtf"
+$nofog 1
+$ignorez 1
+}
+UnlitGeneric
+{
+$basetexture "skybox/sky_whitelf.vtf"
+$hdrbasetexture "skybox/sky_whitelf.vtf"
+$nofog 1
+$ignorez 1
+}
+UnlitGeneric
+{
+$basetexture "skybox/sky_whitert.vtf"
+$hdrbasetexture "skybox/sky_whitert.vtf"
+$nofog 1
+$ignorez 1
+}
+UnlitGeneric
+{
+$basetexture "skybox/sky_whiteup.vtf"
+$hdrbasetexture "skybox/sky_whiteup.vtf"
+$nofog 1
+$ignorez 1
+}
