@@ -30,11 +30,11 @@ public:
 	virtual CollideType_t GetCollideType();
 	virtual int DrawModel( int flags, const RenderableInstance_t &instance );
 	virtual bool ShouldDraw();
-	virtual void GetRenderBounds( Vector& mins, Vector& maxs );
+	virtual void GetRenderBounds( Vector& vecMins, Vector& vecMaxs );
 	virtual QAngle const& GetRenderAngles( void );
 	
 	virtual RenderableTranslucencyType_t ComputeTranslucencyType();
-	virtual void ComputeWorldSpaceSurroundingBox( Vector *mins, Vector *maxs );
+	virtual void ComputeWorldSpaceSurroundingBox( Vector *pWorldMins, Vector *pWorldMaxs );
 	
 	virtual void OnPreDataChanged( DataUpdateType_t datatype );
 	virtual void OnDataChanged( DataUpdateType_t datatype );
@@ -91,7 +91,6 @@ private:
 		QAngle qAngles;
 		float flTime;
 		CPhysCollide *pCollideable;
-		WallCollideableAtTime_t();
 	};
 	CUtlVector<WallCollideableAtTime_t> m_WallCollideables;
 	CPhysCollide *m_pActiveCollideable;
@@ -109,6 +108,77 @@ private:
 	float m_flParticleUpdateTime;
 	float m_flPrevParticleUpdateTime;
 	int ComputeSegmentIndex( const Vector& vWorldPositionOnWall ) const;
+	
+	template< bool bPaint >
+	void DrawQuadHelper( CMeshBuilder *meshBuilder, Vector &vOrigin, Vector &vRight, Vector &vUp, float flTextureScaleU, float flTextureScaleV )
+	{
+		if ( bPaint ) // We can do this later...
+		{
+			Vector vert = (vUp + vOrigin) - vRight;
+			Vector vNormal = (vRight * vUp) - (vRight * vUp);
+			VectorNormalize( vNormal );
+	
+			// Vert 1
+			meshBuilder->Color4ubv( g_nWhite );
+			meshBuilder->TexCoord2f( 0, flTextureScaleV, 0 );
+			meshBuilder->Position3fv( vert.Base() );
+			meshBuilder->AdvanceVertex();
+	
+			// Vert 2
+			Vector vert2 = vRight + vUp + vOrigin;
+			meshBuilder->Color4ubv( g_nWhite );
+			meshBuilder->TexCoord2f( 0, 0, 0 );
+			meshBuilder->Position3fv( vert2.Base() );
+			meshBuilder->AdvanceVertex();
+	
+			// Vert 3
+			Vector vert3 = vRight + vOrigin + vUp;
+			meshBuilder->Color4ubv( g_nWhite );
+			meshBuilder->TexCoord2f( 0, 0, flTextureScaleV );
+			meshBuilder->Position3fv( vert3.Base() );
+			meshBuilder->AdvanceVertex();
+	
+			// Vert 4
+			Vector vert4 = ( vOrigin - vUp ) - vRight;
+			meshBuilder->Color4ubv( g_nWhite );
+			meshBuilder->TexCoord2f( 0, flTextureScaleV, flTextureScaleU );
+			meshBuilder->Position3fv( vert4.Base() );
+			meshBuilder->AdvanceVertex();
+		}
+		else
+		{
+			Vector vert = (vUp + vOrigin) - vRight;
+			Vector vNormal = (vRight * vUp) - (vRight * vUp);
+			VectorNormalize( vNormal );
+	
+			// Vert 1
+			meshBuilder->Color4ubv( g_nWhite );
+			meshBuilder->TexCoord2f( 0, flTextureScaleV, 0 );
+			meshBuilder->Position3fv( vert.Base() );
+			meshBuilder->AdvanceVertex();
+	
+			// Vert 2
+			Vector vert2 = vRight + vUp + vOrigin;
+			meshBuilder->Color4ubv( g_nWhite );
+			meshBuilder->TexCoord2f( 0, 0, 0 );
+			meshBuilder->Position3fv( vert2.Base() );
+			meshBuilder->AdvanceVertex();
+	
+			// Vert 3
+			Vector vert3 = vRight + (vOrigin - vUp);
+			meshBuilder->Color4ubv( g_nWhite );
+			meshBuilder->TexCoord2f( 0, 0, flTextureScaleU );
+			meshBuilder->Position3fv( vert3.Base() );
+			meshBuilder->AdvanceVertex();
+	
+			// Vert 4
+			Vector vert4 = ( vOrigin - vUp ) - vRight;
+			meshBuilder->Color4ubv( g_nWhite );
+			meshBuilder->TexCoord2f( 0, flTextureScaleV, flTextureScaleU );
+			meshBuilder->Position3fv( vert4.Base() );
+			meshBuilder->AdvanceVertex();
+		}
+	}
 };
 
 #endif // NO_PROJECTED_WALL

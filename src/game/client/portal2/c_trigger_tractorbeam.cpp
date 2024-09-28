@@ -268,6 +268,8 @@ void C_Trigger_TractorBeam::DrawColumnSegment( CMeshBuilder &meshBuilder, Vector
 {
 	bool bSetTangentS = (vertexFormat & VERTEX_TANGENT_S) != 0;
 	bool bSetTangentT = (vertexFormat & VERTEX_TANGENT_T) != 0;
+	
+	Vector vecPosition = vecStart + (vecXAxis *flRadius);
 
 	float color[3];
 	if ( m_bReversed )
@@ -284,8 +286,6 @@ void C_Trigger_TractorBeam::DrawColumnSegment( CMeshBuilder &meshBuilder, Vector
 	
 	float flLastV = 0.0;
 	float flU = flLength * 0.00390625;
-
-	Vector vecPosition = vecStart + (vecXAxis *flRadius);
 
 	int i = 1;
 	while (1)
