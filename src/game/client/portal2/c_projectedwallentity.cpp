@@ -399,7 +399,7 @@ int C_ProjectedWallEntity::DrawModel( int flags, const RenderableInstance_t &ins
 		DrawQuadHelper<false>( &meshBuilder, vStart, vHalfLength, vHalfWidth, 1.0, flLengthTexRate );
 		meshBuilder.End();
 		pBodyMesh->Draw();
-#if 1
+
 		IMesh *pRailMesh = pRenderContext->GetDynamicMesh( true, NULL, NULL, m_pSideRailMaterial );
 		meshBuilder.Begin( pRailMesh, MATERIAL_QUADS, 20 );
 
@@ -411,7 +411,6 @@ int C_ProjectedWallEntity::DrawModel( int flags, const RenderableInstance_t &ins
 
 		meshBuilder.End();
 		pRailMesh->Draw();
-#endif
 	}
 
 	return 1;
