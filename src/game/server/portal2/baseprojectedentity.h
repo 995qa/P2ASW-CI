@@ -19,13 +19,13 @@ public:
 	virtual void Spawn();
     void FindProjectedEndpoints();
 	
-    void SetHitPortal( CPortal_Base2D* pPortal );
+    virtual void SetHitPortal( CPortal_Base2D* pPortal );
     CPortal_Base2D *GetHitPortal();
 	
-    void SetSourcePortal( CPortal_Base2D* pPortal );
+    virtual void SetSourcePortal( CPortal_Base2D* pPortal );
     CPortal_Base2D *GetSourcePortal();
 	
-    bool DidRedirectionPortalMove( CPortal_Base2D* pPortal );
+    virtual bool DidRedirectionPortalMove( CPortal_Base2D* pPortal );
 	
 	Vector &GetStartPoint() { return m_vecStartPoint.GetForModify(); }
 	Vector &GetEndPoint() { return m_vecEndPoint.GetForModify(); }

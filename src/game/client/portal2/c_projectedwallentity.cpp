@@ -234,8 +234,9 @@ void C_ProjectedWallEntity::ProjectWall( void )
 		collideable.flTime = fMaximumTime;
 		m_WallCollideables.AddToTail( collideable );
 
-		m_vWorldSpace_WallMins = vMins;
-		m_vWorldSpace_WallMaxs = vMaxs;
+		// FIXME:
+		//m_vWorldSpace_WallMins = vMins;
+		//m_vWorldSpace_WallMaxs = vMaxs;
 
 		// set entity size
 		Vector vLocalMins = vMins - vStartPoint;
@@ -283,17 +284,32 @@ void C_ProjectedWallEntity::SetPaintPower( int nSegment, PaintPowerType power )
 
 void C_ProjectedWallEntity::UpdateOnRemove( void )
 {
+	if ( prediction->InPrediction() )
+		CheckForPlayersOnBridge();
+
+	StopParticleEffects( this );
+	for ( int i = 0; i < m_WallCollideables.Count(); ++i )
+	{
+		CPhysCollide *pCollideable = m_WallCollideables[i].pCollideable;
+		physcollision->DestroyCollide( pCollideable );
+	}
+
+	m_WallCollideables.RemoveAll();
 	BaseClass::UpdateOnRemove();
 }
 
 bool C_ProjectedWallEntity::TestCollision( const Ray_t &ray, unsigned int mask, trace_t& trace )
 {
-	return BaseClass::TestCollision( ray, mask, trace );
+	if ( !m_pActiveCollideable )
+		return false;
+
+	physcollision->TraceBox( ray, mask, NULL, m_pActiveCollideable, vec3_origin, vec3_angle, &trace );
+	return trace.fraction < 1.0 || trace.allsolid || trace.startsolid;
 }
 
 bool C_ProjectedWallEntity::TestHitboxes( const Ray_t &ray, unsigned int fContentsMask, trace_t& tr )
 {
-	return BaseClass::TestCollision( ray, fContentsMask, tr );
+	return TestCollision( ray, fContentsMask, tr );
 }
 
 const QAngle &C_ProjectedWallEntity::GetRenderAngles( void )
@@ -322,7 +338,7 @@ void C_ProjectedWallEntity::ClientThink( void )
 		m_flPrevParticleUpdateTime = m_flParticleUpdateTime;
 		SetupWallParticles();
 	}
-
+	
 	SetNextClientThink( gpGlobals->curtime + 0.016 );
 }
 
@@ -376,6 +392,7 @@ bool C_ProjectedWallEntity::ShouldSpawnParticles( C_Portal_Base2D *pPortal )
 
 void C_ProjectedWallEntity::SetupWallParticles()
 {
+	Msg("C_ProjectedWallEntity::SetupWallParticles\n");
 	StopParticleEffects( this );
 
 	C_Portal_Base2D *pSourcePortal = m_hSourcePortal;
