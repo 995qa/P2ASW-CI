@@ -4,6 +4,7 @@
 #include "mathlib/polyhedron.h"
 #include "portal_player_shared.h"
 #include "prediction.h"
+#include "c_prop_portal.h"
 
 #undef CProjectedWallEntity
 
@@ -346,9 +347,82 @@ bool C_ProjectedWallEntity::InitMaterials( void )
 	return true;
 }
 
+bool C_ProjectedWallEntity::ShouldSpawnParticles( C_Portal_Base2D *pPortal )
+{
+	if ( !pPortal->IsActivedAndLinked() )
+		return true;
+
+	if ( !dynamic_cast<C_Prop_Portal*>( pPortal ) )
+		return false;
+
+	Vector vPortalUp;
+	AngleVectors( pPortal->GetAbsAngles(), NULL, NULL, &vPortalUp );
+	
+	Vector vWallUp;
+	AngleVectors( GetAbsAngles(), NULL, NULL, &vWallUp );
+
+	float dot = DotProduct( vPortalUp, vWallUp );
+	if ( dot < -1.0 )
+	{
+		dot = -1.0;
+	}
+	else if ( dot > 1.0 )
+	{
+		dot = 1.0;
+	}
+	
+	return fabs( dot ) > STEEP_SLOPE;
+}
+
 void C_ProjectedWallEntity::SetupWallParticles()
 {
+	StopParticleEffects( this );
 
+	C_Portal_Base2D *pSourcePortal = m_hSourcePortal;
+	C_Portal_Base2D *pHitPortal = m_hHitPortal;
+
+	Vector vWallEndPoint = GetEndPoint();
+	Vector vWallStartPoint = GetStartPoint();
+
+	Vector vecForward, vecRight, vecUp;
+	QAngle qAngles = GetNetworkAngles();
+	AngleVectors( qAngles, &vecForward, &vecRight, &vecUp );
+
+	if ( pSourcePortal && ShouldSpawnParticles( pSourcePortal ) )
+	{
+		Vector vecPortalPos;
+		C_Prop_Portal *pPropPortal = dynamic_cast<C_Prop_Portal*>( pSourcePortal );
+		if ( pPropPortal )
+		{
+			vecPortalPos = pPropPortal->GetAbsOrigin();
+		}
+		else
+		{
+			vecPortalPos = vWallStartPoint;
+			vecPortalPos.z += 512;
+		}
+
+		Vector particleOrg = (vecForward * 3.125) + vWallStartPoint;
+		DispatchParticleEffect( "projected_wall_impact", particleOrg, vecPortalPos, qAngles, this );
+	}
+	
+	if ( !pHitPortal || ShouldSpawnParticles( pHitPortal ) )
+	{
+		Vector vecPortalPos;
+		C_Prop_Portal *pPropPortal = dynamic_cast<C_Prop_Portal*>( pHitPortal );
+		if ( pPropPortal )
+		{
+			vecPortalPos = pPropPortal->GetAbsOrigin();
+		}
+		else
+		{
+			vecPortalPos = vWallEndPoint;
+			vecPortalPos.z += 512;
+		}
+
+		Vector particleOrg = vWallEndPoint - (vecForward * 3.125);
+		DispatchParticleEffect( "projected_wall_impact", particleOrg, vecPortalPos, qAngles, this );
+	}
 }
 
 void C_ProjectedWallEntity::CheckForPlayersOnBridge()

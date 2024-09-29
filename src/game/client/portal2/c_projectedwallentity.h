@@ -60,7 +60,7 @@ private:
 	void DisplaceObstructingEntity( CBaseEntity *pEntity, const Vector &vOrigin, const Vector &vWallUp, const Vector &vWallRight, bool bIgnoreStuck );
 	void DisplaceObstructingEntities();
 	void ColorWallByPortal( IMaterial * );
-	bool ShouldSpawnParticles( C_Portal_Base2D * );
+	bool ShouldSpawnParticles( C_Portal_Base2D *pPortal );
 	void SetupWallParticles();
 	void CheckForPlayersOnBridge();
 	void PaintWallSideRails( CMeshBuilder & , Vector & , Vector & , Vector & , Vector & ,float ,float );
