@@ -153,7 +153,7 @@ private:
 	
 			// Vert 1
 			meshBuilder->Color4ubv( g_nWhite );
-			meshBuilder->TexCoord2f( 0, flTextureScaleV, 0 );
+			meshBuilder->TexCoord2f( 0, 0, flTextureScaleV );
 			meshBuilder->Position3fv( vert.Base() );
 			meshBuilder->AdvanceVertex();
 	
@@ -167,14 +167,14 @@ private:
 			// Vert 3
 			Vector vert3 = vRight + (vOrigin - vUp);
 			meshBuilder->Color4ubv( g_nWhite );
-			meshBuilder->TexCoord2f( 0, 0, flTextureScaleU );
+			meshBuilder->TexCoord2f( 0, flTextureScaleU, 0 );
 			meshBuilder->Position3fv( vert3.Base() );
 			meshBuilder->AdvanceVertex();
 	
 			// Vert 4
 			Vector vert4 = ( vOrigin - vUp ) - vRight;
 			meshBuilder->Color4ubv( g_nWhite );
-			meshBuilder->TexCoord2f( 0, flTextureScaleV, flTextureScaleU );
+			meshBuilder->TexCoord2f( 0, flTextureScaleU, flTextureScaleV );
 			meshBuilder->Position3fv( vert4.Base() );
 			meshBuilder->AdvanceVertex();
 		}

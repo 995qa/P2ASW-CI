@@ -307,7 +307,7 @@ void C_Trigger_TractorBeam::DrawColumnSegment( CMeshBuilder &meshBuilder, Vector
 		
 		// Vert 1
 		meshBuilder.Color3fv( color );
-		meshBuilder.TexCoord2f( 0, flV, 0 );
+		meshBuilder.TexCoord2f( 0, 0, flV );
 		meshBuilder.Position3fv( vecPosition.Base() );
 
 		if ( vertexFormat & VERTEX_NORMAL )
@@ -322,7 +322,7 @@ void C_Trigger_TractorBeam::DrawColumnSegment( CMeshBuilder &meshBuilder, Vector
 		// Vert 2
 		Vector vert = vDir * flLength + vecPosition;
 		meshBuilder.Color3fv( color );
-		meshBuilder.TexCoord2f( 0, flV, flU );
+		meshBuilder.TexCoord2f( 0, flU, flV );
 		meshBuilder.Position3fv( vert.Base() );
 		
 		if ( vertexFormat & VERTEX_NORMAL )
@@ -342,7 +342,7 @@ void C_Trigger_TractorBeam::DrawColumnSegment( CMeshBuilder &meshBuilder, Vector
 		VectorNormalize( tangentt );
 		
 		meshBuilder.Color3fv( color );
-		meshBuilder.TexCoord2f( 0, flLastV, flU );
+		meshBuilder.TexCoord2f( 0, flU, flLastV );
 		meshBuilder.Position3fv( vert.Base() );
 		
 		if ( vertexFormat & VERTEX_NORMAL )
@@ -356,7 +356,7 @@ void C_Trigger_TractorBeam::DrawColumnSegment( CMeshBuilder &meshBuilder, Vector
 		meshBuilder.AdvanceVertex();
 		// Vert 4
 		meshBuilder.Color3fv( color );
-		meshBuilder.TexCoord2f( 0, flLastV, 0.0 );
+		meshBuilder.TexCoord2f( 0, 0, flLastV );
 		meshBuilder.Position3fv( vecLastPosition.Base() );
 		
 		if ( vertexFormat & VERTEX_NORMAL )
