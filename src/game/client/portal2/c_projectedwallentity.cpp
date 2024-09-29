@@ -392,7 +392,6 @@ bool C_ProjectedWallEntity::ShouldSpawnParticles( C_Portal_Base2D *pPortal )
 
 void C_ProjectedWallEntity::SetupWallParticles()
 {
-	Msg("C_ProjectedWallEntity::SetupWallParticles\n");
 	StopParticleEffects( this );
 
 	C_Portal_Base2D *pSourcePortal = m_hSourcePortal;
