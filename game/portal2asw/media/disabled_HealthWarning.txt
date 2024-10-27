@@ -1,0 +1,2 @@
+Rename this to HealthWarning.txt if you want startup videos in your mod
+This bypasses steam forcing -novid in ASW launch options
