@@ -20,6 +20,8 @@
 #include "vscript_server_nut.h"
 #include "spawn_helper_nut.h"
 #endif
+#include "matchmaking/imatchframework.h"
+#include "portal2_research_data_tracker.h"
 
 extern ScriptClassDesc_t * GetScriptDesc( CBaseEntity * );
 
@@ -459,7 +461,69 @@ static void SetDucking( const char *pszLayerName, const char *pszMixGroupName, f
 		WRITE_FLOAT( factor );
 	MessageEnd();
 }
-#endif
+
+#ifdef PORTAL2_PUZZLEMAKER
+static void RequestMapRating()
+{
+	g_pMatchFramework->GetEventsSubscription()->BroadcastEvent( new KeyValues( "OnRequestMapRating" ) );
+	g_Portal2ResearchDataTracker.Event_LevelCompleted();
+}
+
+static int GetMapIndexInPlayOrder()
+{
+	extern ConVar cm_current_community_map;
+	long mapIndex = atol(cm_current_community_map.GetString());
+
+	if (mapIndex == 0 || g_pGameRules->IsCoOp())
+		return -2;
+
+	return GetLocalMapIndexByPublishedFileID( mapIndex );
+}
+
+static int GetNumMapsPlayed()
+{
+	return g_vecLocalMapPlayOrder.m_Size;
+}
+
+static int SetMapAsPlayed()
+{
+	extern ConVar cm_current_community_map;
+	long mapIndex = atol(cm_current_community_map.GetString());
+
+	if (mapIndex == 0)
+		return -2;
+
+	if (SetLocalMapPlayed(mapIndex))
+		return GetLocalMapIndexByPublishedFileID( mapIndex );
+
+	return -1;
+}
+#else
+
+// Since some scripts expect these to be present, we need stubbed versions for when PORTAL2_PUZZLEMAKER is turned off
+
+static void RequestMapRating()
+{
+	// do nothing
+}
+
+static int GetMapIndexInPlayOrder()
+{
+	return -2;
+}
+
+static int GetNumMapsPlayed()
+{
+	return 0;
+}
+
+static int SetMapAsPlayed()
+{
+	return -2;
+}
+#endif // PORTAL2_PUZZLEMAKER
+
+#endif // PORTAL2
 
 bool VScriptServerInit()
 {
@@ -522,6 +586,13 @@ bool VScriptServerInit()
 				ScriptRegisterFunctionNamed( g_pScriptVM, ScriptDispatchParticleEffect, "DispatchParticleEffect", "Dispatches a one-off particle system" );
 #if defined ( PORTAL2 )
 				ScriptRegisterFunction( g_pScriptVM, SetDucking, "Set the level of an audio ducking channel" );
+
+				// Workshop stuff
+				// Some portal 2 scripts expect these to be present, so we need stubbed versions when PORTAL2_PUZZLEMAKER is disabled
+				ScriptRegisterFunction( g_pScriptVM, RequestMapRating, "Pops up the map rating dialog for user input" );
+				ScriptRegisterFunction( g_pScriptVM, GetMapIndexInPlayOrder, "Determines which index (by order played) this map is. Returns -1 if entry is not found. -2 if this is not a known community map." );
+				ScriptRegisterFunction( g_pScriptVM, GetNumMapsPlayed, "Returns how many maps the player has played through." );
+				ScriptRegisterFunction( g_pScriptVM, SetMapAsPlayed, "Adds the current map to the play order and returns the new index therein. Returns -2 if this is not a known community map." );
 #endif
 
 				
