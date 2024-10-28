@@ -1295,6 +1295,7 @@ void UTIL_ClearTrace( trace_t &trace )
 	trace.surface = g_NullSurface;
 }
 
+#ifdef P2ASW
 // p2asw: engine->Key_CodeForBinding doesn't exist in Swarm so we need a replacement, but this is also quite expensive!
 ButtonCode_t UTIL_KeyCodeForBinding( const char *cmd )
 {
@@ -1311,7 +1312,7 @@ ButtonCode_t UTIL_KeyCodeForBinding( const char *cmd )
 
 	return BUTTON_CODE_INVALID;
 }
-
+#endif
 
 extern int ScreenTransform( const Vector& point, Vector& screen );
 

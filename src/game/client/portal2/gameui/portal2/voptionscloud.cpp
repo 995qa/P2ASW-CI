@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2008, Valve Corporation, All rights reserved. ============//
+//========= Copyright ï¿½ 1996-2008, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: 
 //
@@ -90,23 +90,24 @@ void OptionsCloud::OnKeyCodePressed( vgui::KeyCode code )
 		{
 			// Disabled for p2asw - some of these functions do not exist
 			// and this entire dialog is PS3 only anyway
-			
-			//GameSteamCloudPreferences_t gscp;
-			//g_pGameSteamCloudSync->GetPreferences( gscp );
-			//if ( m_numSavesSelected != gscp.m_numSaveGamesToSync )
-			//{
-			//	TitleDataFieldsDescription_t const *fields = g_pMatchFramework->GetMatchTitle()->DescribeTitleDataStorage();
-			//	if ( TitleDataFieldsDescription_t const *pCloudSaves = TitleDataFieldsDescriptionFindByString( fields, "CFG.sys.cloud_saves" ) )
-			//	{
-			//		TitleDataFieldsDescriptionSetValue<uint8>( pCloudSaves, g_pMatchFramework->GetMatchSystem()
-			//			->GetPlayerManager()->GetLocalPlayer( XBX_GetPrimaryUserId() ), m_numSavesSelected + 1 );
+#ifndef P2ASW
+			GameSteamCloudPreferences_t gscp;
+			g_pGameSteamCloudSync->GetPreferences( gscp );
+			if ( m_numSavesSelected != gscp.m_numSaveGamesToSync )
+			{
+				TitleDataFieldsDescription_t const *fields = g_pMatchFramework->GetMatchTitle()->DescribeTitleDataStorage();
+				if ( TitleDataFieldsDescription_t const *pCloudSaves = TitleDataFieldsDescriptionFindByString( fields, "CFG.sys.cloud_saves" ) )
+				{
+					TitleDataFieldsDescriptionSetValue<uint8>( pCloudSaves, g_pMatchFramework->GetMatchSystem()
+						->GetPlayerManager()->GetLocalPlayer( XBX_GetPrimaryUserId() ), m_numSavesSelected + 1 );
 
-			//		// Force the Steam cloud manager to update with latest setting
-			//		KeyValues *kvUpdate = new KeyValues( "OnProfileDataLoaded" );
-			//		KeyValues::AutoDelete autodelete( kvUpdate );
-			//		g_pGameSteamCloudSync->OnEvent( kvUpdate );
-			//	}
-			//}
+					// Force the Steam cloud manager to update with latest setting
+					KeyValues *kvUpdate = new KeyValues( "OnProfileDataLoaded" );
+					KeyValues::AutoDelete autodelete( kvUpdate );
+					g_pGameSteamCloudSync->OnEvent( kvUpdate );
+				}
+			}
+#endif
 		}
 		break;
 	}

@@ -2683,7 +2683,7 @@ void CBasePlayer::PostThinkVPhysics( void )
 	{
 #if defined( CLIENT_DLL )
 
-#if 0 // p2asw: IsPredicted isn't available in Swarm
+#ifndef P2ASW // p2asw: IsPredicted isn't available in Swarm
 		if( !physenv->IsPredicted() )
 #else
 		if( true )

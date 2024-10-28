@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2008, Valve Corporation, All rights reserved. ============//
+//========= Copyright ï¿½ 1996-2008, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: 
 //
@@ -460,6 +460,7 @@ void FlyoutMenu::LoadControlSettings( const char *dialogResourceName, const char
 			if( !button )
 				continue;
 
+#ifdef P2ASW
 			// In Swarm m_sNavLeftName etc. are private
 			// Hopefully this works instead...?
 			// I don't know if P2 even uses this code
@@ -471,15 +472,16 @@ void FlyoutMenu::LoadControlSettings( const char *dialogResourceName, const char
 			{
 				button->SetNavRight(button->GetNavDownPanel());
 			}
-
-			//if ( button->m_sNavLeftName.IsEmpty() )
-			//{
-			//	button->m_sNavLeftName = button->m_sNavUpName;
-			//}
-			//if ( button->m_sNavRightName.IsEmpty() )
-			//{
-			//	button->m_sNavRightName = button->m_sNavDownName;
-			//}
+#else
+			if ( button->m_sNavLeftName.IsEmpty() )
+			{
+				button->m_sNavLeftName = button->m_sNavUpName;
+			}
+			if ( button->m_sNavRightName.IsEmpty() )
+			{
+				button->m_sNavRightName = button->m_sNavDownName;
+			}
+#endif
 		}
 	}
 

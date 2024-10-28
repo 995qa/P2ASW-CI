@@ -1396,7 +1396,7 @@ int	CRadialMenu::KeyInput( int down, ButtonCode_t keynum, const char *pszCurrent
 
 	if ( !down )
 		return 1;
-#if 0 // Not Necessary in p2asw
+#ifndef P2ASW // Not Necessary in p2asw
 	ASSERT_LOCAL_PLAYER_RESOLVABLE();
 	int nSlot = GET_ACTIVE_SPLITSCREEN_SLOT();
 #endif
@@ -1407,7 +1407,7 @@ int	CRadialMenu::KeyInput( int down, ButtonCode_t keynum, const char *pszCurrent
 		ButtonCode_t key;
 		do 
 		{
-#if 0 // P2 Engine
+#ifndef P2ASW // P2 Engine
 			key = (ButtonCode_t)engine->Key_CodeForBinding( s_pszRadialMenuIgnoreActions[i], nSlot, count, -1 );
 #else
 			key = UTIL_KeyCodeForBinding( s_pszRadialMenuIgnoreActions[i] );

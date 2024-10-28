@@ -1196,8 +1196,12 @@ void SaveLoadGameDialog::ScreenshotLoaded( const FileAsyncRequest_t &asyncReques
 				m_nSaveGameScreenshotId = vgui::surface()->CreateNewTextureID( true );
 			}
 
-			// Was DrawSetTextureRGBALinear - not in Swarm
+			// DrawSetTextureRGBALinear - not in Swarm
+#ifdef P2ASW
 			surface()->DrawSetTextureRGBA( m_nSaveGameScreenshotId, rawBuffer.Base(), nWidth, nHeight );
+#else
+			surface()->DrawSetTextureRGBALinear( m_nSaveGameScreenshotId, rawBuffer.Base(), nWidth, nHeight );
+#endif
 			nSaveGameImageId = m_nSaveGameScreenshotId;
 		}
 	}
@@ -1706,15 +1710,15 @@ void SaveLoadGameDialog::ConfirmOverwriteSaveGame()
 		char fullSaveFilename[MAX_PATH];
 		char comment[MAX_PATH];
 
-		// Not in Swarm
-		//m_bSaveInProgress = engine->SaveGame( 
-		//	savename.Get(), 
-		//	IsX360(), 
-		//	fullSaveFilename, 
-		//	sizeof( fullSaveFilename ),
-		//	comment,
-		//	sizeof( comment ) );
-
+#ifndef P2ASW
+		m_bSaveInProgress = engine->SaveGame( 
+			savename.Get(), 
+			IsX360(), 
+			fullSaveFilename, 
+			sizeof( fullSaveFilename ),
+			comment,
+			sizeof( comment ) );
+#else
 		char sz[ 256 ];
 		Q_snprintf(sz, sizeof( sz ), "save %s\n", savename.Get() );
 
@@ -1722,6 +1726,7 @@ void SaveLoadGameDialog::ConfirmOverwriteSaveGame()
 
 		// Hack hack
 		m_bSaveInProgress = true;
+#endif
 
 		// use the full savename to determin the full screenshot name
 		char screenshotFilename[MAX_PATH];

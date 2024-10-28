@@ -57,11 +57,13 @@ AudioVideo::~AudioVideo()
 {
 	// Removed for p2asw due to missing AudioLanguageChanged engine function
 	// Seems to be mostly Xbox specific anyway
-	//CGameUIConVarRef force_audio_english( "force_audio_english" );
-	//if ( m_bOldForceEnglishAudio != force_audio_english.GetBool() )
-	//{
-	//	engine->AudioLanguageChanged();
-	//}
+#ifndef P2ASW
+	CGameUIConVarRef force_audio_english( "force_audio_english" );
+	if ( m_bOldForceEnglishAudio != force_audio_english.GetBool() )
+	{
+		engine->AudioLanguageChanged();
+	}
+#endif
 }
 
 void AudioVideo::Activate()
@@ -266,9 +268,10 @@ void AudioVideo::ApplySchemeSettings( vgui::IScheme *pScheme )
 
 	if ( m_drpSplitScreenDirection )
 	{
-		//const AspectRatioInfo_t &aspectRatioInfo = materials->GetAspectRatioInfo();
-		//bool bWidescreen = aspectRatioInfo.m_bIsWidescreen;
-
+#ifndef P2ASW
+		const AspectRatioInfo_t &aspectRatioInfo = materials->GetAspectRatioInfo();
+		bool bWidescreen = aspectRatioInfo.m_bIsWidescreen;
+#else
 		// Alternate method for checking for widescreen
 		// The AspectRatioInfo system does not exist in Swarm
 		int screenWide, screenTall;
@@ -277,6 +280,7 @@ void AudioVideo::ApplySchemeSettings( vgui::IScheme *pScheme )
 		bool bWidescreen;
 		float aspectRatio = (float)screenWide/(float)screenTall;
 		bWidescreen = aspectRatio >= 1.5999f;
+#endif
 
 		if ( !bWidescreen )
 		{

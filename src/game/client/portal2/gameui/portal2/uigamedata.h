@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2008, Valve Corporation, All rights reserved. ============//
+//========= Copyright ï¿½ 1996-2008, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: 
 //
@@ -218,8 +218,9 @@ public:
 #if !defined( NO_STEAM )
 	STEAM_CALLBACK( CUIGameData, Steam_OnGameOverlayActivated, GameOverlayActivated_t, m_CallbackGameOverlayActivated );
 	STEAM_CALLBACK( CUIGameData, Steam_OnPersonaStateChanged, PersonaStateChange_t, m_CallbackPersonaStateChanged );
-	// Not in Swarm
-	//STEAM_CALLBACK( CUIGameData, Steam_OnAvatarImageLoaded, AvatarImageLoaded_t, m_CallbackAvatarImageLoaded );
+#ifndef P2ASW
+	STEAM_CALLBACK( CUIGameData, Steam_OnAvatarImageLoaded, AvatarImageLoaded_t, m_CallbackAvatarImageLoaded );
+#endif
 	STEAM_CALLBACK( CUIGameData, Steam_OnUserStatsReceived, UserStatsReceived_t, m_CallbackUserStatsReceived );
 	STEAM_CALLBACK( CUIGameData, Steam_OnUserStatsStored, UserStatsStored_t, m_CallbackUserStatsStored );
 	bool CanInitiateConnectionToSteam();

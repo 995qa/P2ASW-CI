@@ -860,6 +860,7 @@ void Studio_BuildMatricesHook(
 	}
 }
 
+#ifdef P2ASW
 void LanguageCvarChangeCallback( IConVar *pConVar, char const *pOldString, float flOldValue )
 {
 	ConVarRef var(pConVar);
@@ -883,6 +884,7 @@ void UpdateSavesDisabledCallback( IConVar *pConVar, const char *pOldString, floa
 }
 
 ConVar map_wants_save_disable("map_wants_save_disable", "0", FCVAR_CHEAT, "Same as save_disable, but is cleared on disconnect", UpdateSavesDisabledCallback);
+#endif // P2ASW
 
 bool CServerGameDLL::DLLInit(CreateInterfaceFn appSystemFactory,
 	CreateInterfaceFn physicsFactory, CreateInterfaceFn fileSystemFactory,
@@ -986,6 +988,7 @@ bool CServerGameDLL::DLLInit(CreateInterfaceFn appSystemFactory,
 	V_strcat(path, "portal2asw.vpk", MAX_PATH);
 	filesystem->AddVPKFile(path, PATH_ADD_TO_HEAD);
 
+#ifdef P2ASW
 	// Register extra keyvalue conditionals that aren't present in Swarm
 	// We also need to do this early, before we start loading keyvalue files
 	KeyValuesSystem()->SetKeyValuesExpressionSymbol( "GAMECONSOLE", IsConsole() );
@@ -1016,6 +1019,7 @@ bool CServerGameDLL::DLLInit(CreateInterfaceFn appSystemFactory,
 	{
 		cl_language->InstallChangeCallback( LanguageCvarChangeCallback );
 	}
+#endif
 
 #ifdef SERVER_USES_VGUI
 	// If not running dedicated, grab the engine vgui interface
@@ -1142,12 +1146,14 @@ bool CServerGameDLL::DLLInit(CreateInterfaceFn appSystemFactory,
 		ConMsg("Development-only and hidden cvars have been enabled.\n");
 	}
 
+#ifdef P2ASW
 	// Hook callback to save_disable for map_wants_save_disable
 	ConVar* save_disable = g_pCVar->FindVar("save_disable");
 	if (save_disable)
 	{
 		save_disable->InstallChangeCallback( UpdateSavesDisabledCallback );
 	}
+#endif
 
 	bool bInitSuccess = false;
 	if ( sv_threaded_init.GetBool() )
@@ -2490,7 +2496,7 @@ ConVar sv_unlockedchapters( "sv_unlockedchapters", "1", FCVAR_ARCHIVE | FCVAR_AR
 //-----------------------------------------------------------------------------
 void UpdateChapterRestrictions( const char *mapname )
 {
-#ifdef PORTAL2
+#ifdef P2ASW
 
 	// P2ASW: Use the Portal 2 SP map list to unlock chapters
 	// Portal 2 itself does this using title data through code in matchmaking.dll

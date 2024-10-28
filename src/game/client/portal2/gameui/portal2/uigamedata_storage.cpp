@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2008, Valve Corporation, All rights reserved. ============//
+//========= Copyright ï¿½ 1996-2008, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: 
 //
@@ -837,16 +837,17 @@ void CUIGameData::GameStats_ReportAction( char const *szReportAction, char const
 	kv->SetInt( "game_mapid", GameStats_GetReportMapNameIndex( szMapName ) );
 	kv->SetUint64( "game_flags", uiFlags );
 
-	// Not in Swarm and not useful anyway
-//	IDatacenterCmdBatch *pBatch = g_pMatchFramework->GetMatchSystem()->GetDatacenter()->CreateCmdBatch();
-//	pBatch->SetDestroyWhenFinished( true );
-//	pBatch->SetRetryCmdTimeout( 30.0f );
-//	pBatch->AddCommand( kv );
-//
-//#if !defined( _GAMECONSOLE ) && !defined( NO_STEAM )
-//	// Send these stats to OGS
-//	g_PortalGameStats.Event_UIEvent( xuid, szReportAction, uiFlags, szMapName );
-//#endif //!defined( _GAMECONSOLE )
+#ifndef P2ASW
+	IDatacenterCmdBatch *pBatch = g_pMatchFramework->GetMatchSystem()->GetDatacenter()->CreateCmdBatch();
+	pBatch->SetDestroyWhenFinished( true );
+	pBatch->SetRetryCmdTimeout( 30.0f );
+	pBatch->AddCommand( kv );
+
+#if !defined( _GAMECONSOLE ) && !defined( NO_STEAM )
+	// Send these stats to OGS
+	g_PortalGameStats.Event_UIEvent( xuid, szReportAction, uiFlags, szMapName );
+#endif //!defined( _GAMECONSOLE )
+#endif
 }
 
 

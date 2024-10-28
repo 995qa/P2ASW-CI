@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2005, Valve Corporation, All rights reserved. ============//
+//========= Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: 
 //
@@ -153,7 +153,7 @@ private:
 //-----------------------------------------------------------------------------
 void DispatchHudText( const char *pszText )
 {
-#ifdef PORTAL2
+#ifdef P2ASW
 	// P2ASW HACK: Work around missing save access functions by redirecting
 	// the old HL2 style save message to the save status element
 	// (As a side effect, this makes save_console 1 work correctly, it doesn't in portal 2)

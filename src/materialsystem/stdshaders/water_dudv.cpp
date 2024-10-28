@@ -1,4 +1,4 @@
-//===== Copyright © 1996-2005, Valve Corporation, All rights reserved. ======//
+//===== Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ======//
 //
 // Purpose: 
 //
@@ -11,7 +11,9 @@
 //#include "waterdudv_vs11.inc"
 
 // NOTE: SHADER_TEXTURE_STAGE0 doesn't exist in swarm, doing this instead...
+#ifdef P2ASW
 #define SHADER_TEXTURE_STAGE0 SHADER_SAMPLER0
+#endif
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"

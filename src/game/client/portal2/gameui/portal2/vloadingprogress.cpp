@@ -429,27 +429,37 @@ void LoadingProgress::SetupControlStates()
 
 	if ( m_bDrawBackground )
 	{
-		//const AspectRatioInfo_t &aspectRatioInfo = materials->GetAspectRatioInfo();
-
+		// For P2ASW, we need widescreen info for the default background as well
+		// This is a bit unreadable, but makes sure the code has the same structure when compiling under the portal 2 branch
+		// Hopefully this code can all be cleaned up after the move to the portal 2 branch is complete
+#ifdef P2ASW		
 		int screenWide, screenTall;
 		surface()->GetScreenSize( screenWide, screenTall );
 
 		bool bIsWidescreen;
 		float aspectRatio = (float)screenWide/(float)screenTall;
 		bIsWidescreen = aspectRatio >= 1.5999f;
+#endif
 
 		CUtlVector< CUtlString > imageNames;
 		if ( filenamePrefix.IsEmpty() )
 		{
 			// unrecognized portal2 map, default to single product screen
-			//char startupImage[MAX_PATH];
-			// Not in Swarm
-			//engine->GetStartupImage( startupImage, sizeof( startupImage ) );
-			//imageNames.AddToTail( startupImage );
+#ifndef P2ASW
+			char startupImage[MAX_PATH];
+			engine->GetStartupImage( startupImage, sizeof( startupImage ) );
+			imageNames.AddToTail( startupImage );
+#else
+			// TODO: use first image from chapterbackgrounds instead of hardcoding this one
 			imageNames.AddToTail( bIsWidescreen ? "console/portal2_product_1_widescreen" : "console/portal2_product_1" );
+#endif
 		}
 		else
 		{
+#ifndef P2ASW
+			const AspectRatioInfo_t &aspectRatioInfo = materials->GetAspectRatioInfo();
+			bool bIsWidescreen = aspectRatioInfo.m_bIsWidescreen;
+#endif			
 			// determine image sequence
 			CUtlString filename;
 			while ( 1 )

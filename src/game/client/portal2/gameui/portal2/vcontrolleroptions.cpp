@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2008, Valve Corporation, All rights reserved. ============//
+//========= Copyright ï¿½ 1996-2008, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: 
 //
@@ -206,7 +206,7 @@ void ControllerOptions::ResetControlValues( void )
 		m_pDuckMode->SetCurrentSelection( pszDuckModes[iDuckMode] );
 	}
 
-#if 0 // Not in Swarm, prevents ConVarRef console spam
+#ifndef P2ASW // Not in Swarm, prevents ConVarRef console spam
 	if ( m_pVibration )
 	{
 		CGameUIConVarRef joy_vibration( "joy_vibration" );
@@ -436,7 +436,7 @@ void ControllerOptions::OnCommand(const char *command)
 			m_bDirty = true;
 		}
 	}
-#if 0 // Not in Swarm, prevents ConVarRef console spam
+#ifndef P2ASW // Not in Swarm, prevents ConVarRef console spam
 	else if ( !V_stricmp( command, "VibrationDisabled" ) )
 	{
 		CGameUIConVarRef joy_vibration( "joy_vibration" );

@@ -1017,7 +1017,7 @@ void C_BasePlayer::OnDataChanged( DataUpdateType_t updateType )
 	}
 
 	
-#if 0 // p2asw: IsPredicted isn't available in Swarm
+#ifndef P2ASW // p2asw: IsPredicted isn't available in Swarm
 	if( (updateType == DATA_UPDATE_CREATED) && physenv->IsPredicted() )
 #else
 	if( (updateType == DATA_UPDATE_CREATED) && false )

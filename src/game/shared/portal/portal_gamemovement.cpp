@@ -3436,7 +3436,7 @@ void CPortalGameMovement::Friction()
 
 		// Bleed off some speed, but if we have less than the bleed
 		//  threshold, bleed the threshold amount.
-#if 0 // No cross platform in Swarm!
+#ifndef P2ASW // No cross platform in Swarm!
 		if ( IsCrossPlayPlatformAConsole( player->GetCrossPlayPlatform() ) )
 		{
 			if( player->m_Local.m_bDucked )

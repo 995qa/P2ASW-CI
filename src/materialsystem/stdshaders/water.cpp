@@ -339,7 +339,7 @@ BEGIN_VS_SHADER( Water_DX90,
 			}
 
 			// pseudo-translucents don't exist in Swarm
-#if 0
+#ifndef P2ASW
 			// pseudo-translucent water only gets used on platforms which disable refract (as a cheaper substitute for refractive water)
 			if( IS_FLAG_SET( MATERIAL_VAR_PSEUDO_TRANSLUCENT ) )
 			{

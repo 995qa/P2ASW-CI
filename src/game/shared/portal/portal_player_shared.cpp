@@ -2474,6 +2474,7 @@ void CPortal_Player::AddSurfacePaintPowerInfo( const BrushContact& contact, char
 
 
 // In Swarm, we're limited by some engine functions that Portal 2 used, but aren't available in Swarm.
+// FIXME: All of this needs to be reverted/ifdef'd for the portal 2 engine port
 
 // This fires 8 hull traces from the center of the player ending at each of the player's bounding box vertices.
 #define PAINT_DETECTION_8TRACES 1

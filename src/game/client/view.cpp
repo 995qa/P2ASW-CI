@@ -1,4 +1,4 @@
-//===== Copyright © 1996-2005, Valve Corporation, All rights reserved. ======//
+//===== Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ======//
 //
 // Purpose: 
 //
@@ -805,7 +805,9 @@ void CViewRender::WriteSaveGameScreenshotOfSize( const char *pFilename, int widt
 		pRenderContext->PopMatrix();
 
 		// Not in Swarm
-		//pRenderContext->AntiAliasingHint( AA_HINT_MESHES );
+#ifndef P2ASW
+		pRenderContext->AntiAliasingHint( AA_HINT_MESHES );
+#endif
 	}
 	
 	// FIXME: Disable material system threading, to better emulate how regular screenshots are made.

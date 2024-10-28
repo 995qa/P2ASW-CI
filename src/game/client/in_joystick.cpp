@@ -1188,11 +1188,13 @@ void CInput::JoyStickMove( float frametime, CUserCmd *cmd )
 	if ( JoyStickActive() )
 	{
 		// If we are using a motion controller, then we use the pointing device for updating the look direction.
-		/*if( inputsystem->MotionControllerActive())
+#ifndef P2ASW // No motion controller in Swarm!
+		if( inputsystem->MotionControllerActive())
 		{
 			MotionControllerMove( frametime, cmd );
 		}
-		else*/ // No motion controller in Swarm!
+		else
+#endif
 		{
 			JoyStickTurn( cmd,
 				user.m_flPreviousJoystickYaw,

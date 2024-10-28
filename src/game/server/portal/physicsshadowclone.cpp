@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2005, Valve Corporation, All rights reserved. ============//
+//========= Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: Clones a physics object (usually with a matrix transform applied)
 //
@@ -444,7 +444,9 @@ static void FullSyncPhysicsObject( IPhysicsObject *pSource, IPhysicsObject *pDes
 		pDest->SetContents( pSource->GetContents() );
 
 		// FIXME: Not in Swarm, Needs replacement?
-		//pDest->SyncWith( pSource );
+#ifndef P2ASW
+		pDest->SyncWith( pSource );
+#endif
 	}	
 
 	//Damping

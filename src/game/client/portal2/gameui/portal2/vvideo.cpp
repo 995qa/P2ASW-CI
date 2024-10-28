@@ -113,9 +113,10 @@ void Video::ApplySchemeSettings( vgui::IScheme *pScheme )
 
 	if ( m_drpSplitScreenDirection )
 	{
-		//const AspectRatioInfo_t &aspectRatioInfo = materials->GetAspectRatioInfo();
-		//bool bWidescreen = aspectRatioInfo.m_bIsWidescreen;
-
+#ifndef P2ASW
+		const AspectRatioInfo_t &aspectRatioInfo = materials->GetAspectRatioInfo();
+		bool bWidescreen = aspectRatioInfo.m_bIsWidescreen;
+#else
 		// Alternate method for checking for widescreen
 		// The AspectRatioInfo system does not exist in Swarm
 		int screenWide, screenTall;
@@ -124,6 +125,7 @@ void Video::ApplySchemeSettings( vgui::IScheme *pScheme )
 		bool bWidescreen;
 		float aspectRatio = (float)screenWide/(float)screenTall;
 		bWidescreen = aspectRatio >= 1.5999f;
+#endif
 
 		if ( !bWidescreen )
 		{
@@ -248,7 +250,7 @@ void Video::SetupState( bool bUseRecommendedSettings )
 #else
 		m_bNoBorder = false;
 #endif
-#if 0 // Not in Swarm, prevents ConVarRef console spam
+#ifndef P2ASW // Not in Swarm, prevents ConVarRef console spam
 		CGameUIConVarRef mat_powersavingsmode( "mat_powersavingsmode" );
 		m_nPowerSavingsMode = clamp( mat_powersavingsmode.GetInt(), 0, 1 );
 #endif
@@ -804,7 +806,7 @@ void Video::ApplyChanges()
 			engine->ClientCmd_Unrestricted( szCmd );
 		}
 	
-#if 0 // Not in Swarm, prevents ConVarRef console spam
+#ifndef P2ASW // Not in Swarm, prevents ConVarRef console spam
 		CGameUIConVarRef mat_powersavingsmode( "mat_powersavingsmode" );
 		mat_powersavingsmode.SetValue( m_nPowerSavingsMode );
 #endif

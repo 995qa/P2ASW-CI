@@ -89,10 +89,12 @@ void CBaseModTransitionPanel::ApplySchemeSettings( vgui::IScheme *pScheme )
 	SetPos( 0, 0 );
 	SetSize( screenWide, screenTall );
 
+#ifdef P2ASW
 	// Disable all input so it passes through to the actual UI (p2asw change)
 	// Otherwise after we move it to the front it keeps absorbing input and you can't click anything
 	vgui::ipanel()->SetMouseInputEnabled(this->GetVPanel(), false);
 	vgui::ipanel()->SetKeyBoardInputEnabled(this->GetVPanel(), false);
+#endif
 }
 
 void CBaseModTransitionPanel::OnKeyCodePressed( KeyCode keycode )
@@ -104,11 +106,12 @@ void CBaseModTransitionPanel::BuildTiles()
 	int screenWide, screenTall;
 	surface()->GetScreenSize( screenWide, screenTall );
 
-	// The AspectRatioInfo system does not exist in Swarm
-	//const AspectRatioInfo_t &aspectRatioInfo = materials->GetAspectRatioInfo();
-	//float flInverseAspect = 1.0f/aspectRatioInfo.m_flFrameBufferAspectRatio;
-
+#ifndef P2ASW
+	const AspectRatioInfo_t &aspectRatioInfo = materials->GetAspectRatioInfo();
+	float flInverseAspect = 1.0f/aspectRatioInfo.m_flFrameBufferAspectRatio;
+#else
 	float flInverseAspect = (float)screenTall / (float)screenWide;
+#endif
 
 	m_nNumColumns = ( screenWide + m_nTileWidth - 1 ) / m_nTileWidth;
 	m_nNumRows = ( screenTall + m_nTileHeight - 1 ) / m_nTileHeight;
@@ -342,11 +345,17 @@ void CBaseModTransitionPanel::TerminateEffect()
 
 	m_Sounds.Purge();
 
-	//Changed for p2asw
+#ifdef P2ASW
 	if ( GetVPanel() == vgui::input()->GetAppModalSurface() )
 	{
 		vgui::input()->ReleaseAppModalSurface();
 	}
+#else
+	if ( GetVPanel() == vgui::input()->GetModalSubTree() )
+	{
+		vgui::input()->ReleaseModalSubTree();
+	}
+#endif
 }
 
 void CBaseModTransitionPanel::SetInitialState()
@@ -436,9 +445,13 @@ void CBaseModTransitionPanel::ScanTilesForTransition()
 		{
 			m_nNumTransitions++;
 
+#ifdef P2ASW
 			// SetModalSubTreeShowMouse() isn't in Swarm, do this a different way
 			vgui::input()->SetAppModalSurface( GetVPanel() );
-			// vgui::input()->SetModalSubTreeShowMouse( true );
+#else
+			vgui::input()->SetModalSubTree( GetVPanel() );
+			vgui::input()->SetModalSubTreeShowMouse( true );
+#endif
 
 			// snap off the current expected direction
 			m_flDirection = m_bForwardHint ? 1.0f : -1.0f;
@@ -494,8 +507,11 @@ bool CBaseModTransitionPanel::IsEffectEnabled()
 		GameUI().IsInLevel() || 
 		engine->IsConnected() ||
 		CBaseModPanel::GetSingleton().IsLevelLoading() ||
-		( !IsGameConsole() && GameConsole().IsConsoleVisible() ) /*||
-		materials->IsStereoActiveThisFrame()*/ ) // Disable effect when in nvidia's stereo mode - removed for p2asw
+		( !IsGameConsole() && GameConsole().IsConsoleVisible() )
+#ifndef P2ASW
+		|| materials->IsStereoActiveThisFrame() // Disable effect when in nvidia's stereo mode
+#endif
+		)
 	{
 		// effect not allowed in game or loading into game
 		if ( m_bTransitionActive )
@@ -507,6 +523,7 @@ bool CBaseModTransitionPanel::IsEffectEnabled()
 		return false;
 	}
 
+#ifdef P2ASW
 	// P2ASW HACK: Due to different modal input functions used, opening the console during the transition
 	// no longer works. This is expected behavior for some users, so do it manually here instead.
 	// NOTE: I tried using OnKeyCodePressed for this but it didn't work even after re-enabling keyboard input
@@ -515,6 +532,7 @@ bool CBaseModTransitionPanel::IsEffectEnabled()
 	{
 		GameConsole().Activate();
 	}
+#endif
 
 	return true;
 }
@@ -602,11 +620,17 @@ void CBaseModTransitionPanel::DrawEffect()
 
 		m_Sounds.Purge();
 
-		//Changed for p2asw
+#ifdef P2ASW
 		if ( GetVPanel() == vgui::input()->GetAppModalSurface() )
 		{
 			vgui::input()->ReleaseAppModalSurface();
 		}
+#else
+		if ( GetVPanel() == vgui::input()->GetModalSubTree() )
+		{
+			vgui::input()->ReleaseModalSubTree();
+		}
+#endif
 	}
 }
 
@@ -617,9 +641,11 @@ void CBaseModTransitionPanel::Paint()
 	if ( m_bTransitionActive )
 	{
 		SaveCurrentScreen( m_pCurrentScreenRT );
+#ifdef P2ASW
 		// Move to front every frame
 		// Needed in p2asw due to being a child of BaseModPanel instead of separate
 		MoveToFront();
+#endif
 		DrawEffect();
 	}
 }
@@ -650,12 +676,15 @@ void CBaseModTransitionPanel::StartPaint3D()
 	pRenderContext->PushMatrix();
 	pRenderContext->LoadIdentity();
 
-	//const AspectRatioInfo_t &aspectRatioInfo = materials->GetAspectRatioInfo();
-
+#ifndef P2ASW
+	const AspectRatioInfo_t &aspectRatioInfo = materials->GetAspectRatioInfo();
+	float aspectRatio = aspectRatioInfo.m_flFrameBufferAspectRatio;
+#else
 	// The AspectRatioInfo system does not exist in Swarm
 	int screenWide, screenTall;
 	surface()->GetScreenSize( screenWide, screenTall );
 	float aspectRatio = (float)screenWide/(float)screenTall;
+#endif
 
 	pRenderContext->PerspectiveX( 90, aspectRatio, TILE_NEAR_PLANE, TILE_FAR_PLANE );
 

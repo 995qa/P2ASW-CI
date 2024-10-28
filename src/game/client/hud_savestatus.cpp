@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2005, Valve Corporation, All rights reserved. ============//
+//========= Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: 
 //
@@ -122,7 +122,7 @@ bool CHudSaveStatus::ShouldDraw()
 
 	// We don't have some of these functions in Swarm. I worked around that by instead
 	// redirecting the HL2-style save message here from DispatchHudText() in message.cpp
-#if 0
+#ifndef P2ASW
 	if ( engine->IsSaveInProgress() && 
 		!engine->IsAutoSaveDangerousInProgress() && 
 		!( IsPC() && engine->IsAutoSaveInProgress() ) ) 
@@ -143,11 +143,13 @@ bool CHudSaveStatus::ShouldDraw()
 	}
 #endif
 
+#ifdef P2ASW
 	// Once the save hud is turned on by the hack, keep it visible as long as the engine says it's saving
 	if ( m_flSaveStartedTime && engine->IsSaveInProgress() )
 	{
 		bNeedsDraw = true;
 	}
+#endif
 
 #if defined( _PS3 )
 	bool bIsSteamProfileSave = false;

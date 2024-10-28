@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2008, Valve Corporation, All rights reserved. ============//
+//========= Copyright ï¿½ 1996-2008, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: 
 //
@@ -81,7 +81,7 @@ void KeyboardMouse::ApplySchemeSettings( vgui::IScheme *pScheme )
 		m_sldMouseSensitivity->Reset();
 	}
 
-#if 0 // Not in Swarm, prevents ConVarRef console spam
+#ifndef P2ASW // Not in Swarm, prevents ConVarRef console spam
 	if ( m_drpRawMouse )
 	{
 		CGameUIConVarRef m_rawinput( "m_rawinput" );
@@ -206,7 +206,7 @@ void KeyboardMouse::OnCommand( const char *pCommand )
 			m_bDirtyConfig = true;
 		}
 	}
-#if 0 // Not in Swarm, prevents ConVarRef console spam
+#ifndef P2ASW // Not in Swarm, prevents ConVarRef console spam
 	else if ( !V_stricmp( "RawMouseEnabled", pCommand ) )
 	{
 		CGameUIConVarRef m_rawinput( "m_rawinput" );

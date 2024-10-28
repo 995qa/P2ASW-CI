@@ -51,8 +51,9 @@
 	#include "econ_ui.h"
 #endif
 
-// Not in Swarm
-//#include "netmessages.h"
+#ifndef P2ASW
+#include "netmessages.h"
+#endif
 #include "cegclientwrapper.h"
 
 #ifndef NO_STEAM
@@ -234,8 +235,9 @@ CUIGameData::CUIGameData() :
 #if !defined( NO_STEAM )
 	m_CallbackGameOverlayActivated( this, &CUIGameData::Steam_OnGameOverlayActivated ),
 	m_CallbackPersonaStateChanged( this, &CUIGameData::Steam_OnPersonaStateChanged ),
-	// Not in Swarm
-	//m_CallbackAvatarImageLoaded( this, &CUIGameData::Steam_OnAvatarImageLoaded ),
+#ifndef P2ASW
+	m_CallbackAvatarImageLoaded( this, &CUIGameData::Steam_OnAvatarImageLoaded ),
+#endif
 	m_CallbackUserStatsStored( this, &CUIGameData::Steam_OnUserStatsStored ),
 	m_CallbackUserStatsReceived( this, &CUIGameData::Steam_OnUserStatsReceived ),
 #endif
@@ -992,25 +994,26 @@ void CUIGameData::Steam_OnGameOverlayActivated( GameOverlayActivated_t *pParam )
 		GameUI().ActivateGameUI();
 }
 
-// Not in Swarm
-//void CUIGameData::Steam_OnAvatarImageLoaded( AvatarImageLoaded_t *pParam )
-//{
-//	if ( !pParam->m_steamID.IsValid() )
-//		return;
-//
-//	CGameUiAvatarImage *pImage = NULL;
-//	int iIndex = m_mapUserXuidToAvatar.Find( pParam->m_steamID.ConvertToUint64() );
-//	if ( iIndex != m_mapUserXuidToAvatar.InvalidIndex() )
-//	{
-//		pImage = m_mapUserXuidToAvatar.Element( iIndex );
-//	}
-//
-//	// Re-fetch the image if we have it cached
-//	if ( pImage )
-//	{
-//		pImage->SetAvatarXUID( pParam->m_steamID.ConvertToUint64() );
-//	}
-//}
+#ifndef P2ASW
+void CUIGameData::Steam_OnAvatarImageLoaded( AvatarImageLoaded_t *pParam )
+{
+	if ( !pParam->m_steamID.IsValid() )
+		return;
+
+	CGameUiAvatarImage *pImage = NULL;
+	int iIndex = m_mapUserXuidToAvatar.Find( pParam->m_steamID.ConvertToUint64() );
+	if ( iIndex != m_mapUserXuidToAvatar.InvalidIndex() )
+	{
+		pImage = m_mapUserXuidToAvatar.Element( iIndex );
+	}
+
+	// Re-fetch the image if we have it cached
+	if ( pImage )
+	{
+		pImage->SetAvatarXUID( pParam->m_steamID.ConvertToUint64() );
+	}
+}
+#endif
 
 void CUIGameData::Steam_OnPersonaStateChanged( PersonaStateChange_t *pParam )
 {
@@ -2617,11 +2620,13 @@ void CUIGameData::RunFrame()
 	}
 
 	// Added for p2asw since the engine doesn't call NeedConnectionProblemWaitScreen() in Swarm
+#ifdef P2ASW
 	if ( engine->GetNetChannelInfo() && engine->GetNetChannelInfo()->IsTimingOut() 
 		 && !engine->IsPlayingDemo() && engine->IsInGame())
 	{
 		m_flShowConnectionProblemTimer = 1.0f;
 	}
+#endif
 
 	if ( m_flShowConnectionProblemTimer > 0.0f )
 	{

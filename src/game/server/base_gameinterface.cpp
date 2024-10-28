@@ -210,8 +210,12 @@ void CServerGameDLL::ApplyGameSettings( KeyValues *pKV )
 		sv_bonus_challenge.SetValue(bIsChallenge);
 	}
 
+#ifdef P2ASW
 	// Has to be "game/mission" in Swarm - "game/map" is not passed through to this code
 	szBspName = pKV->GetString("game/mission", "");
+#else
+	szBspName = pKV->GetString("game/map", "");
+#endif
 	
 #endif
 
@@ -233,8 +237,12 @@ void CServerGameDLL::ApplyGameSettings( KeyValues *pKV )
 		map_wants_save_disable.SetValue(0);
 
 		// handle loading savegames
+#ifdef P2ASW
 		// "game/save" is not passed through either, so "game/campaign" is used instead
 		const char* szSaveName = pKV->GetString("game/campaign", 0);
+#else
+		const char* szSaveName = pKV->GetString("game/save", 0);
+#endif
 
 		// Ignore if the save name is "jacob", this is the default value set by Swarm matchmaking.dll if none is specified
 		// (if the user actually has a save with this name, it will be passed in as "jacob.sav")

@@ -1,4 +1,4 @@
-//===== Copyright © 1996-2005, Valve Corporation, All rights reserved. ======//
+//===== Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ======//
 //
 // Purpose: 
 //
@@ -1261,7 +1261,7 @@ void C_Prop_Portal::GetToolRecordingState( KeyValues *msg )
 	}
 
 	{
-#if 0
+#ifndef P2ASW
 		KeyValues *pKV = CIFM_EntityKeyValuesHandler_AutoRegister::FindOrCreateNonConformantKeyValues( msg );
 		pKV->SetString( CIFM_EntityKeyValuesHandler_AutoRegister::GetHandlerIDKeyString(), "C_Prop_Portal" );
 
@@ -1272,7 +1272,7 @@ void C_Prop_Portal::GetToolRecordingState( KeyValues *msg )
 }
 
 // No IFM in Swarm
-#if 0
+#ifndef P2ASW
 class C_Prop_Portal_EntityKeyValuesHandler : public CIFM_EntityKeyValuesHandler_AutoRegister
 {
 public:

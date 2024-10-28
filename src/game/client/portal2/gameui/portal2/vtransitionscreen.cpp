@@ -49,10 +49,12 @@ void CTransitionScreen::ApplySchemeSettings( vgui::IScheme *pScheme )
 
 	bool bIsWidescreen = ( (float)screenWide / (float)screenTall ) >= 1.5999f;
 
-	// Not in Swarm
-	//char filename[MAX_PATH];
-	//engine->GetStartupImage( filename, sizeof( filename ) );
+#ifndef P2ASW
+	char filename[MAX_PATH];
+	engine->GetStartupImage( filename, sizeof( filename ) );
+#else
 	const char* filename = bIsWidescreen ? "console/portal2_product_1_widescreen" : "console/portal2_product_1";
+#endif
 	m_iImageID = surface()->CreateNewTextureID();
 	surface()->DrawSetTextureFile( m_iImageID, filename, true, false );
 

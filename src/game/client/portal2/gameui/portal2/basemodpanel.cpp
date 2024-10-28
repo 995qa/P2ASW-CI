@@ -332,7 +332,12 @@ CBaseModPanel::CBaseModPanel(): BaseClass(0, "CBaseModPanel"),
 
 	m_pTransitionPanel = new CBaseModTransitionPanel( "TransitionPanel" );
 	// PANEL_TRANSITIONEFFECT not in Swarm
-	m_pTransitionPanel->SetParent( this->GetVPanel() ); // enginevguifuncs->GetPanel( PANEL_TRANSITIONEFFECT )
+	// TODO: Is there something better to use here? This seems to cause issues
+#ifdef P2ASW
+	m_pTransitionPanel->SetParent( this->GetVPanel() );
+#else
+	m_pTransitionPanel->SetParent( enginevguifuncs->GetPanel( PANEL_TRANSITIONEFFECT ) );
+#endif
 
 	m_hOptionsDialog = NULL;
 
@@ -2797,15 +2802,19 @@ void CBaseModPanel::ApplySchemeSettings(IScheme *pScheme)
 	SetBgColor( pScheme->GetColor( "Blank", Color( 0, 0, 0, 0 ) ) );
 
 	// need the startup image instantly to take over from the non-interactive refresh on first paint
-	// Not in Swarm
-	//char filename[MAX_PATH];
-	//engine->GetStartupImage( filename, sizeof( filename ) );
+	// GetStartupImage Not in Swarm
+#ifdef P2ASW
 	int screenWide, screenTall;
 	surface()->GetScreenSize( screenWide, screenTall );
 
 	bool bIsWidescreen = ( (float)screenWide / (float)screenTall ) >= 1.5999f;
 
+	// TODO: Read the first image set in chapterbackgrounds.txt instead of hardcoding this
 	const char* filename = bIsWidescreen ? "console/portal2_product_1_widescreen" : "console/portal2_product_1";
+#else
+	char filename[MAX_PATH];
+	engine->GetStartupImage( filename, sizeof( filename ) );
+#endif
 
 	m_iStartupImageID = surface()->CreateNewTextureID();
 	surface()->DrawSetTextureFile( m_iStartupImageID, filename, true, false );
@@ -3055,14 +3064,15 @@ void CBaseModPanel::CalculateMovieParameters( BIKMaterial_t hBIKMaterial, bool b
 		return;
 	}
 
-
+#ifndef P2ASW
+	const AspectRatioInfo_t &aspectRatioInfo = materials->GetAspectRatioInfo();
+	float flPhysicalFrameRatio = aspectRatioInfo.m_flFrameBuffertoPhysicalScalar * ( ( float ) GetWide() / ( float ) GetTall() );
+#else
 	// The AspectRatioInfo system does not exist in Swarm
 	// This seems to just be here to account for anamorphic widescreen on PS3
 	// On PC the scalar is always 1.0
-	//const AspectRatioInfo_t &aspectRatioInfo = materials->GetAspectRatioInfo();
-	//float flPhysicalFrameRatio = aspectRatioInfo.m_flFrameBuffertoPhysicalScalar * ( ( float ) GetWide() / ( float ) GetTall() );
-
 	float flPhysicalFrameRatio = ( ( float ) GetWide() / ( float ) GetTall() );
+#endif
 
 	// Assume that the video is authored for square pixels.
 	float flVideoRatio = ( ( float ) nWidth / ( float ) nHeight );
@@ -3076,12 +3086,20 @@ void CBaseModPanel::CalculateMovieParameters( BIKMaterial_t hBIKMaterial, bool b
 		{
 			m_nMoviePlaybackWidth = GetWide();
 			// Have to account for the difference between physical and pixel aspect ratios.
-			m_nMoviePlaybackHeight = ( ( float )GetWide() /*/ aspectRatioInfo.m_flPhysicalToFrameBufferScalar*/ ) / flVideoRatio;
+#ifdef P2ASW
+			m_nMoviePlaybackHeight = ( ( float )GetWide() ) / flVideoRatio;
+#else
+			m_nMoviePlaybackHeight = ( ( float )GetWide() / aspectRatioInfo.m_flPhysicalToFrameBufferScalar ) / flVideoRatio;
+#endif
 		}
 		else if ( flVideoRatio < flPhysicalFrameRatio )
 		{
 			// Have to account for the difference between physical and pixel aspect ratios.
-			m_nMoviePlaybackWidth = ( float )GetTall() * flVideoRatio /** aspectRatioInfo.m_flPhysicalToFrameBufferScalar*/;
+#ifdef P2ASW			
+			m_nMoviePlaybackWidth = ( float )GetTall() * flVideoRatio;
+#else
+			m_nMoviePlaybackWidth = ( float )GetTall() * flVideoRatio * aspectRatioInfo.m_flPhysicalToFrameBufferScalar;
+#endif
 			m_nMoviePlaybackHeight = GetTall();
 		}
 		else
@@ -3097,8 +3115,10 @@ void CBaseModPanel::CalculateMovieParameters( BIKMaterial_t hBIKMaterial, bool b
 	{
 		// Width must be adjusted.  Lop of the left and right.
 		float flImageWidth = ( float )GetTall() * flVideoRatio;
+#ifndef P2ASW
 		// convert from physical to pixels
-		//flImageWidth *= aspectRatioInfo.m_flPhysicalToFrameBufferScalar;
+		flImageWidth *= aspectRatioInfo.m_flPhysicalToFrameBufferScalar;
+#endif
 		const float flSpanScaled = ( m_flU1 - m_flU0 ) * GetWide() / flImageWidth;
 		m_flU0 = ( m_flU1 - flSpanScaled ) / 2.0f;
 		m_flU1 = m_flU0 + flSpanScaled;
@@ -3107,9 +3127,11 @@ void CBaseModPanel::CalculateMovieParameters( BIKMaterial_t hBIKMaterial, bool b
 	{
 		// Height must be adjusted.  Lop of the top and bottom.
 		float flImageHeight = ( float )GetWide() * ( ( float )nHeight / ( float )nWidth );
+#ifndef P2ASW
 		// convert from physical to pixels
 		// ( would divide by m_flPhysicalToFrameBufferScalar, but m_flFrameBuffertoPhysicalScalar = 1.0f / m_flPhysicalToFrameBufferScalar
-		//flImageHeight *= aspectRatioInfo.m_flFrameBuffertoPhysicalScalar;
+		flImageHeight *= aspectRatioInfo.m_flFrameBuffertoPhysicalScalar;
+#endif
 		const float flSpanScaled = ( m_flV1 - m_flV0 ) * GetTall() / flImageHeight;
 		m_flV0 = ( m_flV1 - flSpanScaled ) / 2.0f;
 		m_flV1 = m_flV0 + flSpanScaled;
@@ -3209,16 +3231,19 @@ void CBaseModPanel::ShutdownBackgroundMovie( void )
 bool CBaseModPanel::RenderBackgroundMovie()
 {
 	// GameHasShutdownAndFlushedMemory not in Swarm
-#ifdef _GAMECONSOLE
-	if ( !m_bAllowMovie )
+#ifndef P2ASW
+	if ( IsGameConsole() )
 	{
-		return false;
-	}
-	else if ( !engine->GameHasShutdownAndFlushedMemory() )
-	{
-		// Do not actually start the movie until the engine has fully finished unloading the previous map's assets from memory
-		// (this will take several frames, and the total duration is unpredictable - it completes in HostState_GameShutdown).
-		return false;
+		if ( !m_bAllowMovie )
+		{
+			return false;
+		}
+		else if ( !engine->GameHasShutdownAndFlushedMemory() )
+		{
+			// Do not actually start the movie until the engine has fully finished unloading the previous map's assets from memory
+			// (this will take several frames, and the total duration is unpredictable - it completes in HostState_GameShutdown).
+			return false;
+		}
 	}
 #endif
 
@@ -3620,17 +3645,18 @@ void CBaseModPanel::PostChildPaint()
 		// only the background images (first frame movie snap) that overlay the movies need to adjust their texcoords to match the movie
 		if ( m_iBackgroundImageID != -1 && m_iFadeOutOverlayImageID == m_iBackgroundImageID )
 		{
-			//const AspectRatioInfo_t &aspectRatioInfo = materials->GetAspectRatioInfo();
-
+#ifndef P2ASW
+			const AspectRatioInfo_t &aspectRatioInfo = materials->GetAspectRatioInfo();
+			bool bIsWidescreen = aspectRatioInfo.m_bIsWidescreen
+#else
 			// Alternate method for checking for widescreen
 			// The AspectRatioInfo system does not exist in Swarm
 			int screenWide, screenTall;
 			surface()->GetScreenSize( screenWide, screenTall );
 
-			bool bIsWidescreen;
 			float aspectRatio = (float)screenWide/(float)screenTall;
-			bIsWidescreen = aspectRatio >= 1.5999f;
-
+			bool bIsWidescreen = aspectRatio >= 1.5999f;
+#endif
 			float sMin, tMin, sMax, tMax;
 
 			// needs to match image aspect ratio (known to be either 16:9 or 4:3), resolved in SelectBackgroundPresentation()
@@ -4130,8 +4156,9 @@ int CBaseModPanel::GetChapterProgress()
 		// Check if player has unlocked "ACH.SHOOT_THE_MOON", then all chapters should be available
 		KeyValues *kvAwards = new KeyValues( "read_awards", "ACH.SHOOT_THE_MOON", int(0) );
 		KeyValues::AutoDelete autodelete_kvAwards( kvAwards );
-		// Not in Swarm
-		//pPlayer->GetAwardsData( kvAwards );
+#ifndef P2ASW
+		pPlayer->GetAwardsData( kvAwards );
+#endif
 		if ( kvAwards->GetInt( "ACH.SHOOT_THE_MOON" ) )
 			return nNumChapters; // player has unlocked all chapters
 
@@ -4229,19 +4256,18 @@ void CBaseModPanel::SelectBackgroundPresentation()
 
 	nAct = clamp( nAct, 1, nMaxActs );
 	m_nCurrentActPresentation = nAct;
-
-	//const AspectRatioInfo_t &aspectRatioInfo = materials->GetAspectRatioInfo();
-	//bool bIsWidescreen = aspectRatioInfo.m_bIsWidescreen;
-
+#ifndef P2ASW
+	const AspectRatioInfo_t &aspectRatioInfo = materials->GetAspectRatioInfo();
+	bool bIsWidescreen = aspectRatioInfo.m_bIsWidescreen;
+#else
 	// Alternate method for checking for widescreen
 	// The AspectRatioInfo system does not exist in Swarm
 	int screenWide, screenTall;
 	surface()->GetScreenSize( screenWide, screenTall );
 
-	bool bIsWidescreen;
 	float aspectRatio = (float)screenWide/(float)screenTall;
-	bIsWidescreen = aspectRatio >= 1.5999f;
-
+	bool bIsWidescreen = aspectRatio >= 1.5999f;
+#endif
 	// get the substitute movie image, matched to the movie chosen
 	// used to hide long i/o on loading entire menu movie, blends away to reveal movie
 	CFmtStr pFadeFilename("");
