@@ -425,7 +425,7 @@ void C_Trigger_TractorBeam::CreateParticles( void )
 		ParticleProp()->StopEmission( m_hCoreEffect, false, false, false, true );
 		m_hCoreEffect = NULL;
 	}
-	m_hCoreEffect = ParticleProp()->Create( "tractor_beam_core", PATTACH_CUSTOMORIGIN, -1, vec3_origin, 0 );
+	m_hCoreEffect = ParticleProp()->Create( "tractor_beam_core", PATTACH_CUSTOMORIGIN );
 
 
 	if (m_hCoreEffect)
