@@ -7,7 +7,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/cave_laugh04.wav"
+	"wave"	"vo_renamed/cavejohnson/cave_laugh04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -32,7 +32,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/eighties_intro01.wav"
+	"wave"	"vo_renamed/cavejohnson/eighties_intro01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -61,7 +61,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/eighties_intro04.wav"
+	"wave"	"vo_renamed/cavejohnson/eighties_intro04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -90,7 +90,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/eighties_intro06.wav"
+	"wave"	"vo_renamed/cavejohnson/eighties_intro06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -119,7 +119,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/eighties_intro08.wav"
+	"wave"	"vo_renamed/cavejohnson/eighties_intro08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -148,7 +148,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/eighties_intro03.wav"
+	"wave"	"vo_renamed/cavejohnson/eighties_intro03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -177,7 +177,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/eighties_intro07.wav"
+	"wave"	"vo_renamed/cavejohnson/eighties_intro07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -206,7 +206,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/eighties_intro10.wav"
+	"wave"	"vo_renamed/cavejohnson/eighties_intro10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -235,7 +235,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/eighties_intro12.wav"
+	"wave"	"vo_renamed/cavejohnson/eighties_intro12.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -264,7 +264,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/eighties_outro09.wav"
+	"wave"	"vo_renamed/cavejohnson/eighties_outro09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -297,7 +297,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/eighties_outro11.wav"
+	"wave"	"vo_renamed/cavejohnson/eighties_outro11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -330,7 +330,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/eighties_outro02.wav"
+	"wave"	"vo_renamed/cavejohnson/eighties_outro02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -363,7 +363,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/eighties_outro06.wav"
+	"wave"	"vo_renamed/cavejohnson/eighties_outro06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -396,7 +396,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/eighties_outro07.wav"
+	"wave"	"vo_renamed/cavejohnson/eighties_outro07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -429,7 +429,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/eighties_outro08.wav"
+	"wave"	"vo_renamed/cavejohnson/eighties_outro08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -462,7 +462,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/eighties_outro05.wav"
+	"wave"	"vo_renamed/cavejohnson/eighties_outro05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -495,7 +495,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_elevator_out_a01.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_elevator_out_a01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -516,7 +516,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_fifth_test_complete03.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_fifth_test_complete03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -541,7 +541,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_fifth_test_complete08.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_fifth_test_complete08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -566,7 +566,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_fifth_test_complete09.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_fifth_test_complete09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -591,7 +591,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_fifth_test_intro01.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_fifth_test_intro01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -616,7 +616,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_fifth_test_intro03.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_fifth_test_intro03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -641,7 +641,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_fifth_test_intro06.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_fifth_test_intro06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -666,7 +666,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_fourth_test_complete01.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_fourth_test_complete01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -687,7 +687,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_fourth_test_complete02.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_fourth_test_complete02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -708,7 +708,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_into_middle_of_test01.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_into_middle_of_test01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -729,7 +729,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_into_middle_of_test02.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_into_middle_of_test02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -750,7 +750,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_intro01.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_intro01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -775,7 +775,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_intro03.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_intro03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -800,7 +800,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_intro06.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_intro06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -825,7 +825,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_intro07.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_intro07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -850,7 +850,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_intro04.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_intro04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -875,7 +875,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_outro05.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_outro05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -900,7 +900,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_outro07.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_outro07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -925,7 +925,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_outro08.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_outro08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -950,7 +950,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_outro09.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_outro09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -975,7 +975,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_outro02.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_outro02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1000,7 +1000,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_repulsion_intro03.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_repulsion_intro03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1025,7 +1025,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_repulsion_intro02.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_repulsion_intro02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1050,7 +1050,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_second_test_complete02.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_second_test_complete02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1075,7 +1075,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_second_test_complete03.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_second_test_complete03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1100,7 +1100,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_second_test_intro01.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_second_test_intro01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1125,7 +1125,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_waiting01.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_waiting01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1154,7 +1154,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_waiting03.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_waiting03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1183,7 +1183,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_waiting05.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_waiting05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1212,7 +1212,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_waiting08.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_waiting08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1241,7 +1241,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/fifties_waiting07.wav"
+	"wave"	"vo_renamed/cavejohnson/fifties_waiting07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1270,7 +1270,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/misc_tests02.wav"
+	"wave"	"vo_renamed/cavejohnson/misc_tests02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1291,7 +1291,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/misc_tests03.wav"
+	"wave"	"vo_renamed/cavejohnson/misc_tests03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1312,7 +1312,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/misc_tests06.wav"
+	"wave"	"vo_renamed/cavejohnson/misc_tests06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1333,7 +1333,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/misc_tests07.wav"
+	"wave"	"vo_renamed/cavejohnson/misc_tests07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1358,7 +1358,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/misc_tests08.wav"
+	"wave"	"vo_renamed/cavejohnson/misc_tests08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1379,7 +1379,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/misc_tests10.wav"
+	"wave"	"vo_renamed/cavejohnson/misc_tests10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1400,7 +1400,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/misc_tests14.wav"
+	"wave"	"vo_renamed/cavejohnson/misc_tests14.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1421,7 +1421,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/misc_tests01.wav"
+	"wave"	"vo_renamed/cavejohnson/misc_tests01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1442,7 +1442,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/misc_tests24.wav"
+	"wave"	"vo_renamed/cavejohnson/misc_tests24.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1463,7 +1463,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/misc_tests25.wav"
+	"wave"	"vo_renamed/cavejohnson/misc_tests25.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1484,7 +1484,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/misc_tests26.wav"
+	"wave"	"vo_renamed/cavejohnson/misc_tests26.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1509,7 +1509,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/misc_tests28.wav"
+	"wave"	"vo_renamed/cavejohnson/misc_tests28.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1530,7 +1530,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/seventies_intro02.wav"
+	"wave"	"vo_renamed/cavejohnson/seventies_intro02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1555,7 +1555,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/seventies_intro06.wav"
+	"wave"	"vo_renamed/cavejohnson/seventies_intro06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1580,7 +1580,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/seventies_intro07.wav"
+	"wave"	"vo_renamed/cavejohnson/seventies_intro07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1605,7 +1605,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/seventies_intro14.wav"
+	"wave"	"vo_renamed/cavejohnson/seventies_intro14.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1630,7 +1630,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/seventies_intro04.wav"
+	"wave"	"vo_renamed/cavejohnson/seventies_intro04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1655,7 +1655,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/seventies_intro15.wav"
+	"wave"	"vo_renamed/cavejohnson/seventies_intro15.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1680,7 +1680,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/seventies_intro16.wav"
+	"wave"	"vo_renamed/cavejohnson/seventies_intro16.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1705,7 +1705,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/seventies_outro01.wav"
+	"wave"	"vo_renamed/cavejohnson/seventies_outro01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1730,7 +1730,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/seventies_outro02.wav"
+	"wave"	"vo_renamed/cavejohnson/seventies_outro02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1755,7 +1755,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/seventies_test_a_complete05.wav"
+	"wave"	"vo_renamed/cavejohnson/seventies_test_a_complete05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1780,7 +1780,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/seventies_test_a_complete06.wav"
+	"wave"	"vo_renamed/cavejohnson/seventies_test_a_complete06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1805,7 +1805,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/seventies_test_a_intro01.wav"
+	"wave"	"vo_renamed/cavejohnson/seventies_test_a_intro01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1826,7 +1826,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/seventies_test_a_intro02.wav"
+	"wave"	"vo_renamed/cavejohnson/seventies_test_a_intro02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1847,7 +1847,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/seventies_test_b_complete01.wav"
+	"wave"	"vo_renamed/cavejohnson/seventies_test_b_complete01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1868,7 +1868,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/seventies_test_b_complete03.wav"
+	"wave"	"vo_renamed/cavejohnson/seventies_test_b_complete03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1893,7 +1893,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/seventies_test_b_complete04.wav"
+	"wave"	"vo_renamed/cavejohnson/seventies_test_b_complete04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1926,7 +1926,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/caroline_cave_responses25.wav"
+	"wave"	"vo_renamed/cavejohnson/caroline_cave_responses25.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1951,7 +1951,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/caroline_cave_responses27.wav"
+	"wave"	"vo_renamed/cavejohnson/caroline_cave_responses27.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1972,7 +1972,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/caroline_cave_responses31.wav"
+	"wave"	"vo_renamed/cavejohnson/caroline_cave_responses31.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1997,7 +1997,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/caroline_cave_responses36.wav"
+	"wave"	"vo_renamed/cavejohnson/caroline_cave_responses36.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2022,7 +2022,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_90dB"
-	"wave"	"vo_converted/cavejohnson/caroline_cave_responses43.wav"
+	"wave"	"vo_renamed/cavejohnson/caroline_cave_responses43.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{

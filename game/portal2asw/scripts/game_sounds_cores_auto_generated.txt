@@ -7,7 +7,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble01.wav"
+	"wave"	"vo_renamed/core03/babble01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -23,7 +23,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble02.wav"
+	"wave"	"vo_renamed/core03/babble02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -39,7 +39,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble03.wav"
+	"wave"	"vo_renamed/core03/babble03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -55,7 +55,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble04.wav"
+	"wave"	"vo_renamed/core03/babble04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -71,7 +71,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble05.wav"
+	"wave"	"vo_renamed/core03/babble05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -87,7 +87,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble06.wav"
+	"wave"	"vo_renamed/core03/babble06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -103,7 +103,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble07.wav"
+	"wave"	"vo_renamed/core03/babble07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -119,7 +119,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble08.wav"
+	"wave"	"vo_renamed/core03/babble08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -135,7 +135,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble09.wav"
+	"wave"	"vo_renamed/core03/babble09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -151,7 +151,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble10.wav"
+	"wave"	"vo_renamed/core03/babble10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -167,7 +167,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble11.wav"
+	"wave"	"vo_renamed/core03/babble11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -183,7 +183,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble12.wav"
+	"wave"	"vo_renamed/core03/babble12.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -199,7 +199,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble13.wav"
+	"wave"	"vo_renamed/core03/babble13.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -215,7 +215,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble14.wav"
+	"wave"	"vo_renamed/core03/babble14.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -231,7 +231,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble15.wav"
+	"wave"	"vo_renamed/core03/babble15.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -247,7 +247,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble16.wav"
+	"wave"	"vo_renamed/core03/babble16.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -263,7 +263,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble17.wav"
+	"wave"	"vo_renamed/core03/babble17.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -279,7 +279,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble18.wav"
+	"wave"	"vo_renamed/core03/babble18.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -295,7 +295,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble29.wav"
+	"wave"	"vo_renamed/core03/babble29.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -311,7 +311,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble30.wav"
+	"wave"	"vo_renamed/core03/babble30.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -327,7 +327,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble19.wav"
+	"wave"	"vo_renamed/core03/babble19.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -343,7 +343,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble20.wav"
+	"wave"	"vo_renamed/core03/babble20.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -359,7 +359,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble21.wav"
+	"wave"	"vo_renamed/core03/babble21.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -375,7 +375,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble22.wav"
+	"wave"	"vo_renamed/core03/babble22.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -391,7 +391,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble23.wav"
+	"wave"	"vo_renamed/core03/babble23.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -407,7 +407,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble24.wav"
+	"wave"	"vo_renamed/core03/babble24.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -423,7 +423,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/core03/babble25.wav"
+	"wave"	"vo_renamed/core03/babble25.mp3"
 }
 "core03.babble26"
 {
@@ -431,7 +431,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/core03/babble26.wav"
+	"wave"	"vo_renamed/core03/babble26.mp3"
 }
 "core03.babble27"
 {
@@ -439,7 +439,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/core03/babble27.wav"
+	"wave"	"vo_renamed/core03/babble27.mp3"
 }
 "core03.babble28"
 {
@@ -447,7 +447,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/babble28.wav"
+	"wave"	"vo_renamed/core03/babble28.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -463,7 +463,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/encouragement02.wav"
+	"wave"	"vo_renamed/core03/encouragement02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -479,7 +479,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/encouragement03.wav"
+	"wave"	"vo_renamed/core03/encouragement03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -495,7 +495,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/encouragement04.wav"
+	"wave"	"vo_renamed/core03/encouragement04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -511,7 +511,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/encouragement01.wav"
+	"wave"	"vo_renamed/core03/encouragement01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -527,7 +527,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/encouragement05.wav"
+	"wave"	"vo_renamed/core03/encouragement05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -543,7 +543,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/encouragement06.wav"
+	"wave"	"vo_renamed/core03/encouragement06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -559,7 +559,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/encouragement07.wav"
+	"wave"	"vo_renamed/core03/encouragement07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -575,7 +575,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/encouragement08.wav"
+	"wave"	"vo_renamed/core03/encouragement08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -591,7 +591,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/encouragement09.wav"
+	"wave"	"vo_renamed/core03/encouragement09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -607,7 +607,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/encouragement10.wav"
+	"wave"	"vo_renamed/core03/encouragement10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -623,7 +623,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/encouragement11.wav"
+	"wave"	"vo_renamed/core03/encouragement11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -639,7 +639,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/encouragement12.wav"
+	"wave"	"vo_renamed/core03/encouragement12.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -655,7 +655,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/encouragement13.wav"
+	"wave"	"vo_renamed/core03/encouragement13.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -671,7 +671,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/factapplicable01.wav"
+	"wave"	"vo_renamed/core03/factapplicable01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -687,7 +687,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/factapplicable02.wav"
+	"wave"	"vo_renamed/core03/factapplicable02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -703,7 +703,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/factresponse01.wav"
+	"wave"	"vo_renamed/core03/factresponse01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -719,7 +719,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/factresponse02.wav"
+	"wave"	"vo_renamed/core03/factresponse02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -735,7 +735,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/factresponse03.wav"
+	"wave"	"vo_renamed/core03/factresponse03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -751,7 +751,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/factresponse04.wav"
+	"wave"	"vo_renamed/core03/factresponse04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -767,7 +767,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/factresponse05.wav"
+	"wave"	"vo_renamed/core03/factresponse05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -783,7 +783,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/factresponse06.wav"
+	"wave"	"vo_renamed/core03/factresponse06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -799,7 +799,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/factresponse07.wav"
+	"wave"	"vo_renamed/core03/factresponse07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -815,7 +815,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/singing01.wav"
+	"wave"	"vo_renamed/core03/singing01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -831,7 +831,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/singing02.wav"
+	"wave"	"vo_renamed/core03/singing02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -847,7 +847,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/spaceresponse01.wav"
+	"wave"	"vo_renamed/core03/spaceresponse01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -863,7 +863,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/spaceresponse02.wav"
+	"wave"	"vo_renamed/core03/spaceresponse02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -879,7 +879,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/spaceresponse03.wav"
+	"wave"	"vo_renamed/core03/spaceresponse03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -895,7 +895,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/spaceresponse04.wav"
+	"wave"	"vo_renamed/core03/spaceresponse04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -911,7 +911,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core03/spaceresponse05.wav"
+	"wave"	"vo_renamed/core03/spaceresponse05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -934,7 +934,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble20.wav"
+	"wave"	"vo_renamed/core01/babble20.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -950,7 +950,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble24.wav"
+	"wave"	"vo_renamed/core01/babble24.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -966,7 +966,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble28.wav"
+	"wave"	"vo_renamed/core01/babble28.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -982,7 +982,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble29.wav"
+	"wave"	"vo_renamed/core01/babble29.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -998,7 +998,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble33.wav"
+	"wave"	"vo_renamed/core01/babble33.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1014,7 +1014,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble57.wav"
+	"wave"	"vo_renamed/core01/babble57.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1030,7 +1030,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble58.wav"
+	"wave"	"vo_renamed/core01/babble58.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1046,7 +1046,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble60.wav"
+	"wave"	"vo_renamed/core01/babble60.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1062,7 +1062,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble61.wav"
+	"wave"	"vo_renamed/core01/babble61.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1078,7 +1078,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble62.wav"
+	"wave"	"vo_renamed/core01/babble62.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1094,7 +1094,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble05.wav"
+	"wave"	"vo_renamed/core01/babble05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1110,7 +1110,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble16.wav"
+	"wave"	"vo_renamed/core01/babble16.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1126,7 +1126,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble19.wav"
+	"wave"	"vo_renamed/core01/babble19.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1142,7 +1142,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble11.wav"
+	"wave"	"vo_renamed/core01/babble11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1158,7 +1158,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble14.wav"
+	"wave"	"vo_renamed/core01/babble14.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1174,7 +1174,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble21.wav"
+	"wave"	"vo_renamed/core01/babble21.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1190,7 +1190,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble22.wav"
+	"wave"	"vo_renamed/core01/babble22.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1206,7 +1206,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble31.wav"
+	"wave"	"vo_renamed/core01/babble31.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1222,7 +1222,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble35.wav"
+	"wave"	"vo_renamed/core01/babble35.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1238,7 +1238,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble36.wav"
+	"wave"	"vo_renamed/core01/babble36.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1254,7 +1254,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble37.wav"
+	"wave"	"vo_renamed/core01/babble37.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1270,7 +1270,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble40.wav"
+	"wave"	"vo_renamed/core01/babble40.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1286,7 +1286,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble42.wav"
+	"wave"	"vo_renamed/core01/babble42.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1302,7 +1302,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble43.wav"
+	"wave"	"vo_renamed/core01/babble43.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1318,7 +1318,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble44.wav"
+	"wave"	"vo_renamed/core01/babble44.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1334,7 +1334,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble45.wav"
+	"wave"	"vo_renamed/core01/babble45.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1350,7 +1350,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble46.wav"
+	"wave"	"vo_renamed/core01/babble46.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1366,7 +1366,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble47.wav"
+	"wave"	"vo_renamed/core01/babble47.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1382,7 +1382,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble48.wav"
+	"wave"	"vo_renamed/core01/babble48.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1398,7 +1398,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble49.wav"
+	"wave"	"vo_renamed/core01/babble49.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1414,7 +1414,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble50.wav"
+	"wave"	"vo_renamed/core01/babble50.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1430,7 +1430,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble51.wav"
+	"wave"	"vo_renamed/core01/babble51.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1446,7 +1446,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble52.wav"
+	"wave"	"vo_renamed/core01/babble52.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1462,7 +1462,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble53.wav"
+	"wave"	"vo_renamed/core01/babble53.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1478,7 +1478,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble54.wav"
+	"wave"	"vo_renamed/core01/babble54.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1494,7 +1494,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble59.wav"
+	"wave"	"vo_renamed/core01/babble59.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1510,7 +1510,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble67.wav"
+	"wave"	"vo_renamed/core01/babble67.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1526,7 +1526,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble68.wav"
+	"wave"	"vo_renamed/core01/babble68.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1542,7 +1542,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble70.wav"
+	"wave"	"vo_renamed/core01/babble70.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1558,7 +1558,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble71.wav"
+	"wave"	"vo_renamed/core01/babble71.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1574,7 +1574,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble73.wav"
+	"wave"	"vo_renamed/core01/babble73.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1590,7 +1590,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble83.wav"
+	"wave"	"vo_renamed/core01/babble83.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1606,7 +1606,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble88.wav"
+	"wave"	"vo_renamed/core01/babble88.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1622,7 +1622,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble89.wav"
+	"wave"	"vo_renamed/core01/babble89.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1638,7 +1638,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble90.wav"
+	"wave"	"vo_renamed/core01/babble90.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1654,7 +1654,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble91.wav"
+	"wave"	"vo_renamed/core01/babble91.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1670,7 +1670,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble92.wav"
+	"wave"	"vo_renamed/core01/babble92.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1686,7 +1686,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble93.wav"
+	"wave"	"vo_renamed/core01/babble93.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1702,7 +1702,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble94.wav"
+	"wave"	"vo_renamed/core01/babble94.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1718,7 +1718,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble95.wav"
+	"wave"	"vo_renamed/core01/babble95.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1734,7 +1734,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble98.wav"
+	"wave"	"vo_renamed/core01/babble98.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1750,7 +1750,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble99.wav"
+	"wave"	"vo_renamed/core01/babble99.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1766,7 +1766,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble100.wav"
+	"wave"	"vo_renamed/core01/babble100.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1782,7 +1782,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble102.wav"
+	"wave"	"vo_renamed/core01/babble102.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1798,7 +1798,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babble105.wav"
+	"wave"	"vo_renamed/core01/babble105.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1814,7 +1814,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb01.wav"
+	"wave"	"vo_renamed/core01/babbleb01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1830,7 +1830,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb02.wav"
+	"wave"	"vo_renamed/core01/babbleb02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1846,7 +1846,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb03.wav"
+	"wave"	"vo_renamed/core01/babbleb03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1862,7 +1862,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb04.wav"
+	"wave"	"vo_renamed/core01/babbleb04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1878,7 +1878,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb05.wav"
+	"wave"	"vo_renamed/core01/babbleb05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1894,7 +1894,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb06.wav"
+	"wave"	"vo_renamed/core01/babbleb06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1910,7 +1910,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb07.wav"
+	"wave"	"vo_renamed/core01/babbleb07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1926,7 +1926,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb08.wav"
+	"wave"	"vo_renamed/core01/babbleb08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1942,7 +1942,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb09.wav"
+	"wave"	"vo_renamed/core01/babbleb09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1958,7 +1958,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb10.wav"
+	"wave"	"vo_renamed/core01/babbleb10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1974,7 +1974,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb11.wav"
+	"wave"	"vo_renamed/core01/babbleb11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1990,7 +1990,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb12.wav"
+	"wave"	"vo_renamed/core01/babbleb12.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2006,7 +2006,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb13.wav"
+	"wave"	"vo_renamed/core01/babbleb13.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2022,7 +2022,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb14.wav"
+	"wave"	"vo_renamed/core01/babbleb14.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2038,7 +2038,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb15.wav"
+	"wave"	"vo_renamed/core01/babbleb15.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2054,7 +2054,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb16.wav"
+	"wave"	"vo_renamed/core01/babbleb16.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2070,7 +2070,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb17.wav"
+	"wave"	"vo_renamed/core01/babbleb17.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2086,7 +2086,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb18.wav"
+	"wave"	"vo_renamed/core01/babbleb18.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2102,7 +2102,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb19.wav"
+	"wave"	"vo_renamed/core01/babbleb19.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2118,7 +2118,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb20.wav"
+	"wave"	"vo_renamed/core01/babbleb20.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2134,7 +2134,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb21.wav"
+	"wave"	"vo_renamed/core01/babbleb21.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2150,7 +2150,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb22.wav"
+	"wave"	"vo_renamed/core01/babbleb22.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2166,7 +2166,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb23.wav"
+	"wave"	"vo_renamed/core01/babbleb23.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2182,7 +2182,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb24.wav"
+	"wave"	"vo_renamed/core01/babbleb24.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2198,7 +2198,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/core01/babbleb25.wav"
+	"wave"	"vo_renamed/core01/babbleb25.mp3"
 }
 "core01.babbleb26"
 {
@@ -2206,7 +2206,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb26.wav"
+	"wave"	"vo_renamed/core01/babbleb26.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2222,7 +2222,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb30.wav"
+	"wave"	"vo_renamed/core01/babbleb30.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2238,7 +2238,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb31.wav"
+	"wave"	"vo_renamed/core01/babbleb31.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2254,7 +2254,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb32.wav"
+	"wave"	"vo_renamed/core01/babbleb32.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2270,7 +2270,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb33.wav"
+	"wave"	"vo_renamed/core01/babbleb33.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2286,7 +2286,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb34.wav"
+	"wave"	"vo_renamed/core01/babbleb34.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2302,7 +2302,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/babbleb35.wav"
+	"wave"	"vo_renamed/core01/babbleb35.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2318,7 +2318,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space06.wav"
+	"wave"	"vo_renamed/core01/space06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2334,7 +2334,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space01.wav"
+	"wave"	"vo_renamed/core01/space01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2350,7 +2350,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space02.wav"
+	"wave"	"vo_renamed/core01/space02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2366,7 +2366,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space03.wav"
+	"wave"	"vo_renamed/core01/space03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2382,7 +2382,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space04.wav"
+	"wave"	"vo_renamed/core01/space04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2398,7 +2398,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space05.wav"
+	"wave"	"vo_renamed/core01/space05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2414,7 +2414,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space07.wav"
+	"wave"	"vo_renamed/core01/space07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2430,7 +2430,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space08.wav"
+	"wave"	"vo_renamed/core01/space08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2446,7 +2446,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space09.wav"
+	"wave"	"vo_renamed/core01/space09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2462,7 +2462,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space10.wav"
+	"wave"	"vo_renamed/core01/space10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2478,7 +2478,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space11.wav"
+	"wave"	"vo_renamed/core01/space11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2494,7 +2494,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space12.wav"
+	"wave"	"vo_renamed/core01/space12.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2510,7 +2510,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space13.wav"
+	"wave"	"vo_renamed/core01/space13.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2526,7 +2526,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space14.wav"
+	"wave"	"vo_renamed/core01/space14.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2542,7 +2542,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space15.wav"
+	"wave"	"vo_renamed/core01/space15.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2558,7 +2558,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space16.wav"
+	"wave"	"vo_renamed/core01/space16.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2574,7 +2574,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space17.wav"
+	"wave"	"vo_renamed/core01/space17.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2590,7 +2590,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space18.wav"
+	"wave"	"vo_renamed/core01/space18.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2606,7 +2606,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space19.wav"
+	"wave"	"vo_renamed/core01/space19.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2622,7 +2622,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space20.wav"
+	"wave"	"vo_renamed/core01/space20.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2638,7 +2638,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space21.wav"
+	"wave"	"vo_renamed/core01/space21.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2654,7 +2654,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space22.wav"
+	"wave"	"vo_renamed/core01/space22.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2670,7 +2670,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space23.wav"
+	"wave"	"vo_renamed/core01/space23.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2686,7 +2686,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core01/space24.wav"
+	"wave"	"vo_renamed/core01/space24.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2709,7 +2709,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact01.wav"
+	"wave"	"vo_renamed/core02/attachedfact01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2725,7 +2725,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact02.wav"
+	"wave"	"vo_renamed/core02/attachedfact02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2741,7 +2741,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact04.wav"
+	"wave"	"vo_renamed/core02/attachedfact04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2757,7 +2757,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact05.wav"
+	"wave"	"vo_renamed/core02/attachedfact05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2773,7 +2773,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact06.wav"
+	"wave"	"vo_renamed/core02/attachedfact06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2789,7 +2789,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact07.wav"
+	"wave"	"vo_renamed/core02/attachedfact07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2805,7 +2805,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact09.wav"
+	"wave"	"vo_renamed/core02/attachedfact09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2821,7 +2821,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact10.wav"
+	"wave"	"vo_renamed/core02/attachedfact10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2837,7 +2837,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact11.wav"
+	"wave"	"vo_renamed/core02/attachedfact11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2853,7 +2853,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact12.wav"
+	"wave"	"vo_renamed/core02/attachedfact12.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2869,7 +2869,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact13.wav"
+	"wave"	"vo_renamed/core02/attachedfact13.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2885,7 +2885,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact14.wav"
+	"wave"	"vo_renamed/core02/attachedfact14.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2901,7 +2901,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact16.wav"
+	"wave"	"vo_renamed/core02/attachedfact16.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2917,7 +2917,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact17.wav"
+	"wave"	"vo_renamed/core02/attachedfact17.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2933,7 +2933,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact18.wav"
+	"wave"	"vo_renamed/core02/attachedfact18.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2949,7 +2949,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact19.wav"
+	"wave"	"vo_renamed/core02/attachedfact19.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2965,7 +2965,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact20.wav"
+	"wave"	"vo_renamed/core02/attachedfact20.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2981,7 +2981,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact21.wav"
+	"wave"	"vo_renamed/core02/attachedfact21.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2997,7 +2997,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact22.wav"
+	"wave"	"vo_renamed/core02/attachedfact22.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3013,7 +3013,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact23.wav"
+	"wave"	"vo_renamed/core02/attachedfact23.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3029,7 +3029,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact24.wav"
+	"wave"	"vo_renamed/core02/attachedfact24.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3045,7 +3045,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact25.wav"
+	"wave"	"vo_renamed/core02/attachedfact25.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3061,7 +3061,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact03.wav"
+	"wave"	"vo_renamed/core02/attachedfact03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3077,7 +3077,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact08.wav"
+	"wave"	"vo_renamed/core02/attachedfact08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3093,7 +3093,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact15.wav"
+	"wave"	"vo_renamed/core02/attachedfact15.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3109,7 +3109,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact26.wav"
+	"wave"	"vo_renamed/core02/attachedfact26.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3125,7 +3125,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact27.wav"
+	"wave"	"vo_renamed/core02/attachedfact27.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3141,7 +3141,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact28.wav"
+	"wave"	"vo_renamed/core02/attachedfact28.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3157,7 +3157,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact29.wav"
+	"wave"	"vo_renamed/core02/attachedfact29.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3173,7 +3173,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact30.wav"
+	"wave"	"vo_renamed/core02/attachedfact30.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3189,7 +3189,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact31.wav"
+	"wave"	"vo_renamed/core02/attachedfact31.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3205,7 +3205,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact32.wav"
+	"wave"	"vo_renamed/core02/attachedfact32.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3221,7 +3221,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact33.wav"
+	"wave"	"vo_renamed/core02/attachedfact33.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3237,7 +3237,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/attachedfact34.wav"
+	"wave"	"vo_renamed/core02/attachedfact34.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3253,7 +3253,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact01.wav"
+	"wave"	"vo_renamed/core02/fact01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3269,7 +3269,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact02.wav"
+	"wave"	"vo_renamed/core02/fact02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3285,7 +3285,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact03.wav"
+	"wave"	"vo_renamed/core02/fact03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3301,7 +3301,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact04.wav"
+	"wave"	"vo_renamed/core02/fact04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3317,7 +3317,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact05.wav"
+	"wave"	"vo_renamed/core02/fact05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3333,7 +3333,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact06.wav"
+	"wave"	"vo_renamed/core02/fact06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3349,7 +3349,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact07.wav"
+	"wave"	"vo_renamed/core02/fact07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3365,7 +3365,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact08.wav"
+	"wave"	"vo_renamed/core02/fact08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3381,7 +3381,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact09.wav"
+	"wave"	"vo_renamed/core02/fact09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3397,7 +3397,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact10.wav"
+	"wave"	"vo_renamed/core02/fact10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3413,7 +3413,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact11.wav"
+	"wave"	"vo_renamed/core02/fact11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3429,7 +3429,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact12.wav"
+	"wave"	"vo_renamed/core02/fact12.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3445,7 +3445,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact13.wav"
+	"wave"	"vo_renamed/core02/fact13.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3461,7 +3461,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact14.wav"
+	"wave"	"vo_renamed/core02/fact14.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3477,7 +3477,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact15.wav"
+	"wave"	"vo_renamed/core02/fact15.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3493,7 +3493,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact16.wav"
+	"wave"	"vo_renamed/core02/fact16.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3509,7 +3509,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact17.wav"
+	"wave"	"vo_renamed/core02/fact17.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3525,7 +3525,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact18.wav"
+	"wave"	"vo_renamed/core02/fact18.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3541,7 +3541,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact19.wav"
+	"wave"	"vo_renamed/core02/fact19.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3557,7 +3557,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact20.wav"
+	"wave"	"vo_renamed/core02/fact20.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3573,7 +3573,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact21.wav"
+	"wave"	"vo_renamed/core02/fact21.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3589,7 +3589,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact22.wav"
+	"wave"	"vo_renamed/core02/fact22.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3605,7 +3605,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact24.wav"
+	"wave"	"vo_renamed/core02/fact24.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3621,7 +3621,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact25.wav"
+	"wave"	"vo_renamed/core02/fact25.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3637,7 +3637,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact26.wav"
+	"wave"	"vo_renamed/core02/fact26.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3653,7 +3653,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact27.wav"
+	"wave"	"vo_renamed/core02/fact27.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3669,7 +3669,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact28.wav"
+	"wave"	"vo_renamed/core02/fact28.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3685,7 +3685,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact29.wav"
+	"wave"	"vo_renamed/core02/fact29.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3701,7 +3701,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact30.wav"
+	"wave"	"vo_renamed/core02/fact30.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3717,7 +3717,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact31.wav"
+	"wave"	"vo_renamed/core02/fact31.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3733,7 +3733,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact32.wav"
+	"wave"	"vo_renamed/core02/fact32.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3749,7 +3749,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact33.wav"
+	"wave"	"vo_renamed/core02/fact33.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3765,7 +3765,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact34.wav"
+	"wave"	"vo_renamed/core02/fact34.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3781,7 +3781,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact35.wav"
+	"wave"	"vo_renamed/core02/fact35.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3797,7 +3797,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact36.wav"
+	"wave"	"vo_renamed/core02/fact36.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3813,7 +3813,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact37.wav"
+	"wave"	"vo_renamed/core02/fact37.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3829,7 +3829,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact38.wav"
+	"wave"	"vo_renamed/core02/fact38.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3845,7 +3845,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact39.wav"
+	"wave"	"vo_renamed/core02/fact39.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3861,7 +3861,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact40.wav"
+	"wave"	"vo_renamed/core02/fact40.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3877,7 +3877,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact41.wav"
+	"wave"	"vo_renamed/core02/fact41.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3893,7 +3893,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact42.wav"
+	"wave"	"vo_renamed/core02/fact42.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3909,7 +3909,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact43.wav"
+	"wave"	"vo_renamed/core02/fact43.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3925,7 +3925,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact44.wav"
+	"wave"	"vo_renamed/core02/fact44.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3941,7 +3941,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact46.wav"
+	"wave"	"vo_renamed/core02/fact46.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3957,7 +3957,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact47.wav"
+	"wave"	"vo_renamed/core02/fact47.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3973,7 +3973,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact48.wav"
+	"wave"	"vo_renamed/core02/fact48.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3989,7 +3989,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact49.wav"
+	"wave"	"vo_renamed/core02/fact49.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -4005,7 +4005,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact50.wav"
+	"wave"	"vo_renamed/core02/fact50.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -4021,7 +4021,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact51.wav"
+	"wave"	"vo_renamed/core02/fact51.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -4037,7 +4037,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact52.wav"
+	"wave"	"vo_renamed/core02/fact52.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -4053,7 +4053,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact53.wav"
+	"wave"	"vo_renamed/core02/fact53.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -4069,7 +4069,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact54.wav"
+	"wave"	"vo_renamed/core02/fact54.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -4085,7 +4085,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact55.wav"
+	"wave"	"vo_renamed/core02/fact55.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -4101,7 +4101,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact56.wav"
+	"wave"	"vo_renamed/core02/fact56.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -4117,7 +4117,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact57.wav"
+	"wave"	"vo_renamed/core02/fact57.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -4133,7 +4133,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact58.wav"
+	"wave"	"vo_renamed/core02/fact58.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -4149,7 +4149,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact59.wav"
+	"wave"	"vo_renamed/core02/fact59.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -4165,7 +4165,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact60.wav"
+	"wave"	"vo_renamed/core02/fact60.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -4181,7 +4181,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact61.wav"
+	"wave"	"vo_renamed/core02/fact61.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -4197,7 +4197,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact62.wav"
+	"wave"	"vo_renamed/core02/fact62.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -4213,7 +4213,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact23.wav"
+	"wave"	"vo_renamed/core02/fact23.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -4229,7 +4229,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact63.wav"
+	"wave"	"vo_renamed/core02/fact63.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -4245,7 +4245,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact64.wav"
+	"wave"	"vo_renamed/core02/fact64.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -4261,7 +4261,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact65.wav"
+	"wave"	"vo_renamed/core02/fact65.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -4277,7 +4277,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_110dB"
-	"wave"	"vo_converted/core02/fact66.wav"
+	"wave"	"vo_renamed/core02/fact66.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{

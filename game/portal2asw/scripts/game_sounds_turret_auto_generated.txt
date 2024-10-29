@@ -198,7 +198,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_defect_return01.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_defect_return01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -217,7 +217,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_defect_return02.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_defect_return02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -236,7 +236,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_defect_return03.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_defect_return03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -255,7 +255,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_defect_return04.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_defect_return04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -274,7 +274,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_defect_return05.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_defect_return05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -293,7 +293,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_defect_return06.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_defect_return06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -312,7 +312,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_defect_return07.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_defect_return07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -331,7 +331,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_defect_return08.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_defect_return08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -350,7 +350,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_defect_return09.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_defect_return09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -369,7 +369,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_defect_return10.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_defect_return10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -388,7 +388,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_defect_return11.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_defect_return11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -407,7 +407,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_defect_return12.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_defect_return12.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -426,7 +426,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_defect_return13.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_defect_return13.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -445,7 +445,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_defect_return14.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_defect_return14.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -464,7 +464,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_defect_return15.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_defect_return15.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -483,7 +483,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_defect_return16.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_defect_return16.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -502,7 +502,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail01.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -521,7 +521,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail02.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -540,7 +540,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail03.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -559,7 +559,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail04.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -578,7 +578,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail05.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -597,7 +597,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail06.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -616,7 +616,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail07.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -635,7 +635,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail08.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -654,7 +654,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail09.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -673,7 +673,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail10.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -692,7 +692,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail11.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -711,7 +711,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail12.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail12.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -730,7 +730,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail13.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail13.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -749,7 +749,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail14.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail14.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -768,7 +768,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail15.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail15.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -787,7 +787,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail16.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail16.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -806,7 +806,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail17.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail17.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -825,7 +825,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail18.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail18.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -844,7 +844,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail19.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail19.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -863,7 +863,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail20.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail20.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -882,7 +882,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail21.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail21.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -901,7 +901,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail22.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail22.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -920,7 +920,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail23.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail23.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -939,7 +939,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail24.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail24.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -958,7 +958,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail25.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail25.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -977,7 +977,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail26.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail26.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -996,7 +996,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail27.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail27.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1015,7 +1015,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_fail28.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_fail28.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1034,7 +1034,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_goodbye01.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_goodbye01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1053,7 +1053,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_goodbye02.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_goodbye02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1072,7 +1072,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_goodbye03.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_goodbye03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1091,7 +1091,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_goodbye04.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_goodbye04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1110,7 +1110,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_goodbye05.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_goodbye05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1129,7 +1129,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_goodbye06.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_goodbye06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1148,7 +1148,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_goodbye07.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_goodbye07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1167,7 +1167,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_goodbye08.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_goodbye08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1186,7 +1186,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_goodbye09.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_goodbye09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1205,7 +1205,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_goodbye10.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_goodbye10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1224,7 +1224,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_goodbye11.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_goodbye11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1243,7 +1243,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_goodbye12.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_goodbye12.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1262,7 +1262,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/finale02_turret_return_defect_goodbye13.wav"
+	"wave"	"vo_renamed/turret_defective/finale02_turret_return_defect_goodbye13.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1281,7 +1281,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive01.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1300,7 +1300,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive02.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1319,7 +1319,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive03.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1338,7 +1338,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive04.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1357,7 +1357,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive05.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1376,7 +1376,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive06.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1395,7 +1395,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive07.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1414,7 +1414,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive08.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1433,7 +1433,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive09.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1452,7 +1452,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive10.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1471,7 +1471,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive11.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1490,7 +1490,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive12.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive12.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1509,7 +1509,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive13.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive13.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1528,7 +1528,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive14.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive14.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1547,7 +1547,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive15.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive15.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1566,7 +1566,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive16.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive16.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1585,7 +1585,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive17.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive17.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1604,7 +1604,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive18.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive18.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1623,7 +1623,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/glados_battle_defect_arrive19.wav"
+	"wave"	"vo_renamed/turret_defective/glados_battle_defect_arrive19.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1642,7 +1642,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_chat01.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_chat01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1661,7 +1661,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_chat02.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_chat02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1680,7 +1680,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_chat03.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_chat03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1699,7 +1699,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_chat04.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_chat04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1718,7 +1718,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_chat05.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_chat05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1737,7 +1737,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_dryfire01.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_dryfire01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1760,7 +1760,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_dryfire02.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_dryfire02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1783,7 +1783,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_dryfire03.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_dryfire03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1806,7 +1806,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_dryfire04.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_dryfire04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1829,7 +1829,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_dryfire05.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_dryfire05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1852,7 +1852,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_dryfire06.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_dryfire06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1875,7 +1875,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_dryfire07.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_dryfire07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1898,7 +1898,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_dryfire08.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_dryfire08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1921,7 +1921,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_dryfire09.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_dryfire09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1944,7 +1944,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_dryfire10.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_dryfire10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1967,7 +1967,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_dryfire11.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_dryfire11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1990,7 +1990,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_dryfire12.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_dryfire12.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2013,7 +2013,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_dryfire13.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_dryfire13.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2036,7 +2036,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_dryfire14.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_dryfire14.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2059,7 +2059,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_dryfire15.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_dryfire15.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2082,7 +2082,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail03.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2101,7 +2101,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail04.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2120,7 +2120,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail01.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2139,7 +2139,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail02.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2158,7 +2158,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail05.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2177,7 +2177,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail06.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2196,7 +2196,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail07.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2215,7 +2215,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail19.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail19.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2234,7 +2234,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail18.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail18.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2253,7 +2253,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail17.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail17.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2272,7 +2272,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail16.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail16.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2291,7 +2291,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail15.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail15.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2310,7 +2310,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail14.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail14.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2329,7 +2329,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail13.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail13.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2348,7 +2348,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail12.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail12.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2367,7 +2367,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail11.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2386,7 +2386,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail10.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2405,7 +2405,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail09.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2424,7 +2424,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail08.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2443,7 +2443,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail24.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail24.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2462,7 +2462,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail23.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail23.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2481,7 +2481,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail22.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail22.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2500,7 +2500,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail21.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail21.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2519,7 +2519,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail20.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail20.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2538,7 +2538,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail25.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail25.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2557,7 +2557,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail26.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail26.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2576,7 +2576,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_fail27.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_fail27.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2595,7 +2595,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_laugh02.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_laugh02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2614,7 +2614,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_laugh01.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_laugh01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2633,7 +2633,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_laugh03.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_laugh03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2652,7 +2652,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_laugh04.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_laugh04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2671,7 +2671,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_laugh05.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_laugh05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2690,7 +2690,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_laugh06.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_laugh06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2709,7 +2709,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_laugh07.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_laugh07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2728,7 +2728,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_pass01.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_pass01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2747,7 +2747,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_pass02.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_pass02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2766,7 +2766,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_pass03.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_pass03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2785,7 +2785,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_pass04.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_pass04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2804,7 +2804,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_pass05.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_pass05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2823,7 +2823,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_pass06.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_pass06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2842,7 +2842,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_pass07.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_pass07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2861,7 +2861,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_pass08.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_pass08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2880,7 +2880,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_pass09.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_pass09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2899,7 +2899,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_pass10.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_pass10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2918,7 +2918,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange23.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange23.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2941,7 +2941,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange22.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange22.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2964,7 +2964,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange21.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange21.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -2987,7 +2987,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange20.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange20.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3010,7 +3010,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange19.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange19.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3033,7 +3033,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange18.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange18.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3056,7 +3056,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange17.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange17.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3079,7 +3079,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange15.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange15.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3102,7 +3102,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange16.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange16.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3125,7 +3125,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange14.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange14.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3148,7 +3148,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange13.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange13.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3171,7 +3171,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange12.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange12.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3194,7 +3194,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange11.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3217,7 +3217,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange10.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3240,7 +3240,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange09.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3263,7 +3263,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange08.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3286,7 +3286,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange06.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3309,7 +3309,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange05.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3332,7 +3332,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange04.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3355,7 +3355,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange03.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3378,7 +3378,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange02.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3401,7 +3401,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange01.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3424,7 +3424,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange07.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3447,7 +3447,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange24.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange24.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3470,7 +3470,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_postrange25.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_postrange25.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3493,7 +3493,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_prerange06.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_prerange06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3516,7 +3516,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_prerange01.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_prerange01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3539,7 +3539,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_prerange04.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_prerange04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3562,7 +3562,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_prerange03.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_prerange03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3585,7 +3585,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_prerange02.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_prerange02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3608,7 +3608,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_prerange05.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_prerange05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3631,7 +3631,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"1.0"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_prerange07.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_prerange07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3654,7 +3654,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_test01.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_test01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3673,7 +3673,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_test06.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_test06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3692,7 +3692,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_test02.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_test02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3711,7 +3711,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_test03.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_test03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3730,7 +3730,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_test10.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_test10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3749,7 +3749,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_test04.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_test04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3768,7 +3768,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_test05.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_test05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3787,7 +3787,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_test11.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_test11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3806,7 +3806,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_test08.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_test08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3825,7 +3825,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_test09.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_test09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3844,7 +3844,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_test07.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_test07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3863,7 +3863,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_test12.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_test12.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3882,7 +3882,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_test13.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_test13.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3901,7 +3901,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_test14.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_test14.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3920,7 +3920,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_test15.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_test15.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3939,7 +3939,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_test16.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_test16.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3958,7 +3958,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_test17.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_test17.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -3977,7 +3977,7 @@
 	"channel"	"CHAN_VOICE"
 	"volume"	"VOL_NORM"
 	"soundlevel"	"SNDLVL_90db"
-	"wave"	"vo_converted/turret_defective/sp_sabotage_factory_defect_test18.wav"
+	"wave"	"vo_renamed/turret_defective/sp_sabotage_factory_defect_test18.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{

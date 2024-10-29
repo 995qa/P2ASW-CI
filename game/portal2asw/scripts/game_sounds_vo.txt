@@ -8,7 +8,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/RelaxationVault.wav"
+	"wave"		"vo_renamed/cavejohnson/RelaxationVault.mp3"
 }
 
 "cavejohnson.CameraIntro01"
@@ -17,7 +17,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/CameraIntro01.wav"
+	"wave"		"vo_renamed/cavejohnson/CameraIntro01.mp3"
 }
 
 "cavejohnson.CameraIntro02"
@@ -26,7 +26,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/CameraIntro02.wav"
+	"wave"		"vo_renamed/cavejohnson/CameraIntro02.mp3"
 }
 
 "cavejohnson.CameraIntroSuccess"
@@ -35,7 +35,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/CameraIntroSuccess.wav"
+	"wave"		"vo_renamed/cavejohnson/CameraIntroSuccess.mp3"
 }
 
 "cavejohnson.Puzzle01Intro"
@@ -44,7 +44,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/Puzzle01Intro.wav"
+	"wave"		"vo_renamed/cavejohnson/Puzzle01Intro.mp3"
 }
 
 "cavejohnson.Puzzle01Success"
@@ -53,7 +53,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/Puzzle01Success.wav"
+	"wave"		"vo_renamed/cavejohnson/Puzzle01Success.mp3"
 }
 
 "cavejohnson.Puzzle02Intro"
@@ -62,7 +62,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/Puzzle02Intro.wav"
+	"wave"		"vo_renamed/cavejohnson/Puzzle02Intro.mp3"
 }
 
 "cavejohnson.Puzzle02Success"
@@ -71,7 +71,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/Puzzle02Success.wav"
+	"wave"		"vo_renamed/cavejohnson/Puzzle02Success.mp3"
 }
 
 "cavejohnson.FizzlerIntro"
@@ -80,7 +80,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/FizzlerIntro.wav"
+	"wave"		"vo_renamed/cavejohnson/FizzlerIntro.mp3"
 }
 
 "cavejohnson.Puzzle03Intro"
@@ -89,7 +89,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/Puzzle03Intro.wav"
+	"wave"		"vo_renamed/cavejohnson/Puzzle03Intro.mp3"
 }
 
 "cavejohnson.Puzzle03Success"
@@ -98,7 +98,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/Puzzle03Success.wav"
+	"wave"		"vo_renamed/cavejohnson/Puzzle03Success.mp3"
 }
 
 "cavejohnson.Puzzle04Intro"
@@ -107,7 +107,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/Puzzle04Intro.wav"
+	"wave"		"vo_renamed/cavejohnson/Puzzle04Intro.mp3"
 }
 
 "cavejohnson.Puzzle04Success"
@@ -116,7 +116,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/Puzzle04Success.wav"
+	"wave"		"vo_renamed/cavejohnson/Puzzle04Success.mp3"
 }
 
 "cavejohnson.FilmCapacityIntro01"
@@ -125,7 +125,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/FilmCapacityIntro01.wav"
+	"wave"		"vo_renamed/cavejohnson/FilmCapacityIntro01.mp3"
 }
 
 "cavejohnson.FilmCapacityIntro02"
@@ -134,7 +134,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/FilmCapacityIntro02.wav"
+	"wave"		"vo_renamed/cavejohnson/FilmCapacityIntro02.mp3"
 }
 
 "cavejohnson.Puzzle05Intro"
@@ -143,7 +143,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/Puzzle05Intro.wav"
+	"wave"		"vo_renamed/cavejohnson/Puzzle05Intro.mp3"
 }
 
 "cavejohnson.Puzzle05Success"
@@ -152,7 +152,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/Puzzle05Success.wav"
+	"wave"		"vo_renamed/cavejohnson/Puzzle05Success.mp3"
 }
 
 "cavejohnson.ScaleIntro01"
@@ -161,7 +161,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/ScaleIntro01.wav"
+	"wave"		"vo_renamed/cavejohnson/ScaleIntro01.mp3"
 }
 
 "cavejohnson.ScaleIntro02"
@@ -170,7 +170,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/ScaleIntro02.wav"
+	"wave"		"vo_renamed/cavejohnson/ScaleIntro02.mp3"
 }
 
 "cavejohnson.Puzzle06Intro"
@@ -179,7 +179,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/Puzzle06Intro.wav"
+	"wave"		"vo_renamed/cavejohnson/Puzzle06Intro.mp3"
 }
 
 "cavejohnson.Puzzle06Success"
@@ -188,7 +188,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/Puzzle06Success.wav"
+	"wave"		"vo_renamed/cavejohnson/Puzzle06Success.mp3"
 }
 
 "cavejohnson.Puzzle07Intro"
@@ -197,7 +197,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/Puzzle07Intro.wav"
+	"wave"		"vo_renamed/cavejohnson/Puzzle07Intro.mp3"
 }
 
 "cavejohnson.Puzzle07Success"
@@ -206,7 +206,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/Puzzle07Success.wav"
+	"wave"		"vo_renamed/cavejohnson/Puzzle07Success.mp3"
 }
 
 "cavejohnson.LegalBotIntro"
@@ -215,7 +215,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/LegalBotIntro.wav"
+	"wave"		"vo_renamed/cavejohnson/LegalBotIntro.mp3"
 }
 
 "cavejohnson.Philosophy01"
@@ -224,7 +224,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/Philosophy01.wav"
+	"wave"		"vo_renamed/cavejohnson/Philosophy01.mp3"
 }
 
 "cavejohnson.BEEKEEPING"
@@ -233,7 +233,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/BEEKEEPING.wav"
+	"wave"		"vo_renamed/cavejohnson/BEEKEEPING.mp3"
 }
 
 "cavejohnson.FIRSTSTEP"
@@ -242,7 +242,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/FIRSTSTEP.wav"
+	"wave"		"vo_renamed/cavejohnson/FIRSTSTEP.mp3"
 }
 
 "cavejohnson.PUREINTELLECT01"
@@ -251,7 +251,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/PUREINTELLECT01.wav"
+	"wave"		"vo_renamed/cavejohnson/PUREINTELLECT01.mp3"
 }
 
 "cavejohnson.PUREINTELLECT02"
@@ -260,7 +260,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/PUREINTELLECT02.wav"
+	"wave"		"vo_renamed/cavejohnson/PUREINTELLECT02.mp3"
 }
 
 "cavejohnson.PUREINTELLECT03"
@@ -269,7 +269,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/PUREINTELLECT03.wav"
+	"wave"		"vo_renamed/cavejohnson/PUREINTELLECT03.mp3"
 }
 
 "cavejohnson.PUREINTELLECT04"
@@ -278,7 +278,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/PUREINTELLECT04.wav"
+	"wave"		"vo_renamed/cavejohnson/PUREINTELLECT04.mp3"
 }
 
 "cavejohnson.PUREINTELLECT05"
@@ -287,7 +287,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/PUREINTELLECT05.wav"
+	"wave"		"vo_renamed/cavejohnson/PUREINTELLECT05.mp3"
 }
 
 "cavejohnson.PUREINTELLECT06"
@@ -296,7 +296,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/PUREINTELLECT06.wav"
+	"wave"		"vo_renamed/cavejohnson/PUREINTELLECT06.mp3"
 }
 
 "cavejohnson.PUREINTELLECT07"
@@ -305,7 +305,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/PUREINTELLECT07.wav"
+	"wave"		"vo_renamed/cavejohnson/PUREINTELLECT07.mp3"
 }
 
 "cavejohnson.SCALEINTRO03"
@@ -314,7 +314,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/SCALEINTRO03.wav"
+	"wave"		"vo_renamed/cavejohnson/SCALEINTRO03.mp3"
 }
 
 "cavejohnson.SISSIES"
@@ -323,7 +323,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/SISSIES.wav"
+	"wave"		"vo_renamed/cavejohnson/SISSIES.mp3"
 }
 
 "cavejohnson.TWOFISTEDLAWSUITS"
@@ -332,7 +332,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/TWOFISTEDLAWSUITS.wav"
+	"wave"		"vo_renamed/cavejohnson/TWOFISTEDLAWSUITS.mp3"
 }
 
 "cavejohnson.SCALEINTRO00"
@@ -341,7 +341,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/SCALEINTRO00.wav"
+	"wave"		"vo_renamed/cavejohnson/SCALEINTRO00.mp3"
 }
 
 "glados.intro01"
@@ -350,7 +350,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_90DB"
-	"wave"		"vo_converted/glados/intro01.wav"
+	"wave"		"vo_renamed/glados/intro01.mp3"
 }
 
 "cavejohnson.BIGBRITCHES"
@@ -359,7 +359,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/BIGBRITCHES.wav"
+	"wave"		"vo_renamed/cavejohnson/BIGBRITCHES.mp3"
 }
 
 "cavejohnson.CANIPRESSIT"
@@ -368,7 +368,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/CANIPRESSIT.wav"
+	"wave"		"vo_renamed/cavejohnson/CANIPRESSIT.mp3"
 }
 
 "cavejohnson.CHERISHEDMEMORIES"
@@ -377,7 +377,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/CHERISHEDMEMORIES.wav"
+	"wave"		"vo_renamed/cavejohnson/CHERISHEDMEMORIES.mp3"
 }
 
 "cavejohnson.FOLKSANIMALS"
@@ -386,7 +386,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/FOLKSANIMALS.wav"
+	"wave"		"vo_renamed/cavejohnson/FOLKSANIMALS.mp3"
 }
 
 "cavejohnson.SAFESCIENCE"
@@ -395,7 +395,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/SAFESCIENCE.wav"
+	"wave"		"vo_renamed/cavejohnson/SAFESCIENCE.mp3"
 }
 
 "cavejohnson.SOMEGREATSCIENCE"
@@ -404,7 +404,7 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/SOMEGREATSCIENCE.wav"
+	"wave"		"vo_renamed/cavejohnson/SOMEGREATSCIENCE.mp3"
 }
 
 "cavejohnson.SOMEGREATTIME"
@@ -413,6 +413,6 @@
 	"volume"		"VOL_NORM"
 	"pitch"		"95, 100"
 	"soundlevel"		"SNDLVL_NONE"
-	"wave"		"vo_converted/cavejohnson/SOMEGREATTIME.wav"
+	"wave"		"vo_renamed/cavejohnson/SOMEGREATTIME.mp3"
 }
 

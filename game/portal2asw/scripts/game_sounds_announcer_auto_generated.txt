@@ -7,7 +7,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/GOOD01.wav"
+	"wave"	"vo_renamed/announcer/GOOD01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -27,7 +27,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/GOOD02.wav"
+	"wave"	"vo_renamed/announcer/GOOD02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -47,7 +47,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/OpeningCourtesy01.wav"
+	"wave"	"vo_renamed/announcer/OpeningCourtesy01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -67,7 +67,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/OpeningExercise01.wav"
+	"wave"	"vo_renamed/announcer/OpeningExercise01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -87,7 +87,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/OpeningExercise04.wav"
+	"wave"	"vo_renamed/announcer/OpeningExercise04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -107,7 +107,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/OpeningExercise05.wav"
+	"wave"	"vo_renamed/announcer/OpeningExercise05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -127,7 +127,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/OpeningExercise06.wav"
+	"wave"	"vo_renamed/announcer/OpeningExercise06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -147,7 +147,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/OpeningExercise07.wav"
+	"wave"	"vo_renamed/announcer/OpeningExercise07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -167,7 +167,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/OpeningExercise08.wav"
+	"wave"	"vo_renamed/announcer/OpeningExercise08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -187,7 +187,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/PreHub06.wav"
+	"wave"	"vo_renamed/announcer/PreHub06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -207,7 +207,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/PreHub08.wav"
+	"wave"	"vo_renamed/announcer/PreHub08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -227,7 +227,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/PreHub09.wav"
+	"wave"	"vo_renamed/announcer/PreHub09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -247,7 +247,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/PreHub10.wav"
+	"wave"	"vo_renamed/announcer/PreHub10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -267,7 +267,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/PreHub11.wav"
+	"wave"	"vo_renamed/announcer/PreHub11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -287,7 +287,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/PreHub12.wav"
+	"wave"	"vo_renamed/announcer/PreHub12.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -307,7 +307,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/PreHub17.wav"
+	"wave"	"vo_renamed/announcer/PreHub17.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -327,7 +327,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/PreHub18.wav"
+	"wave"	"vo_renamed/announcer/PreHub18.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -347,7 +347,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/PreHub19.wav"
+	"wave"	"vo_renamed/announcer/PreHub19.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -367,7 +367,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/PreHub20.wav"
+	"wave"	"vo_renamed/announcer/PreHub20.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -387,7 +387,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/PreHub27.wav"
+	"wave"	"vo_renamed/announcer/PreHub27.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -407,7 +407,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/PreHub28.wav"
+	"wave"	"vo_renamed/announcer/PreHub28.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -427,7 +427,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/PreHub42.wav"
+	"wave"	"vo_renamed/announcer/PreHub42.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -447,7 +447,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/PreHub43.wav"
+	"wave"	"vo_renamed/announcer/PreHub43.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -467,7 +467,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/PreHub44.wav"
+	"wave"	"vo_renamed/announcer/PreHub44.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -487,7 +487,7 @@
 	"volume"	"1.0"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/PreHub46.wav"
+	"wave"	"vo_renamed/announcer/PreHub46.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -514,7 +514,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/a4_recapture01.wav"
+	"wave"	"vo_renamed/announcer/a4_recapture01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -534,7 +534,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/a4_recapture03.wav"
+	"wave"	"vo_renamed/announcer/a4_recapture03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -554,7 +554,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/a4_recapture04.wav"
+	"wave"	"vo_renamed/announcer/a4_recapture04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -574,7 +574,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/bb_corruption03.wav"
+	"wave"	"vo_renamed/announcer/bb_corruption03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -594,7 +594,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/bb_corruption04.wav"
+	"wave"	"vo_renamed/announcer/bb_corruption04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -614,7 +614,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/bb_corruption06.wav"
+	"wave"	"vo_renamed/announcer/bb_corruption06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -634,7 +634,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/bb_neurotoxin01.wav"
+	"wave"	"vo_renamed/announcer/bb_neurotoxin01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -654,7 +654,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/bb_neurotoxin06.wav"
+	"wave"	"vo_renamed/announcer/bb_neurotoxin06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -674,7 +674,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/bb_reactor02.wav"
+	"wave"	"vo_renamed/announcer/bb_reactor02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -694,7 +694,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/bb_reactor06.wav"
+	"wave"	"vo_renamed/announcer/bb_reactor06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -714,7 +714,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/bb_reactor07.wav"
+	"wave"	"vo_renamed/announcer/bb_reactor07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -734,7 +734,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/bb_stalemate01.wav"
+	"wave"	"vo_renamed/announcer/bb_stalemate01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -754,7 +754,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/bb_stalemate02.wav"
+	"wave"	"vo_renamed/announcer/bb_stalemate02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -774,7 +774,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/bb_stalemate03.wav"
+	"wave"	"vo_renamed/announcer/bb_stalemate03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -794,7 +794,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/bb_stalemate04.wav"
+	"wave"	"vo_renamed/announcer/bb_stalemate04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -814,7 +814,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/bb_stalemate05.wav"
+	"wave"	"vo_renamed/announcer/bb_stalemate05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -834,7 +834,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/bb_stalemate06.wav"
+	"wave"	"vo_renamed/announcer/bb_stalemate06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -854,7 +854,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/bb_stalemate07.wav"
+	"wave"	"vo_renamed/announcer/bb_stalemate07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -874,7 +874,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/carolyndeleted02.wav"
+	"wave"	"vo_renamed/announcer/carolyndeleted02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -894,7 +894,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/evacuationmisc01.wav"
+	"wave"	"vo_renamed/announcer/evacuationmisc01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -914,7 +914,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/gladosbattle11.wav"
+	"wave"	"vo_renamed/announcer/gladosbattle11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -934,7 +934,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/gladosbattle12.wav"
+	"wave"	"vo_renamed/announcer/gladosbattle12.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -954,7 +954,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/gladosbattle13.wav"
+	"wave"	"vo_renamed/announcer/gladosbattle13.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -974,7 +974,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/gladosbattle14.wav"
+	"wave"	"vo_renamed/announcer/gladosbattle14.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -994,7 +994,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/gladosbattle15.wav"
+	"wave"	"vo_renamed/announcer/gladosbattle15.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1014,7 +1014,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/gladosbattle16.wav"
+	"wave"	"vo_renamed/announcer/gladosbattle16.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1034,7 +1034,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/gladosbattle17.wav"
+	"wave"	"vo_renamed/announcer/gladosbattle17.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1054,7 +1054,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/gladosbattle18.wav"
+	"wave"	"vo_renamed/announcer/gladosbattle18.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1090,7 +1090,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/gladosbattle19.wav"
+	"wave"	"vo_renamed/announcer/gladosbattle19.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1110,7 +1110,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/gladosbattle20.wav"
+	"wave"	"vo_renamed/announcer/gladosbattle20.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1130,7 +1130,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/mp_coop_wall_5security03.wav"
+	"wave"	"vo_renamed/announcer/mp_coop_wall_5security03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1150,7 +1150,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/mp_hub_return01.wav"
+	"wave"	"vo_renamed/announcer/mp_hub_return01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1170,7 +1170,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/mp_hub_return02.wav"
+	"wave"	"vo_renamed/announcer/mp_hub_return02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1190,7 +1190,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/mp_hub_return03.wav"
+	"wave"	"vo_renamed/announcer/mp_hub_return03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1210,7 +1210,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/mp_hub_return04.wav"
+	"wave"	"vo_renamed/announcer/mp_hub_return04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1230,7 +1230,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/mp_hub_return05.wav"
+	"wave"	"vo_renamed/announcer/mp_hub_return05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1250,7 +1250,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/mp_hub_return06.wav"
+	"wave"	"vo_renamed/announcer/mp_hub_return06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1270,7 +1270,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/mp_hub_return07.wav"
+	"wave"	"vo_renamed/announcer/mp_hub_return07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1290,7 +1290,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/openingexercise02.wav"
+	"wave"	"vo_renamed/announcer/openingexercise02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1310,7 +1310,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/openingexercise03.wav"
+	"wave"	"vo_renamed/announcer/openingexercise03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1330,7 +1330,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/openingsafeguards01.wav"
+	"wave"	"vo_renamed/announcer/openingsafeguards01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1350,7 +1350,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/sarcasmcore01.wav"
+	"wave"	"vo_renamed/announcer/sarcasmcore01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1370,7 +1370,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/sp_sabotage_factory13.wav"
+	"wave"	"vo_renamed/announcer/sp_sabotage_factory13.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1390,7 +1390,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/sp_sabotage_factory14.wav"
+	"wave"	"vo_renamed/announcer/sp_sabotage_factory14.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1410,7 +1410,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/sp_sabotage_factory15.wav"
+	"wave"	"vo_renamed/announcer/sp_sabotage_factory15.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1430,7 +1430,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/sp_sabotage_factory16.wav"
+	"wave"	"vo_renamed/announcer/sp_sabotage_factory16.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1450,7 +1450,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/sp_sabotage_factory17.wav"
+	"wave"	"vo_renamed/announcer/sp_sabotage_factory17.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1470,7 +1470,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/sp_sabotage_factory18.wav"
+	"wave"	"vo_renamed/announcer/sp_sabotage_factory18.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1490,7 +1490,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/sp_sabotage_factory19.wav"
+	"wave"	"vo_renamed/announcer/sp_sabotage_factory19.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1510,7 +1510,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/sp_sabotage_factory20.wav"
+	"wave"	"vo_renamed/announcer/sp_sabotage_factory20.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1530,7 +1530,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/sp_sabotage_factory21.wav"
+	"wave"	"vo_renamed/announcer/sp_sabotage_factory21.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1550,7 +1550,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/sp_sabotage_factory22.wav"
+	"wave"	"vo_renamed/announcer/sp_sabotage_factory22.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1570,7 +1570,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/sp_sabotage_factory23.wav"
+	"wave"	"vo_renamed/announcer/sp_sabotage_factory23.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1590,7 +1590,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_85dB"
-	"wave"	"vo_converted/announcer/sp_sabotage_factory_line02.wav"
+	"wave"	"vo_renamed/announcer/sp_sabotage_factory_line02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1614,7 +1614,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_85dB"
-	"wave"	"vo_converted/announcer/sp_sabotage_factory_line01.wav"
+	"wave"	"vo_renamed/announcer/sp_sabotage_factory_line01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1638,7 +1638,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/sp_sabotage_factory_line04.wav"
+	"wave"	"vo_renamed/announcer/sp_sabotage_factory_line04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1658,7 +1658,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/sp_sabotage_factory_line05.wav"
+	"wave"	"vo_renamed/announcer/sp_sabotage_factory_line05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1678,7 +1678,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/sp_sabotage_implosion01.wav"
+	"wave"	"vo_renamed/announcer/sp_sabotage_implosion01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1698,7 +1698,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/testchamber02.wav"
+	"wave"	"vo_renamed/announcer/testchamber02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1718,7 +1718,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/testchamber03.wav"
+	"wave"	"vo_renamed/announcer/testchamber03.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1738,7 +1738,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/testchamber04.wav"
+	"wave"	"vo_renamed/announcer/testchamber04.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1758,7 +1758,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/testchamber05.wav"
+	"wave"	"vo_renamed/announcer/testchamber05.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1778,7 +1778,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/testchamber06.wav"
+	"wave"	"vo_renamed/announcer/testchamber06.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1798,7 +1798,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/testchamber07.wav"
+	"wave"	"vo_renamed/announcer/testchamber07.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1818,7 +1818,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/testchamber08.wav"
+	"wave"	"vo_renamed/announcer/testchamber08.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1838,7 +1838,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/testchamber09.wav"
+	"wave"	"vo_renamed/announcer/testchamber09.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1858,7 +1858,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/testchamber10.wav"
+	"wave"	"vo_renamed/announcer/testchamber10.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1878,7 +1878,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/testchamber11.wav"
+	"wave"	"vo_renamed/announcer/testchamber11.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1898,7 +1898,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/wakeup_powerup01.wav"
+	"wave"	"vo_renamed/announcer/wakeup_powerup01.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
@@ -1918,7 +1918,7 @@
 	"volume"	"VOL_NORM"
 	"pitch"	"100"
 	"soundlevel"	"SNDLVL_NONE"
-	"wave"	"vo_converted/announcer/wakeup_powerup02.wav"
+	"wave"	"vo_renamed/announcer/wakeup_powerup02.mp3"
 	"soundentry_version" "2"
 	"operator_stacks"
 	{
