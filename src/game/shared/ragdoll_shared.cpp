@@ -291,6 +291,14 @@ static void RagdollCreateObjects( IPhysicsEnvironment *pPhysEnv, ragdoll_t &ragd
 	ragdoll.allowStretch = params.allowStretch;
 	memset( ragdoll.list, 0, sizeof(ragdoll.list) );
 	memset( &ragdoll.animfriction, 0, sizeof(ragdoll.animfriction) );
+
+	// Added in portal 2, fixes crash from player model not having a ragdoll
+	if ( !params.pCollide )
+	{
+		Warning( "Ragdoll has no pCollide!" );
+		Assert( false );
+		return;
+	}
 	
 	if ( !params.pCollide || params.pCollide->solidCount > RAGDOLL_MAX_ELEMENTS )
 	{
