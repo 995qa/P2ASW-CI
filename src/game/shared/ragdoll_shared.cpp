@@ -286,9 +286,6 @@ static cache_ragdoll_t *ParseRagdollIntoCache( CStudioHdr *pStudioHdr, vcollide_
 
 static void RagdollCreateObjects( IPhysicsEnvironment *pPhysEnv, ragdoll_t &ragdoll, const ragdollparams_t &params )
 {
-	//P2ASW Fix = Portal 2 doesnt have a player ragdoll...
-	return;
-
 	ragdoll.listCount = 0;
 	ragdoll.pGroup = NULL;
 	ragdoll.allowStretch = params.allowStretch;
