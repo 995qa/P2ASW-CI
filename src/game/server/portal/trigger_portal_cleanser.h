@@ -1,3 +1,15 @@
+//========= Copyright Valve Corporation, All rights reserved. ============//
+//
+// Purpose: trigger_portal_cleanser server class. Keeps a global list loaded in from the map
+//			and provides an interface with which prop_portal can get this list and avoid successfully
+//			creating portals partially inside the volume.
+// 
+//			Some parts of this code come from P1 and other parts were reverse engineered.
+//
+//
+// $NoKeywords: $
+//======================================================================================//
+
 #ifndef TRIGGER_PORTAL_CLEANSER_H
 #define TRIGGER_PORTAL_CLEANSER_H
 
@@ -26,6 +38,13 @@ static char *g_pszFizzlingVortexObjects[] =
 	"hot_potato",
 	NULL,
 };
+
+// These probably were defined here...
+// NOTE: If you want to raise max vortex objects for a mod, it's not as simple as just increasing this.
+// You'll need to define additional network handles in the class for more objects, modify all the places that get/set those
+// to use the additional ones, and modify the shader to also support more than 2 objects.
+#define MAX_FIZZLER_VORTEX_OBJECTS 2
+#define MAX_FIZZLER_SEARCH_OBJECTS 32
 
 struct FizzlerVortexObjectInfo_t
 {
@@ -73,13 +92,6 @@ private:
     CBaseTrigger *m_pCleanser;
 };
 
-class CFizzlerVortexObjectInfoLess
-{
-public:
-	// FIXME!!
-    bool Less( FizzlerVortexObjectInfo_t &vortexObjectInfo1 ,FizzlerVortexObjectInfo_t &vortexObjectInfo2, void *pUnknown );
-};
-
 DECLARE_AUTO_LIST( ITriggerPortalCleanserAutoList );
 
 //-----------------------------------------------------------------------------
@@ -90,33 +102,33 @@ class CTriggerPortalCleanser : public CBaseTrigger, public ITriggerPortalCleanse
 {
 public:
 	DECLARE_CLASS( CTriggerPortalCleanser, CBaseTrigger );   
-	DECLARE_DATADESC();
 	DECLARE_SERVERCLASS();
 	
     CTriggerPortalCleanser();
-    ~CTriggerPortalCleanser();
+
+	CBaseEntity *GetEntity() { return this; }
 	
 	virtual void Spawn();
 	virtual void Precache();
 	virtual void Activate();
     virtual void Touch( CBaseEntity *pOther );
 	virtual void UpdateOnRemove( void );
+	int UpdateTransmitState();
+
 	virtual void Enable( void );
 	virtual void Disable( void );
+	bool IsEnabled() { return !m_bDisabled; }
+
+	static void FizzleBaseAnimating( CTriggerPortalCleanser *pFizzler, CBaseAnimating *pBaseAnimating );
     void SearchThink();
     void SetPortalShot();
     void PlayerPassesTriggerFiltersThink();
-		
-    int UpdateTransmitState();
 	
-	bool IsEnabled() { return !m_bDisabled; }
-	
-    CBaseEntity *GetEntity() { return this; }
-	
-	static void FizzleBaseAnimating( CTriggerPortalCleanser *pFizzler, CBaseAnimating *pBaseAnimating );
     static char *s_szPlayerPassesTriggerFiltersThinkContext;
+
+	DECLARE_DATADESC();
 	
-	//CNetworkVar( bool, m_bDisabled );	
+	CNetworkVar( bool, m_bDisabled );	
 	
 private:	
 	
@@ -133,7 +145,7 @@ private:
     Vector m_vecSearchBoxMins;
     Vector m_vecSearchBoxMaxs;
     
-	FizzlerVortexObjectInfo_t m_VortexObjects[2];	
+	FizzlerVortexObjectInfo_t m_VortexObjects[MAX_FIZZLER_VORTEX_OBJECTS];	
 	
 	CNetworkVar( bool, m_bVisible );
 	
@@ -148,6 +160,10 @@ private:
 	CNetworkHandle( CBaseEntity, m_hObject2 );
 	
     CHandle<FizzlerMultiOriginSoundPlayer> s_FizzlerAmbientSoundPlayer;
+
+public:
+	// pdbripper says this was at the end...
+	~CTriggerPortalCleanser();
 };
 
 #endif

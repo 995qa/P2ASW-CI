@@ -1,8 +1,10 @@
 //========= Copyright Valve Corporation, All rights reserved. ============//
 //
-// Purpose: A volume which bumps portal placement. Keeps a global list loaded in from the map
+// Purpose: trigger_portal_cleanser client class. Keeps a global list loaded in from the map
 //			and provides an interface with which prop_portal can get this list and avoid successfully
 //			creating portals partially inside the volume.
+// 
+//			Some parts of this code come from P1 and other parts were reverse engineered.
 //
 // $NoKeywords: $
 //======================================================================================//
@@ -83,7 +85,8 @@ class C_TriggerPortalCleanser : public C_BaseTrigger, public ITriggerPortalClean
 public:
     	
 	C_TriggerPortalCleanser();
-    ~C_TriggerPortalCleanser();
+
+	C_BaseEntity *GetEntity() { return this; }
     
 	void OnDataChanged( DataUpdateType_t updateType );
     
@@ -93,9 +96,6 @@ public:
 	bool GetSoundSpatialization( SpatializationInfo_t& info );
     void UpdateParticles();
     void DestroyParticles();
-    
-	void Touch( C_BaseEntity *pOther );
-    void UpdatePartitionListEntry();
 	
     bool m_bObject1InRange;
     bool m_bObject2InRange;
@@ -103,21 +103,25 @@ public:
 	CNetworkHandle( C_BaseEntity, m_hObject1 );
 	CNetworkHandle( C_BaseEntity, m_hObject2 );
 	
-    C_BaseEntity *GetEntity() { return this; }
-	
 private:
 
     bool m_bDisabled;
+	float m_flPowerUpTimer;
     bool m_bVisible;
     bool m_bUseScanline;
     bool m_bPlayersPassTriggerFilters;
 	
-    float m_flPowerUpTimer;
     float m_flPortalShotTime;
     float m_flLastShotTime;
     float m_flShotPulseTimer;
     float m_flLastUpdateTime;
 	
     CUtlReference<CNewParticleEffect> m_hCleanserFX;
+
+public:
+	void Touch( C_BaseEntity *pOther );
+	void UpdatePartitionListEntry();
+
+	~C_TriggerPortalCleanser();
 };
 #endif

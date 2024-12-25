@@ -1,8 +1,10 @@
 //========= Copyright Valve Corporation, All rights reserved. ============//
 //
-// Purpose: A volume which bumps portal placement. Keeps a global list loaded in from the map
+// Purpose: trigger_portal_cleanser client class. Keeps a global list loaded in from the map
 //			and provides an interface with which prop_portal can get this list and avoid successfully
 //			creating portals partially inside the volume.
+// 
+//			Some parts of this code come from P1 and other parts were reverse engineered.
 //
 // $NoKeywords: $
 //======================================================================================//
@@ -66,67 +68,52 @@ bool C_FizzlerVortexProxy::Init( IMaterial *pMaterial, KeyValues *pKeyValues )
 {
 	m_pMaterial = pMaterial;
 	
-	bool bFoundVortex1 = false;
-	m_pPosition1Var = m_pMaterial->FindVar( "$FLOW_VORTEX_POS1", &bFoundVortex1, true );
-	if ( bFoundVortex1 )
-	{
-		bool bFoundVortex1 = false;
-		m_pVortex1Var = m_pMaterial->FindVar( "$flow_vortex1", &bFoundVortex1, true );
-		if ( bFoundVortex1 )
-		{
-			bool bFoundVortexPos2 = false;
-			m_pPosition2Var = m_pMaterial->FindVar( "$FLOW_VORTEX_POS2", &bFoundVortexPos2, true );
-			if ( bFoundVortexPos2 )
-			{
-				bool bFoundVortex2 = false;
-				m_pVortex2Var = m_pMaterial->FindVar( "$flow_vortex2", &bFoundVortex2, true );
-				if ( bFoundVortex2 )
-				{
-					bool bFoundColorIntensity = false;
-					m_pIntensityVar = m_pMaterial->FindVar( "$flow_color_intensity", &bFoundColorIntensity, true );
-					if ( bFoundColorIntensity )
-					{
-						bool bFoundPowerup = false;
-						m_pPowerUpVar = m_pMaterial->FindVar( "$powerup", &bFoundPowerup, true );
-						if ( bFoundPowerup )
-						{
-							return true;
-						}
-						else
-						{
-							m_pPowerUpVar = NULL;
-							return false;
-						}
-					}
-					else
-					{
-						m_pIntensityVar = NULL;
-						return false;
-					}
-				}
-				else
-				{
-					m_pVortex2Var = NULL;
-					return false;
-				}
-			}
-			else
-			{
-				m_pPosition2Var = NULL;
-				return false;
-			}
-		}
-		else
-		{
-			m_pVortex1Var = NULL;
-			return false;
-		}
-	}
-	else
+	// Probably used a single variable, based on other proxies' code
+	bool bFound = false;
+
+	m_pPosition1Var = m_pMaterial->FindVar( "$FLOW_VORTEX_POS1", &bFound, true );
+	if ( !bFound )
 	{
 		m_pPosition1Var = NULL;
 		return false;
 	}
+	
+	m_pVortex1Var = m_pMaterial->FindVar( "$flow_vortex1", &bFound, true );
+	if ( !bFound )
+	{
+		m_pVortex1Var = NULL;
+		return false;
+	}
+	
+	m_pPosition2Var = m_pMaterial->FindVar( "$FLOW_VORTEX_POS2", &bFound, true );
+	if ( !bFound )
+	{
+		m_pPosition2Var = NULL;
+		return false;
+	}
+
+	m_pVortex2Var = m_pMaterial->FindVar( "$flow_vortex2", &bFound, true );
+	if ( !bFound )
+	{
+		m_pVortex2Var = NULL;
+		return false;
+	}
+
+	m_pIntensityVar = m_pMaterial->FindVar( "$flow_color_intensity", &bFound, true );
+	if ( !bFound )
+	{
+		m_pIntensityVar = NULL;
+		return false;
+	}
+
+	m_pPowerUpVar = m_pMaterial->FindVar( "$powerup", &bFound, true );
+	if ( !bFound )
+	{
+		m_pPowerUpVar = NULL;
+		return false;
+	}
+	
+	return true;
 }
 
 void C_FizzlerVortexProxy::OnBind( C_BaseEntity *pC_BaseEntity )

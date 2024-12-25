@@ -1,8 +1,11 @@
-//========= Copyright © 1996-2005, Valve Corporation, All rights reserved. ============//
+//========= Copyright Valve Corporation, All rights reserved. ============//
 //
-// Purpose: A volume which bumps portal placement. Keeps a global list loaded in from the map
+// Purpose: trigger_portal_cleanser server class. Keeps a global list loaded in from the map
 //			and provides an interface with which prop_portal can get this list and avoid successfully
 //			creating portals partially inside the volume.
+// 
+//			Some parts of this code come from P1 and other parts were reverse engineered.
+//
 //
 // $NoKeywords: $
 //======================================================================================//
@@ -328,7 +331,7 @@ void CTriggerPortalCleanser::Spawn( void )
 		RemoveEffects( EF_NODRAW );		
 		
 		DispatchUpdateTransmitState();
-		SetTransmitState( 32 );
+		SetTransmitState( FL_EDICT_PVSCHECK );
 
 		SetThink( &CTriggerPortalCleanser::SearchThink );
 		SetNextThink( gpGlobals->curtime + sv_portal_cleanser_think_rate.GetFloat() );
@@ -356,25 +359,21 @@ void CTriggerPortalCleanser::Activate( void )
 
 int CTriggerPortalCleanser::UpdateTransmitState( void )
 {
-	return SetTransmitState( 32 );
+	return SetTransmitState( FL_EDICT_PVSCHECK );
 }
 
 bool CTriggerPortalCleanser::IsCloserThanExistingObjects( FizzlerVortexObjectInfo_t &info, int &iIndex )
 {
-	int index;
+	for ( int i = 0; i < MAX_FIZZLER_VORTEX_OBJECTS; ++i )
+	{
+		if ( m_VortexObjects[i].m_flDistanceSq >= info.m_flDistanceSq )
+		{
+			iIndex = i;
+			return true;
+		}
+	}
 
-	if ( m_VortexObjects[0].m_flDistanceSq >= info.m_flDistanceSq )
-	{
-	  index = 0;
-	}
-	else
-	{
-		index = 1;
-		if ( m_VortexObjects[1].m_flDistanceSq < info.m_flDistanceSq )
-			return false;
-	}
-	iIndex = index;
-	return true;
+	return false;
 }
 
 void CTriggerPortalCleanser::FizzleTouchingPortals( void )
@@ -426,83 +425,77 @@ void CTriggerPortalCleanser::PlayerPassesTriggerFiltersThink( void )
 	}
 }
 
+class CFizzlerVortexObjectInfoLess
+{
+public:
+	bool Less( const FizzlerVortexObjectInfo_t& vortexObjectInfo1, const FizzlerVortexObjectInfo_t& vortexObjectInfo2, void* pContext )
+	{
+		return vortexObjectInfo1.m_flDistanceSq < vortexObjectInfo2.m_flDistanceSq;
+	}
+};
+
 void CTriggerPortalCleanser::SearchThink( void )
 {
-	CUtlSortVector<FizzlerVortexObjectInfo_t, CFizzlerVortexObjectInfoLess > vortexEntsSorted; // [esp+CCh] [ebp-4Ch] BYREF
-	FizzlerVortexObjectInfo_t vortexObjectInfo;
 	float flVortexRange = sv_portal_cleanser_vortex_distance.GetFloat();
-
-	Vector vecCenter = WorldSpaceCenter();
-	
-	memset(&vortexEntsSorted, 0, 25);
 
 	Vector vMaxs;
 	Vector vMins;
 	CollisionProp()->WorldSpaceAABB( &vMins, &vMaxs );
 
-	vMins.x = vMins.x + -flVortexRange;
-	vMins.y = vMins.y + -flVortexRange;
-	vMins.z = vMins.z + -flVortexRange;
-	vMaxs.x = vMaxs.x + flVortexRange;
-	vMaxs.y = vMaxs.y + flVortexRange;
-	vMaxs.z = vMaxs.z + flVortexRange;
+	vMins.x -= flVortexRange;
+	vMins.y -= flVortexRange;
+	vMins.z -= flVortexRange;
 
-	CBaseEntity *pList[32];
-	CleanserVortexTraceEnum vortexEnum( pList, 32, this );
+	vMaxs.x += flVortexRange;
+	vMaxs.y += flVortexRange;
+	vMaxs.z += flVortexRange;
 
-	flVortexRange = flVortexRange * flVortexRange;
-	partition->EnumerateElementsInBox( 16, vMins, vMaxs, 0, &vortexEnum );
+	CBaseEntity *pList[MAX_FIZZLER_SEARCH_OBJECTS];
+	CleanserVortexTraceEnum vortexEnum( pList, MAX_FIZZLER_SEARCH_OBJECTS, this );
+
+	partition->EnumerateElementsInBox( PARTITION_ENGINE_NON_STATIC_EDICTS, vMins, vMaxs, false, &vortexEnum );
 	
 	int count = vortexEnum.GetCount();
 
-	int nSize = 0;
-	if (vortexEnum.GetCount() > 0)
+	CUtlSortVector<FizzlerVortexObjectInfo_t, CFizzlerVortexObjectInfoLess> vortexEntsSorted;
+
+	// Okay, the code here was probably originally written so it creates a new object for every loop, then the compiler optimized that.
+	// I'm going to keep it this way because it's not super confusing and I know it works
+	FizzlerVortexObjectInfo_t vortexObjectInfo;
+
+	for ( int i = 0; i < count; ++i )
 	{
-		int i = 0;
-		int j = 0;
-		do
+		CBaseEntity *pEntity = pList[i];
+		if (pEntity)
 		{
-			CBaseEntity *pEntity = pList[j];
-			if (pEntity)
-			{
-				vortexObjectInfo.m_flDistanceSq = CollisionProp()->CalcSqrDistanceFromPoint( pEntity->WorldSpaceCenter() );
-				vortexObjectInfo.m_hEnt = pEntity->GetRefEHandle();
+			vortexObjectInfo.m_flDistanceSq = CollisionProp()->CalcSqrDistanceFromPoint( pEntity->WorldSpaceCenter() );
+			vortexObjectInfo.m_hEnt = pEntity->GetRefEHandle();
 
-				vortexEntsSorted.InsertNoSort( vortexObjectInfo );
-				nSize = vortexEntsSorted.Count();
-
-				//if (&vortexEntsSorted[v9])
-				{
-					vortexEntsSorted[nSize].m_flDistanceSq = vortexObjectInfo.m_flDistanceSq;
-					vortexEntsSorted[nSize].m_hEnt = vortexObjectInfo.m_hEnt;
-				}
-			}
-			j = i + 1;
-			i = j;
-		} while (j < count);
-
-		//vortexEntsSorted.RedoSort();
-	}
-	m_VortexObjects[0].m_flDistanceSq = FLT_MAX;
-	m_VortexObjects[0].m_hEnt = NULL;
-		
-	m_VortexObjects[1].m_flDistanceSq = FLT_MAX;
-	m_VortexObjects[1].m_hEnt = NULL;
-
-	for ( int i = 0; i < nSize; ++i )
-	{
-		for ( int j = 0; m_VortexObjects[0].m_flDistanceSq < vortexEntsSorted[i].m_flDistanceSq; ++j )
-		{
-			m_VortexObjects[0].m_flDistanceSq += 2;
-			if ( j >= 2 )
-				goto LABEL_19; //continue? break?
+			vortexEntsSorted.InsertNoSort( vortexObjectInfo );
 		}
-
-		m_VortexObjects[i].m_flDistanceSq = vortexEntsSorted[i].m_flDistanceSq;
-		m_VortexObjects[i].m_hEnt = vortexEntsSorted[i].m_hEnt;
-	LABEL_19:
-		;
 	}
+
+	if (vortexEntsSorted.Count() > 1 )
+	{
+		vortexEntsSorted.RedoSort();
+	}
+
+	ClearVortexObjects();
+
+	for ( int i = 0; i < vortexEntsSorted.Count() && i < MAX_FIZZLER_VORTEX_OBJECTS; ++i )
+	{
+		// I believe this is where this function was used
+		int index;
+		if ( !IsCloserThanExistingObjects(vortexEntsSorted[i], index) )
+			continue;
+
+		m_VortexObjects[index].m_flDistanceSq = vortexEntsSorted[i].m_flDistanceSq;
+		m_VortexObjects[index].m_hEnt = vortexEntsSorted[i].m_hEnt;
+	}
+
+	// Square vortex range from this point on since we are working with square distances
+	flVortexRange = flVortexRange * flVortexRange;
+
 	if (flVortexRange <= m_VortexObjects[0].m_flDistanceSq)
 	{
 		m_bObject1InRange = false;
@@ -519,10 +512,13 @@ void CTriggerPortalCleanser::SearchThink( void )
 	else
 	{
 		m_bObject2InRange = true;
-		m_hObject2 = m_VortexObjects[1].m_hEnt;
+		m_hObject2.Set(m_VortexObjects[1].m_hEnt);
 	}
+
+	// draw debug overlay
 	if ( debug_portal_cleanser_search_box.GetInt() )
 	{
+		Vector vecCenter = WorldSpaceCenter();
 		NDebugOverlay::Box( vec3_origin, vMins, vMaxs, 255, 0, 0, 64, sv_portal_cleanser_think_rate.GetFloat() );
 		if ( m_bObject1InRange )
 		{
@@ -533,14 +529,8 @@ void CTriggerPortalCleanser::SearchThink( void )
 			NDebugOverlay::Line( vecCenter, m_hObject1->WorldSpaceCenter(), 0, 255, 0, 1, sv_portal_cleanser_think_rate.GetFloat() );
 		}
 	}
+
 	SetNextThink( sv_portal_cleanser_think_rate.GetFloat() + gpGlobals->curtime );
-	/*
-	if (vortexEntsSorted.m_Memory.m_nGrowSize >= 0)
-	{
-		if (vortexEntsSorted.m_Memory.m_pMemory)
-			_g_pMemAlloc->Free(_g_pMemAlloc, vortexEntsSorted.m_Memory.m_pMemory);
-	}
-	*/
 }
 
 void CTriggerPortalCleanser::Touch( CBaseEntity *pOther )
