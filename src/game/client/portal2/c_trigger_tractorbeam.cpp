@@ -187,14 +187,12 @@ void C_Trigger_TractorBeam::StartTouch( C_BaseEntity *pOther )
 
 int C_Trigger_TractorBeam::DrawModel( int flags, const RenderableInstance_t &instance )
 {
-	ConVarRef gpu_level("gpu_level");
 	
 	Vector vDir = m_vEnd - m_vStart;
 
-	bool bDrawOuterColumn = !(( gpu_level.GetInt() - 1 < 0 ) || gpu_level.GetInt() == 1);
-
 	float flLength = VectorNormalize(vDir);
 
+#if 0 // TODO: This is probably supposed to be the code that makes the funnel do its "extend" animation - disabling for now until we get it working
 	if ((gpGlobals->curtime - m_flStartTime) < 0.5)
 	{
 		float flMod1;
@@ -226,6 +224,7 @@ int C_Trigger_TractorBeam::DrawModel( int flags, const RenderableInstance_t &ins
 		}
 		flLength = flMod1 * flLength;
 	}
+#endif
 
 	matrix3x4_t xform;
 	QAngle angles;
@@ -240,15 +239,17 @@ int C_Trigger_TractorBeam::DrawModel( int flags, const RenderableInstance_t &ins
 
 	C_Trigger_TractorBeam::DrawColumn( m_pMaterial1, m_vStart, vDir, flLength, xAxis, yAxis, 58.0, 1.0, m_bFromPortal, m_bToPortal, 0.0 );
 
-	if (bDrawOuterColumn)
+	// Outer column (tractor_beam2) is skipped on low GPU levels
+	ConVarRef gpu_level("gpu_level");
+	if (gpu_level.GetInt() > 1)
 		C_Trigger_TractorBeam::DrawColumn( m_pMaterial2, m_vStart, vDir, flLength, xAxis, yAxis, 60.0, 1.0, m_bFromPortal, m_bToPortal, 0.0 );
+
 	return 1;
 }
 
 void C_Trigger_TractorBeam::DrawColumn( IMaterial *pMaterial, Vector &vecStart, Vector vDir, float flLength,
 	Vector &vecXAxis, Vector &vecYAxis, float flRadius, float flAlpha, bool bPinchIn, bool bPinchOut, float flTextureOffset )
 {
-#if 1
 	CMatRenderContextPtr pRenderContext( materials );
 	IMesh* pMesh = pRenderContext->GetDynamicMesh( false, NULL, NULL, pMaterial );
 
@@ -260,7 +261,6 @@ void C_Trigger_TractorBeam::DrawColumn( IMaterial *pMaterial, Vector &vecStart, 
 	meshBuilder.End();
 	
 	pMesh->Draw();
-#endif
 }
 
 void C_Trigger_TractorBeam::DrawColumnSegment( CMeshBuilder &meshBuilder, Vector &vecStart, Vector &vDir, float flLength, Vector &vecXAxis,
@@ -271,18 +271,14 @@ void C_Trigger_TractorBeam::DrawColumnSegment( CMeshBuilder &meshBuilder, Vector
 	
 	Vector vecPosition = vecStart + (vecXAxis *flRadius);
 
-	float color[3];
+	int colorR = 10;
+	int colorG = 160;
+	int colorB = 255;
 	if ( m_bReversed )
 	{
-		color[0] = 1.0;
-		color[1] = 0.125;
+		colorR = 255;
+		colorB = 32;
 	}
-	else
-	{
-		color[0] = 0.0390625;
-		color[1] = 1.0;
-	}
-	color[2] = 0;
 	
 	float flLastV = 0.0;
 	float flU = flLength * 0.00390625;
@@ -306,7 +302,7 @@ void C_Trigger_TractorBeam::DrawColumnSegment( CMeshBuilder &meshBuilder, Vector
 		VectorNormalize( normal );
 		
 		// Vert 1
-		meshBuilder.Color3fv( color );
+		meshBuilder.Color3ub( colorR, colorG, colorB );
 		meshBuilder.TexCoord2f( 0, 0, flV );
 		meshBuilder.Position3fv( vecPosition.Base() );
 
@@ -319,11 +315,12 @@ void C_Trigger_TractorBeam::DrawColumnSegment( CMeshBuilder &meshBuilder, Vector
 			meshBuilder.TangentT3fv( tangentt.Base() );
 
 		meshBuilder.AdvanceVertex();
+
 		// Vert 2
-		Vector vert = vDir * flLength + vecPosition;
-		meshBuilder.Color3fv( color );
+		Vector vert2 = vDir * flLength + vecPosition;
+		meshBuilder.Color3ub( colorR, colorG, colorB );
 		meshBuilder.TexCoord2f( 0, flU, flV );
-		meshBuilder.Position3fv( vert.Base() );
+		meshBuilder.Position3fv( vert2.Base() );
 		
 		if ( vertexFormat & VERTEX_NORMAL )
 			meshBuilder.Normal3fv( normal.Base() );
@@ -334,16 +331,17 @@ void C_Trigger_TractorBeam::DrawColumnSegment( CMeshBuilder &meshBuilder, Vector
 			meshBuilder.TangentT3fv( tangentt.Base() );
 
 		meshBuilder.AdvanceVertex();
+
 		// Vert 3
-		Vector vStart = vDir * flLength + vecLastPosition;
+		Vector vert3 = vDir * flLength + vecLastPosition;
 		normal = vecStart - vecLastPosition;
 		VectorNormalize( normal );
 		tangentt = (tangents * normal) - (tangents * normal);
 		VectorNormalize( tangentt );
 		
-		meshBuilder.Color3fv( color );
+		meshBuilder.Color3ub( colorR, colorG, colorB );
 		meshBuilder.TexCoord2f( 0, flU, flLastV );
-		meshBuilder.Position3fv( vert.Base() );
+		meshBuilder.Position3fv( vert3.Base() );
 		
 		if ( vertexFormat & VERTEX_NORMAL )
 			meshBuilder.Normal3fv( normal.Base() );
@@ -354,8 +352,9 @@ void C_Trigger_TractorBeam::DrawColumnSegment( CMeshBuilder &meshBuilder, Vector
 			meshBuilder.TangentT3fv( tangentt.Base() );
 
 		meshBuilder.AdvanceVertex();
+
 		// Vert 4
-		meshBuilder.Color3fv( color );
+		meshBuilder.Color3ub( colorR, colorG, colorB );
 		meshBuilder.TexCoord2f( 0, 0, flLastV );
 		meshBuilder.Position3fv( vecLastPosition.Base() );
 		
@@ -374,8 +373,6 @@ void C_Trigger_TractorBeam::DrawColumnSegment( CMeshBuilder &meshBuilder, Vector
 
 		flLastV = flV;
 	}
-
-	vecStart = vecStart + (vDir * flLength);
 }
 
 bool C_Trigger_TractorBeam::GetSoundSpatialization( SpatializationInfo_t& info )
