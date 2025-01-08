@@ -495,10 +495,12 @@ void C_Trigger_TractorBeam::OnDataChanged( DataUpdateType_t updateType )
 		{
 			m_pController = physenv->CreateMotionController( this );
 
+			C_BaseProjectedEntity *pOwner = (C_BaseProjectedEntity*)GetOwnerEntity();
+
 			if (m_bReversed)
 				m_linearForce = -m_linearForce;
-
-			UpdateBeam( GetStartPoint(), GetEndPoint(), m_linearForce );
+			
+			UpdateBeam( pOwner->GetStartPoint(), pOwner->GetEndPoint(), m_linearForce );
 		}
 	}
 	CreateParticles();
