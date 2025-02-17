@@ -110,7 +110,7 @@ ConVar soundscape_fadetime( "soundscape_fadetime", "3.0", FCVAR_CHEAT, "Time to 
 ConVar soundscape_message("soundscape_message","0");
 ConVar soundscape_radius_debug( "soundscape_radius_debug", "0", FCVAR_CHEAT, "Prints current volume of radius sounds" );
 
-extern bool ShouldPauseAllSounds();
+extern ConVar sv_soundemitter_pause_all;
 
 float GetSoundscapeFadeRate()
 {
@@ -1422,7 +1422,7 @@ int C_SoundscapeSystem::AddLoopingSound( const char *pSoundName, bool isAmbient,
 		if ( isAmbient )
 		{
 			// start at 0 and fade in
-			enginesound->EmitAmbientSound( pSoundName, 0, pitch, ShouldPauseAllSounds() ? SND_SHOULDPAUSE : 0 );
+			enginesound->EmitAmbientSound( pSoundName, 0, pitch, sv_soundemitter_pause_all.GetBool() ? SND_SHOULDPAUSE : 0 );
 			slot.m_loopingSounds[soundSlot].m_volume.m_flCurrent = 0.0;
 		}
 		else
@@ -1488,7 +1488,7 @@ void C_SoundscapeSystem::UpdateLoopingSound( loopingsound_t &loopSound )
 	if ( loopSound.isAmbient )
 	{
 		enginesound->EmitAmbientSound( loopSound.pWaveName, loopSound.m_volume.m_flCurrent, loopSound.pitch, 
-									   ShouldPauseAllSounds() ? SND_CHANGE_VOL | SND_SHOULDPAUSE : SND_CHANGE_VOL);
+									   sv_soundemitter_pause_all.GetBool() ? SND_CHANGE_VOL | SND_SHOULDPAUSE : SND_CHANGE_VOL);
 	}
 	else
 	{
@@ -1540,7 +1540,7 @@ void C_SoundscapeSystem::PlayRandomSound( randomsound_t &sound )
 
 	if ( sound.isAmbient )
 	{
-		enginesound->EmitAmbientSound( pWaveName, sound.masterVolume * RandomInterval( sound.volume ), (int)RandomInterval( sound.pitch ), ShouldPauseAllSounds() ? SND_SHOULDPAUSE : 0 );
+		enginesound->EmitAmbientSound( pWaveName, sound.masterVolume * RandomInterval( sound.volume ), (int)RandomInterval( sound.pitch ), sv_soundemitter_pause_all.GetBool() ? SND_SHOULDPAUSE : 0 );
 	}
 	else
 	{

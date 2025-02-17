@@ -38,6 +38,8 @@
 ConVar sv_soundemitter_trace( "sv_soundemitter_trace", "-1", FCVAR_REPLICATED, "Show all EmitSound calls including their symbolic name and the actual wave file they resolved to. (-1 = for nobody, 0 = for everybody, n = for one entity)\n" );
 ConVar cc_showmissing( "cc_showmissing", "0", FCVAR_REPLICATED, "Show missing closecaption entries." );
 
+ConVar sv_soundemitter_pause_all("sv_soundemitter_pause_all", "1", FCVAR_REPLICATED, "Set all sounds to pause when the game pauses. Only applies to new sounds that play.");
+
 extern ISoundEmitterSystemBase *soundemitterbase;
 static ConVar *g_pClosecaption = NULL;
 
@@ -153,17 +155,6 @@ void WaveTrace( char const *wavname, char const *funcname )
 			funcname, wavname );
 		s_WaveTrace.AddString( wavname );
 	}
-}
-
-// P2ASW pauses all sounds here (Portal 2 does it in the engine)
-// This function allows mods to switch the behavior dynamically if they want
-inline bool ShouldPauseAllSounds()
-{
-#ifdef P2ASW
-	return true;
-#endif
-
-	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -655,7 +646,7 @@ public:
 			params.soundname,
 			params.volume,
 			(soundlevel_t)params.soundlevel,
-			ShouldPauseAllSounds() ? ep.m_nFlags | SND_SHOULDPAUSE : ep.m_nFlags, 
+			sv_soundemitter_pause_all.GetBool() ? ep.m_nFlags | SND_SHOULDPAUSE : ep.m_nFlags, 
 			params.pitch,
 			ep.m_pOrigin,
 			NULL,
@@ -748,7 +739,7 @@ public:
 				ep.m_pSoundName, 
 				ep.m_flVolume, 
 				ep.m_SoundLevel, 
-				ShouldPauseAllSounds() ? ep.m_nFlags | SND_SHOULDPAUSE : ep.m_nFlags, 
+				sv_soundemitter_pause_all.GetBool() ? ep.m_nFlags | SND_SHOULDPAUSE : ep.m_nFlags, 
 				ep.m_nPitch, 
 				ep.m_pOrigin,
 				NULL, 
@@ -1025,7 +1016,7 @@ public:
 			params.volume = flVolume;
 		}
 
-		if (ShouldPauseAllSounds())
+		if (sv_soundemitter_pause_all.GetBool())
 			iFlags |= SND_SHOULDPAUSE;
 
 #if defined( CLIENT_DLL )
@@ -1161,7 +1152,7 @@ public:
 			return;
 #endif
 
-		if (ShouldPauseAllSounds())
+		if (sv_soundemitter_pause_all.GetBool())
 			flags |= SND_SHOULDPAUSE;
 
 
@@ -1778,7 +1769,7 @@ int SENTENCEG_Lookup(const char *sample)
 void UTIL_EmitAmbientSound( int entindex, const Vector &vecOrigin, const char *samp, float vol, soundlevel_t soundlevel, int fFlags, int pitch, float soundtime /*= 0.0f*/, float *duration /*=NULL*/ )
 {
 
-	if (ShouldPauseAllSounds())
+	if (sv_soundemitter_pause_all.GetBool())
 		fFlags |= SND_SHOULDPAUSE;
 
 	if (samp && *samp == '!')
