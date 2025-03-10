@@ -87,6 +87,53 @@ inline XUID SessionMembersFindNonGuestXuid( XUID xuid )
 	return xuid;
 }
 
+inline TitleDataFieldsDescription_t const * TitleDataFieldsDescriptionFindByString( TitleDataFieldsDescription_t const *fields, char const *szString )
+{
+	if ( !szString )
+		return NULL;
+	for ( ; fields && fields->m_szFieldName; ++ fields )
+	{
+		if ( !Q_stricmp( fields->m_szFieldName, szString ) )
+			return fields;
+	}
+	return NULL;
+}
+
+inline bool TitleDataFieldsDescriptionGetBit( TitleDataFieldsDescription_t const *fdKey, IPlayerLocal *pPlayer )
+{
+	Assert( pPlayer );
+	Assert( fdKey );
+	Assert( fdKey->m_eDataType == TitleDataFieldsDescription_t::DT_BITFIELD );
+	return !!( ( *( const uint8 * )( ( ( const char * )pPlayer->GetPlayerTitleData( fdKey->m_iTitleDataBlock ) ) + (fdKey->m_numBytesOffset/8) ) ) & ( 1 << ( fdKey->m_numBytesOffset%8 ) ) );
+}
+
+inline void TitleDataFieldsDescriptionSetBit( TitleDataFieldsDescription_t const *fdKey, IPlayerLocal *pPlayer, bool bBitValue )
+{
+	Assert( pPlayer );
+	Assert( fdKey );
+	Assert( fdKey->m_eDataType == TitleDataFieldsDescription_t::DT_BITFIELD );
+	uint8 uiValue = static_cast< uint8 >( bBitValue ? (~0u) : 0u );
+	pPlayer->UpdatePlayerTitleData( fdKey, &uiValue, sizeof( uiValue ) );
+}
+
+template < typename T >
+inline T TitleDataFieldsDescriptionGetValue( TitleDataFieldsDescription_t const *fdKey, IPlayerLocal *pPlayer )
+{
+	Assert( pPlayer );
+	Assert( fdKey );
+	Assert( ( fdKey->m_eDataType != TitleDataFieldsDescription_t::DT_BITFIELD ) && ( fdKey->m_eDataType != TitleDataFieldsDescription_t::DT_0 ) );
+	return *( T const * )(&( (char const*) pPlayer->GetPlayerTitleData( fdKey->m_iTitleDataBlock ) )[(fdKey->m_numBytesOffset)]);
+}
+
+template < typename T > // T is primitive type, passing by value instead of constref to avoid compiler troubles when passing temporaries
+inline void TitleDataFieldsDescriptionSetValue( TitleDataFieldsDescription_t const *fdKey, IPlayerLocal *pPlayer, T val )
+{
+	Assert( pPlayer );
+	Assert( fdKey );
+	Assert( ( fdKey->m_eDataType != TitleDataFieldsDescription_t::DT_BITFIELD ) && ( fdKey->m_eDataType != TitleDataFieldsDescription_t::DT_0 ) );
+	pPlayer->UpdatePlayerTitleData( fdKey, &val, sizeof( T ) );
+}
+
 
 #endif // __COMMON__MM_HELPERS_H_
 

@@ -16,9 +16,6 @@
 
 #define STORAGE_COUNT_FOR_BITS( aStorageType, numBits ) ( ( (numBits) + 8*sizeof( aStorageType ) - 1 ) / ( 8* sizeof( aStorageType ) ) )
 
-// Disabled these for p2asw because we don't have the include files
-// and most of the code using these is console only anyway
-#ifndef P2ASW
 
 //
 //
@@ -235,11 +232,9 @@ struct TitleData3
 	GameStats_t gamestats;
 
 };
-#endif
 
 
-// FIXME: Shouldn't hardcode mp_coop_lobby_3 here, need to handle mp_coop_start
-// too once co-op progress saving is reimplemented in a different way.
+
 #define PORTAL2_LOBBY_CONFIG_COOP( szNetwork, szAccess ) \
 		" system { " \
 			" network " szNetwork " " \
@@ -247,7 +242,7 @@ struct TitleData3
 		" } " \
 		" game { " \
 			" mode coop " \
-			" mission mp_coop_lobby_3 " \
+			" map default " \
 		" } "
 
 

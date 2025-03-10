@@ -12,10 +12,12 @@
 #pragma once
 #endif
 
+#define CONTEAMMATCH
+
 class IMatchFramework;
 class IMatchSession;
 
-#include "appframework/iAppSystem.h"
+#include "appframework/iappsystem.h"
 
 #include "tier1/interface.h"
 #include "keyvalues.h"
@@ -38,13 +40,16 @@ class IMatchSession;
 #include "imatchvoice.h"
 #include "isearchmanager.h"
 #include "idatacenter.h"
+#include "idlcmanager.h"
+
+typedef void (*RankedMatchStartCallback)( KeyValues *pSettings, uint32 volatile *pResult );
 
 abstract_class IMatchFramework : public IAppSystem
 {
 public:
 	// Run frame of the matchmaking framework
 	virtual void RunFrame() = 0;
-
+	
 
 	// Get matchmaking extensions
 	virtual IMatchExtensions * GetMatchExtensions() = 0;
@@ -64,6 +69,8 @@ public:
 	// Get the match system
 	virtual IMatchSystem * GetMatchSystem() = 0;
 
+	// Send the key values back to the server
+	virtual void ApplySettings( KeyValues* keyValues ) = 0;
 
 	// Entry point to create session
 	virtual void CreateSession( KeyValues *pSettings ) = 0;
@@ -76,6 +83,13 @@ public:
 
 	// Close the session
 	virtual void CloseSession() = 0;
+	
+	// Checks to see if the current game is being played online ( as opposed to locally against bots )
+	virtual bool IsOnlineGame( void ) = 0;
+
+	// Called by the client to notify matchmaking that it should update matchmaking properties based
+	// on player distribution among the teams.
+	virtual void UpdateTeamProperties( KeyValues *pTeamProperties ) = 0;
 };
 
 #define IMATCHFRAMEWORK_VERSION_STRING "MATCHFRAMEWORK_001"
@@ -97,6 +111,12 @@ public:
 
 	// Issue a session command
 	virtual void Command( KeyValues *pCommand ) = 0;
+
+	// Get the lobby or XSession ID 
+	virtual uint64 GetSessionID() = 0;
+
+	// Callback when team changes
+	virtual void UpdateTeamProperties( KeyValues *pTeamProperties ) = 0;
 };
 
 

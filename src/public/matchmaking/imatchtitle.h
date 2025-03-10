@@ -12,40 +12,83 @@
 #pragma once
 #endif
 
+#if defined ( _PS3 )
+
+#define TITLE_DATA_PREFIX "PS3."
+#define TITLE_DATA_DEVICE_MOVE_PREFIX "MOVE."
+#define TITLE_DATA_DEVICE_SHARP_SHOOTER_PREFIX "SHARP_SHOOTER."
+
+#else
+
+#define TITLE_DATA_PREFIX ""
+
+#endif
+
 struct TitleDataFieldsDescription_t
 {
 	enum DataType_t
 	{
-		DT_U8		= 8,
-		DT_U16		= 16,
-		DT_U32		= 32,
-		DT_FLOAT	= 33,
-		DT_U64		= 64
+		DT_0		= 0,
+		DT_uint8	= 8,
+		DT_BITFIELD = 9,
+		DT_uint16	= 16,
+		DT_uint32	= 32,
+		DT_float	= 33,
+		DT_uint64	= 64
 	};
 
 	enum DataBlock_t
 	{
 		DB_TD1		= 0,
 		DB_TD2		= 1,
-		DB_TD3		= 2
+		DB_TD3		= 2,
+
+		DB_TD_COUNT  = 3
 	};
 
 	char const *m_szFieldName;
 	DataBlock_t m_iTitleDataBlock;
 	DataType_t m_eDataType;
-	int m_numBytesOffset;
+	union
+	{
+		int m_numBytesOffset;
+		int m_nUserDataValue0;
+	};
 };
 
 struct TitleAchievementsDescription_t
 {
-	char const *m_szAchievementName;
-	int m_idAchievement;
+	char const *m_szAchievementName;			// Name by which achievement can be awarded and queried
+	int m_idAchievement;						// Achievement ID on the platform
+	int m_numComponents;						// Number of achievement component title data bits
 };
 
 struct TitleAvatarAwardsDescription_t
 {
-	char const *m_szAvatarAwardName;
-	int m_idAvatarAward;
+	char const *m_szAvatarAwardName;			// Name by which avatar award can be awarded and queried
+	int m_idAvatarAward;						// Avatar award ID on the platform
+	char const *m_szTitleDataBitfieldStatName;	// Name of a bitfield in title data storage representing whether avatar award has been earned
+};
+
+struct TitleDlcDescription_t
+{
+	uint64 m_uiLicenseMaskId;
+	int m_idDlcAppId;
+	int m_idDlcPackageId;
+	char const *m_szTitleDataBitfieldStatName;	// Name of a bitfield in title data storage representing whether dlc has been discovered installed
+};
+
+enum TitleSettingsFlags_t
+{
+	MATCHTITLE_SETTING_MULTIPLAYER		= ( 1 << 0 ),	// Title wants network sockets initialization
+	MATCHTITLE_SETTING_NODEDICATED		= ( 1 << 1 ),	// Title doesn't support dedicated servers
+	MATCHTITLE_PLAYERMGR_DISABLED		= ( 1 << 2 ),	// Title doesn't need friends presence poll
+	MATCHTITLE_SERVERMGR_DISABLED		= ( 1 << 3 ),	// Title doesn't need group servers poll
+	MATCHTITLE_INVITE_ONLY_SINGLE_USER	= ( 1 << 4 ),	// Accepted game invite forcefully disables splitscreen (e.g.: 1-on-1 games)
+	MATCHTITLE_VOICE_INGAME				= ( 1 << 5 ),	// When in active gameplay lobby system doesn't transmit voice
+	MATCHTITLE_XLSPPATCH_SUPPORTED		= ( 1 << 6 ),	// Title supports xlsp patch containers
+	MATCHTITLE_PLAYERMGR_ALLFRIENDS		= ( 1 << 7 ),	// Player manager by default fetches only friends for same game, this will force all friends to be fetched
+	MATCHTITLE_PLAYERMGR_FRIENDREQS		= ( 1 << 8 ),	// Player manager by default fetches only real friends, this will force friend requests to also be fetched
 };
 
 abstract_class IMatchTitle
@@ -57,8 +100,8 @@ public:
 	// Service ID for XLSP
 	virtual uint64 GetTitleServiceID() = 0;
 
-	// Whether we are a single-player title or multi-player title
-	virtual bool IsMultiplayer() = 0;
+	// Describe title settings using a bitwise combination of flags
+	virtual uint64 GetTitleSettingsFlags() = 0;
 
 	// Prepare network startup params for the title
 	virtual void PrepareNetStartupParams( void *pNetStartupParams ) = 0;
@@ -87,6 +130,12 @@ public:
 
 	// Start up a listen server with the given settings
 	virtual bool StartServerMap( KeyValues *pSettings ) = 0;
+
+	// Title DLC description
+	virtual TitleDlcDescription_t const * DescribeTitleDlcs() = 0;
+
+	// Run every frame
+	virtual void RunFrame() = 0;
 };
 
 //
@@ -105,6 +154,9 @@ public:
 	// Extends game settings update packet for lobby transition,
 	// either due to a migration or due to an endgame condition
 	virtual void ExtendGameSettingsForLobbyTransition( KeyValues *pSettings, KeyValues *pSettingsUpdate, bool bEndGame ) = 0;
+
+	// Adds data for datacenter reporting
+	virtual void ExtendDatacenterReport( KeyValues *pReportMsg, char const *szReason ) = 0;
 
 
 	// Rolls up game details for matches grouping
@@ -126,15 +178,20 @@ public:
 	virtual KeyValues * DefineSessionSearchKeys( KeyValues *pSettings ) = 0;
 
 	// Defines dedicated server search key
-	virtual KeyValues * DefineDedicatedSearchKeys( KeyValues *pSettings ) = 0;
+	virtual KeyValues * DefineDedicatedSearchKeys( KeyValues *pSettings, bool bNeedOfficialServer, int nSearchPass ) = 0;
 
 
 	// Initializes full game settings from potentially abbreviated game settings
-	virtual void InitializeGameSettings( KeyValues *pSettings ) = 0;
+	virtual void InitializeGameSettings( KeyValues *pSettings, char const *szReason ) = 0;
+
+	// Sets the bspname key given a mapgroup
+	virtual void SetBspnameFromMapgroup( KeyValues *pSettings ) = 0;
 
 	// Extends game settings update packet before it gets merged with
 	// session settings and networked to remote clients
 	virtual void ExtendGameSettingsUpdateKeys( KeyValues *pSettings, KeyValues *pUpdateDeleteKeys ) = 0;
+
+	virtual KeyValues * ExtendTeamLobbyToGame( KeyValues *pSettings ) = 0;
 
 	// Prepares system for session creation
 	virtual KeyValues * PrepareForSessionCreate( KeyValues *pSettings ) = 0;
@@ -157,6 +214,34 @@ public:
 	// Returns the update/delete package to be applied to session settings
 	// and pushed to dependent two sesssion of the two teams.
 	virtual KeyValues * PrepareTeamLinkForGame( KeyValues *pSettingsLocal, KeyValues *pSettingsRemote ) = 0;
+
+	
+	// Prepares the client lobby for migration
+	// this function is called when the client session is still in the state
+	// of "client" while handling the original host disconnection and decision
+	// has been made that local machine will be elected as new "host"
+	// Returns NULL if migration should proceed normally
+	// Returns [ kvroot { "error" "n/a" } ] if migration should be aborted.
+	virtual KeyValues * PrepareClientLobbyForMigration( KeyValues *pSettingsLocal, KeyValues *pMigrationInfo ) = 0;
+
+	// Prepares the session for server disconnect
+	// this function is called when the session is still in the active gameplay
+	// state and while localhost is handling the disconnection from game server.
+	// Returns NULL to allow default flow
+	// Returns [ kvroot { "disconnecthdlr" "<opt>" } ] where <opt> can be:
+	//		"destroy" : to trigger a disconnection error and destroy the session
+	//		"lobby" : to initiate a "salvaging" lobby transition
+	virtual KeyValues * PrepareClientLobbyForGameDisconnect( KeyValues *pSettingsLocal, KeyValues *pDisconnectInfo ) = 0;
+
+	// Validates if client profile can set a stat or get awarded an achievement
+	virtual bool AllowClientProfileUpdate( KeyValues *kvUpdate ) = 0;
+	
+	// Retrieves the indexed formula from the match system settings file. (MatchSystem.360.res)
+	virtual char const * GetFormulaAverage( int index ) = 0;
+
+	// Called by the client to notify matchmaking that it should update matchmaking properties based
+	// on player distribution among the teams.
+	virtual void UpdateTeamProperties( KeyValues *pCurrentSettings, KeyValues *pTeamProperties ) = 0;
 };
 
 #endif // IMATCHTITLE_H

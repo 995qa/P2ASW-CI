@@ -41,3 +41,35 @@ $Project "meshutils"
 {
 	"meshutils\meshutils.vpc"
 }
+
+$Project "matchmaking"
+{
+	"matchmaking/matchmaking_portal2.vpc" [($WINDOWS || $X360 || $PS3 || $POSIX) && $PORTAL2 && !$SOB]
+	"matchmaking/matchmaking_swarm.vpc" [($WINDOWS || $X360) && $SWARM]
+//	"matchmaking/matchmaking_dota.vpc" [($WINDOWS || $X360) && $DOTA]
+//	"matchmaking/matchmaking_tf.vpc" [($WINDOWS || $X360) && $TF]
+//	"matchmaking/matchmaking_episodic.vpc" [($WINDOWS || $X360) && $EPISODIC]
+//	"matchmaking/matchmaking_cstrike.vpc" [($WINDOWS || $X360) && $CSTRIKE]
+//	"matchmaking/matchmaking_cstrike15.vpc" [($OSXALL || $WINDOWS || $X360 || $PS3 ||$POSIX)) && $CSGO]
+}
+
+$Project "matchmakingbase"
+{
+	"matchmaking/matchmaking_base.vpc" [($OSXALL || $WINDOWS || $X360 || $PS3 ||$POSIX)]
+}
+
+$Project "matchmaking_ds"
+{
+	"matchmaking/matchmaking_portal2_ds.vpc" [$WINDOWS && $PORTAL2 && !$SOB]
+	"matchmaking/matchmaking_swarm_ds.vpc" [$WINDOWS && $SWARM]
+//	"matchmaking/matchmaking_dota_ds.vpc" [$WINDOWS && $DOTA]
+//	"matchmaking/matchmaking_tf_ds.vpc" [$WINDOWS && $TF]
+//	"matchmaking/matchmaking_episodic_ds.vpc" [$WINDOWS && $EPISODIC]
+//	"matchmaking/matchmaking_cstrike_ds.vpc" [$WINDOWS && $CSTRIKE]
+//	"matchmaking/matchmaking_cstrike15_ds.vpc" [($OSXALL || $DEDICATED || $WINDOWS||$POSIX)) && $CSGO]
+}
+
+$Project "matchmakingbase_ds"
+{
+	"matchmaking/matchmaking_base_ds.vpc" [($OSXALL || $DEDICATED || $WINDOWS||$POSIX))]
+}

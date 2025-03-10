@@ -5,6 +5,8 @@ $Group "game"
 	"missionchooser"
 	"shaderlib"
 	"portal_shader"
+	"matchmaking"
+	"matchmaking_ds"
 }
 
 $Group "shaders"
@@ -23,4 +25,8 @@ $Group "everything"
 	"portal_shader"
 	"bonesetup"
 	"meshutils"
+	"matchmaking"
+	"matchmaking_ds"
+	"matchmakingbase"
+	"matchmakingbase_ds"
 }

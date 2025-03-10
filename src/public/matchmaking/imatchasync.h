@@ -41,6 +41,7 @@ public:
 	// results are operation-specific, may result in undefined behavior
 	// if operation is still in progress.
 	virtual uint64 GetResult() = 0;
+	virtual uint64 GetResultExtraInfo() { return 0; }
 
 	// Request operation to be aborted
 	virtual void Abort() = 0;

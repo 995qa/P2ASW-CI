@@ -9,6 +9,7 @@ class IServerManager;
 class ISearchManager;
 class IMatchVoice;
 class IDatacenter;
+class IDlcManager;
 
 class IMatchSystem
 {
@@ -22,6 +23,8 @@ public:
 	virtual ISearchManager * CreateGameSearchManager( KeyValues *pParams ) = 0;
 
 	virtual IDatacenter * GetDatacenter() = 0;
+
+	virtual IDlcManager * GetDlcManager() = 0;
 };
 
 #endif

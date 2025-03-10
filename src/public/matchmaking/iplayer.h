@@ -8,7 +8,7 @@
 #ifndef _IPLAYER_H_
 #define _IPLAYER_H_
 
-#include "tier1/KeyValues.h"
+#include "tier1/keyvalues.h"
 
 struct UserProfileData
 {
@@ -57,21 +57,46 @@ public:
 	virtual wchar_t const * GetRichPresence() = 0;
 
 	virtual KeyValues *GetGameDetails() = 0;
+	virtual KeyValues *GetPublishedPresence() = 0;
 
 	virtual bool IsJoinable() = 0;
 	virtual void Join() = 0;
+	virtual uint64 GetTitleID() = 0;
+	virtual uint32 GetGameServerIP() = 0;
 };
+
+struct MatchmakingData;
+class IPlayerRankingDataStore; 
 
 abstract_class IPlayerLocal : public IPlayer
 {
 public:
 	virtual const UserProfileData& GetPlayerProfileData() = 0;
 
+	// CSGO
+	//virtual MatchmakingData * GetPlayerMatchmakingData( void ) = 0;
+	//virtual void UpdatePlayerMatchmakingData( int mmDataType ) = 0;
+	//virtual void ResetPlayerMatchmakingData( int mmDataScope ) = 0;
+
 	virtual const void * GetPlayerTitleData( int iTitleDataIndex ) = 0;
-	virtual void UpdatePlayerTitleData( int iTitleDataIndex, const void *pvNewTitleData, int numBytesOffset, int numNewBytes ) = 0;
+	virtual void UpdatePlayerTitleData( TitleDataFieldsDescription_t const *fdKey, const void *pvNewTitleData, int numNewBytes ) = 0;
 
 	virtual void GetLeaderboardData( KeyValues *pLeaderboardInfo ) = 0;
 	virtual void UpdateLeaderboardData( KeyValues *pLeaderboardInfo ) = 0;
+
+	virtual void GetAwardsData( KeyValues *pAwardsData ) = 0;
+	virtual void UpdateAwardsData( KeyValues *pAwardsData ) = 0;
+
+	virtual void SetNeedsSave( void ) = 0;
+
+#if defined ( _X360 )
+	virtual bool IsTitleDataValid( void ) = 0;
+	virtual bool IsTitleDataBlockValid( int blockId ) = 0;
+	virtual void SetIsTitleDataValid( bool isValid ) = 0;
+	virtual bool IsFreshPlayerProfile( void ) = 0;
+	virtual void ClearBufTitleData( void ) = 0;
+#endif
+	virtual bool IsTitleDataStorageConnected( void ) = 0;
 };
 
 #endif
