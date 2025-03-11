@@ -76,7 +76,8 @@ protected:
 	void StartListenServerMap();
 	void OnEndGameToLobby();
 	void SetSessionActiveGameplayState( bool bActive, char const *szSecureServerAddress );
-	void InviteTeam();
+	// CSGO
+	//void InviteTeam();
 
 	//
 	// Overrides

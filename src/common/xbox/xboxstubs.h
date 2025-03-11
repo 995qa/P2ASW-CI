@@ -11,6 +11,11 @@
 #pragma once
 #endif
 
+#ifdef _WIN32
+typedef unsigned long DWORD;
+//#include "winlite.h"
+#endif
+
 #include "tier0/platform.h"
 
 //  Content creation/open flags
@@ -45,16 +50,25 @@
 #define XDEVICE_PORT1               1
 #define XDEVICE_PORT2               2
 #define XDEVICE_PORT3               3
+#ifndef _PS3 
 #define XUSER_MAX_COUNT				4
+#endif // !_PS3
 #define XUSER_INDEX_NONE            0x000000FE
 
 #define XBX_CLR_DEFAULT				0xFF000000
 #define XBX_CLR_WARNING				0x0000FFFF
 #define XBX_CLR_ERROR				0x000000FF
 
+#ifndef _PS3 
 #define XBOX_MINBORDERSAFE			0
 #define XBOX_MAXBORDERSAFE			0
+#endif // !_PS3
 
+#if defined( PLATFORM_PS3 )
+#include "ps3/ps3_core.h"
+#endif
+
+#ifndef _PS3
 typedef enum
 {
 	XK_NULL,
@@ -83,8 +97,17 @@ typedef enum
 	XK_STICK2_LEFT,
 	XK_STICK2_RIGHT,
 	XK_BUTTON_INACTIVE_START, 
+	XK_BUTTON_FIREMODE_SELECTOR_1,
+	XK_BUTTON_FIREMODE_SELECTOR_2,
+	XK_BUTTON_FIREMODE_SELECTOR_3,
+	XK_BUTTON_RELOAD,
+	XK_BUTTON_TRIGGER,
+	XK_BUTTON_PUMP_ACTION,
+	XK_XBUTTON_ROLL_RIGHT,
+	XK_XBUTTON_ROLL_LEFT,
 	XK_MAX_KEYS,
 } xKey_t;
+#endif
 
 //typedef enum
 //{
@@ -96,26 +119,39 @@ typedef enum
 //	XVRB_ALL,
 //} xverbose_e;
 
+#ifndef WORD
 typedef unsigned short WORD;
-typedef unsigned long DWORD;
+#endif
+#if ( !defined ( DWORD ) && !defined( WIN32 ) && !defined( _PS3 ))
+typedef unsigned int DWORD;
+#endif
 
 #ifndef POSIX
 typedef void* HANDLE;
+# if defined(_PS3) || defined(POSIX)
+typedef unsigned long long ULONGLONG
+# else
 typedef unsigned __int64 ULONGLONG;
+# endif
 #endif
 
-#ifdef POSIX
-typedef int32 COLORREF;
+#if defined( OSX )
+typedef DWORD COLORREF;
+#elif defined( POSIX ) && !defined( _PS3 )
+typedef DWORD COLORREF;
 #endif
 
 #ifndef INVALID_HANDLE_VALUE
-#define INVALID_HANDLE_VALUE ((HANDLE)-1)
+#define INVALID_HANDLE_VALUE ((HANDLE)(LONG_PTR)-1)
 #endif
 
 /*
 * Internet address (old style... should be updated)
 */
-#ifdef _POSIX
+#ifdef PLATFORM_PS3
+#include <netinet/in.h>
+typedef struct in_addr IN_ADDR;
+#elif defined( POSIX )
 struct ip4_addr {
 	union {
 		struct { unsigned char s_b1,s_b2,s_b3,s_b4; } S_un_b;
@@ -164,6 +200,11 @@ typedef struct {
 
 typedef uint64 XUID;
 
+#ifndef INVALID_XUID
+#define INVALID_XUID ((XUID) 0)
+#endif
+
+#ifndef _PS3
 typedef struct {
 	BYTE        ab[8];                          // xbox to xbox key identifier
 } XNKID;
@@ -171,6 +212,7 @@ typedef struct {
 typedef struct {
 	BYTE        ab[16];                         // xbox to xbox key exchange key
 } XNKEY;
+#endif
 
 typedef struct _XSESSION_INFO
 {
@@ -288,10 +330,12 @@ typedef struct {
 #define XPROFILE_TITLE_SPECIFIC3    0x3FFD
 #define XPROFILE_SETTING_MAX_SIZE 1000
 
+FORCEINLINE unsigned int	XBX_GetSystemTime() { return 0; }
+
+#ifndef PLATFORM_PS3
 FORCEINLINE DWORD			XBX_GetNumGameUsers() { return 1; }
 FORCEINLINE void			XBX_ProcessEvents() {}
 FORCEINLINE void			XBX_DispatchEventsQueue() {}
-FORCEINLINE unsigned int	XBX_GetSystemTime() { return 0; }
 FORCEINLINE	DWORD			XBX_GetPrimaryUserId() { return 0; }
 FORCEINLINE	void			XBX_SetPrimaryUserId( DWORD idx ) {}
 FORCEINLINE	void			XBX_ResetStorageDeviceInfo() {}
@@ -303,16 +347,19 @@ FORCEINLINE bool			XBX_IsLocalized() { return false; }
 FORCEINLINE bool			XBX_IsAudioLocalized() { return false; }
 FORCEINLINE const char		*XBX_GetNextSupportedLanguage( const char *pLanguage, bool *pbHasAudio ) { return NULL; }
 FORCEINLINE bool			XBX_IsRestrictiveLanguage() { return false; }
-
 FORCEINLINE int				XBX_GetUserId( int nSlot ) { return nSlot; }
+FORCEINLINE int				XBX_GetSlotByUserId( int idx ) { return idx; }
 FORCEINLINE void			XBX_SetUserId( int nSlot, int idx ) {}
+#endif
 
 
 #define XCONTENT_MAX_DISPLAYNAME_LENGTH	128
 #define XCONTENT_MAX_FILENAME_LENGTH	42
 
+#ifndef _PS3
 #define XBX_INVALID_STORAGE_ID ((DWORD) -1)
 #define XBX_STORAGE_DECLINED ((DWORD) -2)
+#endif // !_PS3
 
 enum XUSER_SIGNIN_STATE
 {
@@ -321,8 +368,11 @@ enum XUSER_SIGNIN_STATE
 	eXUserSigninState_SignedInToLive,
 };
 
-#if (defined(_POSIX))
+#if defined( _PS3 )
+#elif defined( POSIX )
 typedef size_t ULONG_PTR;
+#elif defined( _M_X64 )
+typedef _W64 unsigned __int64 ULONG_PTR;
 #else
 typedef _W64 unsigned long ULONG_PTR;
 #endif
@@ -332,7 +382,7 @@ typedef ULONG_PTR DWORD_PTR, *PDWORD_PTR;
 typedef void * PXOVERLAPPED_COMPLETION_ROUTINE;
 
 
-#ifndef _POSIX
+#if defined( _PS3 ) || !defined( POSIX )
 typedef struct _XOVERLAPPED {
     ULONG_PTR                           InternalLow;
     ULONG_PTR                           InternalHigh;
@@ -360,6 +410,7 @@ typedef struct _XOVERLAPPED {
 #define XCONTENT_MAX_FILENAME_LENGTH    42
 #define XCONTENTDEVICE_MAX_NAME_LENGTH  27
 typedef DWORD                           XCONTENTDEVICEID, *PXCONTENTDEVICEID;
+#ifndef _PS3
 typedef struct _XCONTENT_DATA
 {
 	XCONTENTDEVICEID                    DeviceID;
@@ -367,6 +418,7 @@ typedef struct _XCONTENT_DATA
 	wchar_t                             szDisplayName[XCONTENT_MAX_DISPLAYNAME_LENGTH];
 	char                                szFileName[XCONTENT_MAX_FILENAME_LENGTH];
 } XCONTENT_DATA, *PXCONTENT_DATA;
+#endif
 
 #define X_CONTEXT_PRESENCE              0x00010001
 #define X_CONTEXT_GAME_TYPE             0x0001000A

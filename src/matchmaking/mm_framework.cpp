@@ -815,18 +815,19 @@ bool CMatchFramework::IsOnlineGame( void )
 	return false;
 }
 
-void CMatchFramework::UpdateTeamProperties( KeyValues *pTeamProperties )
-{
-	IMatchSession *pMatchSession = GetMatchSession();
-	IMatchTitleGameSettingsMgr *pMatchTitleGameSettingsMgr = GetMatchTitleGameSettingsMgr();
-
-	if ( pMatchSession && pMatchTitleGameSettingsMgr )
-	{
-		pMatchSession->UpdateTeamProperties( pTeamProperties );
-		KeyValues *pCurrentSettings = pMatchSession->GetSessionSettings();
-		pMatchTitleGameSettingsMgr->UpdateTeamProperties( pCurrentSettings, pTeamProperties );
-	}
-}
+// CSGO
+//void CMatchFramework::UpdateTeamProperties( KeyValues *pTeamProperties )
+//{
+//	IMatchSession *pMatchSession = GetMatchSession();
+//	IMatchTitleGameSettingsMgr *pMatchTitleGameSettingsMgr = GetMatchTitleGameSettingsMgr();
+//
+//	if ( pMatchSession && pMatchTitleGameSettingsMgr )
+//	{
+//		pMatchSession->UpdateTeamProperties( pTeamProperties );
+//		KeyValues *pCurrentSettings = pMatchSession->GetSessionSettings();
+//		pMatchTitleGameSettingsMgr->UpdateTeamProperties( pCurrentSettings, pTeamProperties );
+//	}
+//}
 
 void CMatchFramework::OnEvent( KeyValues *pEvent )
 {

@@ -313,10 +313,10 @@ void CMatchSearcher::Steam_OnLobbyDataReceived( LobbyDataUpdate_t *pLobbyDataUpd
 				pRes->m_svAdr.ToString(), pRes->m_svPing );
 			
 			// Ping server
-			IMatchAsyncOperation *pAsyncOperationPing = NULL;
-			g_pMatchExtensions->GetINetSupport()->ServerPing( pRes->m_svAdr, this, &pAsyncOperationPing );
-			m_arrOutstandingAsyncOperation.AddToTail( pAsyncOperationPing );
-			pRes->m_pAsyncOperationPingWeakRef = pAsyncOperationPing;
+			//IMatchAsyncOperation *pAsyncOperationPing = NULL;
+			//g_pMatchExtensions->GetINetSupport()->ServerPing( pRes->m_svAdr, this, &pAsyncOperationPing );
+			//m_arrOutstandingAsyncOperation.AddToTail( pAsyncOperationPing );
+			//pRes->m_pAsyncOperationPingWeakRef = pAsyncOperationPing;
 		}
 	}
 }

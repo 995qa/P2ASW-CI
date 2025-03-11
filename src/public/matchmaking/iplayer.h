@@ -9,6 +9,7 @@
 #define _IPLAYER_H_
 
 #include "tier1/keyvalues.h"
+#include "imatchtitle.h"
 
 struct UserProfileData
 {

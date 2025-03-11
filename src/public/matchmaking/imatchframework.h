@@ -88,8 +88,8 @@ public:
 	virtual bool IsOnlineGame( void ) = 0;
 
 	// Called by the client to notify matchmaking that it should update matchmaking properties based
-	// on player distribution among the teams.
-	virtual void UpdateTeamProperties( KeyValues *pTeamProperties ) = 0;
+	// on player distribution among the teams. (CSGO)
+	//virtual void UpdateTeamProperties( KeyValues *pTeamProperties ) = 0;
 };
 
 #define IMATCHFRAMEWORK_VERSION_STRING "MATCHFRAMEWORK_001"

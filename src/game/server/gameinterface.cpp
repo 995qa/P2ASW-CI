@@ -1042,7 +1042,7 @@ bool CServerGameDLL::DLLInit(CreateInterfaceFn appSystemFactory,
 		return false;
 #endif
 
-#if defined ( INFESTED_DLL ) || defined ( PORTAL2 )
+#if defined ( INFESTED_DLL )
 	if ( (g_pMatchExtSwarm = (IMatchExtSwarm *)appSystemFactory(IMATCHEXT_SWARM_INTERFACE, NULL)) == NULL )
 		return false;
 #endif

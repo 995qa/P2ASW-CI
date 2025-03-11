@@ -604,7 +604,7 @@ void CDsSearcher::Steam_SearchPass()
 	}
 
 	// Allow the game to extend the filters
-	if ( KeyValues *pExtra = g_pMMF->GetMatchTitleGameSettingsMgr()->DefineDedicatedSearchKeys( m_pSettings, bNeedOfficialServer, m_nSearchPass ) )
+	if ( KeyValues *pExtra = g_pMMF->GetMatchTitleGameSettingsMgr()->DefineDedicatedSearchKeys( m_pSettings /*, bNeedOfficialServer, m_nSearchPass*/ ) )
 	{
 		if ( !mm_dedicated_ip.GetString()[0] )
 		{

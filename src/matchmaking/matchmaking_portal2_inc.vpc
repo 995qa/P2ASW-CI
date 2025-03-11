@@ -8,7 +8,9 @@ $Macro SRCDIR	".."
 $Macro GAMENAME "portal2"
 $Macro GAMESUBDIR "portal2"
 
-$Macro OUTBINDIR	"$SRCDIR\..\game\$GAMENAME\bin"
+$Macro MODNAME "portal2asw"
+
+$Macro OUTBINDIR	"$SRCDIR\..\game\$MODNAME\bin"
 $Macro DEVKITBINDIR	"$GAMENAME\bin"							[$X360]
 
 $Include "$SRCDIR\vpc_scripts\source_dll_base.vpc" 

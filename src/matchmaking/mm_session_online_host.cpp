@@ -581,7 +581,7 @@ void CMatchSessionOnlineHost::OnRunCommand_StartListenServerStarted( uint32 exte
 	if ( m_pTeamSearcher )
 		m_pTeamSearcher->Update();
 
-	InviteTeam();
+	//InviteTeam();
 }
 
 void CMatchSessionOnlineHost::OnRunCommand_QueueConnect( KeyValues *pCommand )
@@ -663,7 +663,7 @@ void CMatchSessionOnlineHost::ConnectGameServer( CDsSearcher::DsResult_t *pDsRes
 	g_pMatchExtensions->GetIVEngineClient()->ClientCmd( msInfo.m_szConnectCmd );	
 
 	// Tell the rest of the team
-	InviteTeam();
+	//InviteTeam();
 }
 
 void CMatchSessionOnlineHost::StartListenServerMap()
@@ -685,8 +685,8 @@ void CMatchSessionOnlineHost::StartListenServerMap()
 	// the listen server host to be on team 1.
 	MatchSession_PrepareClientForConnect( m_pSettings );
 
-	// Before starting a listen server map ensure we have the map name set
-	g_pMMF->GetMatchTitleGameSettingsMgr()->SetBspnameFromMapgroup( m_pSettings );
+	// Before starting a listen server map ensure we have the map name set (CSGO)
+	//g_pMMF->GetMatchTitleGameSettingsMgr()->SetBspnameFromMapgroup( m_pSettings );
 
 	if ( !mm_disable_listen_server.GetBool() )
 	{
@@ -844,6 +844,8 @@ uint64 CMatchSessionOnlineHost::GetSessionID()
 	return 0;
 }
 
+// CSGO
+/*
 void CMatchSessionOnlineHost::InviteTeam()
 {
 	return; // this path is no longer needed
@@ -937,6 +939,7 @@ void CMatchSessionOnlineHost::InviteTeam()
 	// won't know what side to join
 	m_pSettings->SetInt( "conteam", team );
 }
+*/
 
 void CMatchSessionOnlineHost::Update()
 {

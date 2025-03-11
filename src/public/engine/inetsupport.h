@@ -62,7 +62,8 @@ public:
 
 		char const *m_szServerName;
 		char const *m_szMapName;
-		char const *m_szMapGroupName;
+		// CSGO
+		//char const *m_szMapGroupName;
 
 		int m_numMaxHumanPlayers;
 		int m_numHumanPlayers;
@@ -99,16 +100,19 @@ public:
 		uint64 nServerReservationCookie, KeyValues *pKVGameSettings,
 		IMatchAsyncOperationCallback *pCallback, IMatchAsyncOperation **ppAsyncOperation ) = 0;
 
-	// Check server reservation cookie matches cookie held by client
-	virtual bool CheckServerReservation( 
-		const netadr_s &netAdrPublic, uint64 nServerReservationCookie, uint32 uiReservationStage,
-		IMatchAsyncOperationCallback *pCallback, IMatchAsyncOperation **ppAsyncOperation ) = 0;
+	// Check server reservation cookie matches cookie held by client (CSGO)
+	//virtual bool CheckServerReservation( 
+	//	const netadr_s &netAdrPublic, uint64 nServerReservationCookie, uint32 uiReservationStage,
+	//	IMatchAsyncOperationCallback *pCallback, IMatchAsyncOperation **ppAsyncOperation ) = 0;
 
-	virtual bool ServerPing( const netadr_s &netAdrPublic,
-		IMatchAsyncOperationCallback *pCallback, IMatchAsyncOperation **ppAsyncOperation ) = 0;
+	//virtual bool ServerPing( const netadr_s &netAdrPublic,
+	//	IMatchAsyncOperationCallback *pCallback, IMatchAsyncOperation **ppAsyncOperation ) = 0;
 
 	// When client event is fired
 	virtual void OnMatchEvent( KeyValues *pEvent ) = 0;
+
+	// Not in CSGO
+	INetChannel* CreateChannel(int sock, netadr_s& to,char* szName,INetChannelHandler* pHandler);
 
 	// Process incoming net packets on the socket
 	virtual void ProcessSocket( int sock, IConnectionlessPacketHandler * pHandler ) = 0;
@@ -120,10 +124,12 @@ public:
 		bf_write *pVoicePayload = NULL,
 		bool bUseCompression = false ) = 0;
 
-	virtual ISteamNetworkingUtils *GetSteamNetworkingUtils() = 0;
+	// CSGO
+	//virtual ISteamNetworkingUtils *GetSteamNetworkingUtils() = 0;
 };
 
-#define INETSUPPORT_VERSION_STRING "INETSUPPORT_003"
+// Was 003 in CSGO, P2 and Swarm both use 001
+#define INETSUPPORT_VERSION_STRING "INETSUPPORT_001"
 
 
 #endif // INETSUPPORT_H

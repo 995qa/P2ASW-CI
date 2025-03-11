@@ -178,20 +178,21 @@ public:
 	virtual KeyValues * DefineSessionSearchKeys( KeyValues *pSettings ) = 0;
 
 	// Defines dedicated server search key
-	virtual KeyValues * DefineDedicatedSearchKeys( KeyValues *pSettings, bool bNeedOfficialServer, int nSearchPass ) = 0;
+	virtual KeyValues * DefineDedicatedSearchKeys( KeyValues *pSettings /*, bool bNeedOfficialServer, int nSearchPass*/ ) = 0; // Extra params from CSGO
 
 
 	// Initializes full game settings from potentially abbreviated game settings
 	virtual void InitializeGameSettings( KeyValues *pSettings, char const *szReason ) = 0;
 
-	// Sets the bspname key given a mapgroup
-	virtual void SetBspnameFromMapgroup( KeyValues *pSettings ) = 0;
+	// Sets the bspname key given a mapgroup (CSGO)
+	//virtual void SetBspnameFromMapgroup( KeyValues *pSettings ) = 0;
 
 	// Extends game settings update packet before it gets merged with
 	// session settings and networked to remote clients
 	virtual void ExtendGameSettingsUpdateKeys( KeyValues *pSettings, KeyValues *pUpdateDeleteKeys ) = 0;
 
-	virtual KeyValues * ExtendTeamLobbyToGame( KeyValues *pSettings ) = 0;
+	// CSGO
+	//virtual KeyValues * ExtendTeamLobbyToGame( KeyValues *pSettings ) = 0;
 
 	// Prepares system for session creation
 	virtual KeyValues * PrepareForSessionCreate( KeyValues *pSettings ) = 0;
@@ -236,12 +237,12 @@ public:
 	// Validates if client profile can set a stat or get awarded an achievement
 	virtual bool AllowClientProfileUpdate( KeyValues *kvUpdate ) = 0;
 	
-	// Retrieves the indexed formula from the match system settings file. (MatchSystem.360.res)
-	virtual char const * GetFormulaAverage( int index ) = 0;
+	// Retrieves the indexed formula from the match system settings file. (MatchSystem.360.res) (CSGO)
+	//virtual char const * GetFormulaAverage( int index ) = 0;
 
 	// Called by the client to notify matchmaking that it should update matchmaking properties based
-	// on player distribution among the teams.
-	virtual void UpdateTeamProperties( KeyValues *pCurrentSettings, KeyValues *pTeamProperties ) = 0;
+	// on player distribution among the teams. (CSGO)
+	//virtual void UpdateTeamProperties( KeyValues *pCurrentSettings, KeyValues *pTeamProperties ) = 0;
 };
 
 #endif // IMATCHTITLE_H

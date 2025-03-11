@@ -116,8 +116,8 @@ public:
 	virtual bool IsOnlineGame( void );
 
 	// Called by the client to notify matchmaking that it should update matchmaking properties based
-	// on player distribution among the teams.
-	virtual void UpdateTeamProperties( KeyValues *pTeamProperties );
+	// on player distribution among the teams. (CSGO)
+	//virtual void UpdateTeamProperties( KeyValues *pTeamProperties );
 
 	//
 	// IMatchEventsSink

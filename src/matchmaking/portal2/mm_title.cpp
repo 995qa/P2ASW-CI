@@ -163,7 +163,7 @@ int CMatchTitle::GetTotalNumPlayersSupported()
 // Get a guest player name
 char const * CMatchTitle::GetGuestPlayerName( int iUserIndex )
 {
-	if ( vgui::IVGUILocalize *pLocalize = g_pMatchExtensions->GetILocalize() )
+	if ( vgui::ILocalize *pLocalize = g_pMatchExtensions->GetILocalize() )
 	{
 		if ( wchar_t* wStringTableEntry = pLocalize->Find( "#L4D360UI_Character_Guest" ) )
 		{
