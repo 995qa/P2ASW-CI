@@ -124,7 +124,7 @@ void CFadeOutStartGame::StartGame()
 
 		IMatchSession *pSession = g_pMatchFramework->GetMatchSession();
 		char const *szSessionMapName;
-		szSessionMapName = pSession ? pSession->GetSessionSettings()->GetString( "game/mission" ) : "";
+		szSessionMapName = pSession ? pSession->GetSessionSettings()->GetString( "game/map" ) : "";
 
 		if ( !IsGameConsole() && 
 			!m_LoadFilename.IsEmpty() && 

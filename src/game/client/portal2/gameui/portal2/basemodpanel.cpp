@@ -2039,7 +2039,7 @@ CEG_NOINLINE void CBaseModPanel::OnLevelLoadingStarted( char const *levelName, b
 		if ( KeyValues *pSettings = pSession->GetSessionSettings() )
 		{
 			pChapterInfo = g_pMatchExt->GetMapInfo( pSettings, &pMissionInfo );
-			szMapNameFromSession = pSettings->GetString( "game/mission" );
+			szMapNameFromSession = pSettings->GetString( "game/map" );
 			Q_strncpy( chGameMode, pSettings->GetString( "game/mode", "" ), ARRAYSIZE( chGameMode ) );
 		}
 	}
