@@ -1410,6 +1410,15 @@ bool CServerGameDLL::SupportsSaveRestore()
 	return false;
 #endif
 
+#ifdef P2ASW
+	// HACK: Prepare the offline session for server reload
+	// This is the only place in game code that we can do this early enough
+	KeyValues *pEvent = new KeyValues( "OnEngineClientSignonStatePrepareChange" );
+	pEvent->SetString( "reason", "load" );
+	g_pMatchFramework->GetEventsSubscription()->BroadcastEvent( pEvent );
+#endif
+
+
 	return true;
 }
 
@@ -1885,6 +1894,12 @@ void CServerGameDLL::CreateNetworkStringTables( void )
 
 CSaveRestoreData *CServerGameDLL::SaveInit( int size )
 {
+#ifdef P2ASW
+	// HACK: Let matchmaking know that we saved rather than loaded so that the expecting save flag gets turned back off
+	KeyValues *pEvent = new KeyValues( "Hack_OnPostSave" );
+	g_pMatchFramework->GetEventsSubscription()->BroadcastEvent( pEvent );
+#endif
+
 	return ::SaveInit(size);
 }
 

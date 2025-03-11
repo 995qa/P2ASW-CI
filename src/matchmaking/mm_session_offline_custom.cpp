@@ -225,12 +225,25 @@ void CMatchSessionOfflineCustom::OnEvent( KeyValues *pEvent )
 			char const *szLevelName = g_pMatchExtensions->GetIVEngineClient()->GetLevelName();
 			if ( szLevelName && szLevelName[0] && g_pMatchExtensions->GetIVEngineClient()->IsConnected() )
 			{
+#if defined( P2ASW ) && defined( DEBUG )
+				// This gets hit when autosaving because of the hack we use, so just show a message instead of asserting
+				DevMsg("OnEngineClientSignonStatePrepareChange called twice");
+#else
 				Assert( !m_bExpectingServerReload );
+#endif
 				m_bExpectingServerReload = true;
 				return;
 			}
 		}
 	}
+#ifdef P2ASW
+	else if ( !Q_stricmp( "Hack_OnPostSave", szEvent ) )
+	{
+		m_bExpectingServerReload = false;
+		return;
+	}
+#endif // P2ASW
+
 	else if ( !Q_stricmp( "OnEngineEndGame", szEvent ) )
 	{
 		DevMsg( "OnEngineEndGame\n" );
