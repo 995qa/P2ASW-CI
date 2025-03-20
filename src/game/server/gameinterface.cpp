@@ -642,6 +642,13 @@ static bool InitGameSystems( CreateInterfaceFn appSystemFactory )
 
 CServerGameDLL g_ServerGameDLL;
 EXPOSE_SINGLE_INTERFACE_GLOBALVAR(CServerGameDLL, IServerGameDLL, INTERFACEVERSION_SERVERGAMEDLL, g_ServerGameDLL);
+
+#ifdef P2ASW
+
+// 
+// BEGIN ENGINE HOOKS
+//
+
 struct struct_this
 {
 	char gap5[0x1dc];
@@ -860,7 +867,10 @@ void Studio_BuildMatricesHook(
 	}
 }
 
-#ifdef P2ASW
+//
+// END ENGINE HOOKS
+//
+
 void LanguageCvarChangeCallback( IConVar *pConVar, char const *pOldString, float flOldValue )
 {
 	ConVarRef var(pConVar);
@@ -890,6 +900,9 @@ bool CServerGameDLL::DLLInit(CreateInterfaceFn appSystemFactory,
 	CreateInterfaceFn physicsFactory, CreateInterfaceFn fileSystemFactory,
 	CGlobalVars *pGlobals)
 {
+#ifdef P2ASW
+	// Setup engine hooks
+
 	int sizeOfPackedStore = sizeof(CPackedStore);
 
 	std::vector<uint8> sizeBytes = {
@@ -909,7 +922,7 @@ bool CServerGameDLL::DLLInit(CreateInterfaceFn appSystemFactory,
 	MH_CreateHook(g_mFileSystemDLL.FindPatternSIMD("53 55 56 57 8B F9 8B 87 1C 02 00 00").RCast<LPVOID>(), void_cast(&CPackedStore::DPackedStore), NULL);
 	MH_CreateHook(&Studio_BuildMatrices, (void*)(&Studio_BuildMatricesHook), NULL);
 	MH_EnableHook(MH_ALL_HOOKS);
-
+#endif // P2ASW
 
 	COM_TimestampedLog("ConnectTier1/2/3Libraries - Start");
 
@@ -980,6 +993,7 @@ bool CServerGameDLL::DLLInit(CreateInterfaceFn appSystemFactory,
 		scriptmanager = (IScriptManager *)appSystemFactory(VSCRIPT_INTERFACE_VERSION, NULL);
 	}
 
+#ifdef P2ASW
 	// HACK: Now that we have the filesystem interface, add a new VPK as soon as possible
 	// so that the patched AddVPKFile runs and flushes the VPK list.
 	// If we don't do this, we get crashes later
@@ -988,7 +1002,6 @@ bool CServerGameDLL::DLLInit(CreateInterfaceFn appSystemFactory,
 	V_strcat(path, "portal2asw.vpk", MAX_PATH);
 	filesystem->AddVPKFile(path, PATH_ADD_TO_HEAD);
 
-#ifdef P2ASW
 	// Register extra keyvalue conditionals that aren't present in Swarm
 	// We also need to do this early, before we start loading keyvalue files
 	KeyValuesSystem()->SetKeyValuesExpressionSymbol( "GAMECONSOLE", IsConsole() );
@@ -1019,7 +1032,7 @@ bool CServerGameDLL::DLLInit(CreateInterfaceFn appSystemFactory,
 	{
 		cl_language->InstallChangeCallback( LanguageCvarChangeCallback );
 	}
-#endif
+#endif // P2ASW
 
 #ifdef SERVER_USES_VGUI
 	// If not running dedicated, grab the engine vgui interface
