@@ -20,8 +20,11 @@
 #include "vscript_server_nut.h"
 #include "spawn_helper_nut.h"
 #endif
+
+#if defined( PORTAL2_PUZZLEMAKER )
 #include "matchmaking/imatchframework.h"
 #include "portal2_research_data_tracker.h"
+#endif // PORTAL2_PUZZLEMAKER
 
 extern ScriptClassDesc_t * GetScriptDesc( CBaseEntity * );
 
@@ -463,44 +466,159 @@ static void SetDucking( const char *pszLayerName, const char *pszMixGroupName, f
 }
 
 #ifdef PORTAL2_PUZZLEMAKER
-static void RequestMapRating()
+
+#define LOCAL_MAP_PLAY_ORDER_FILENAME	"scripts/vo_progress.txt"
+
+// Used for scripts playing Cave VO
+CUtlVector< PublishedFileId_t >	g_vecLocalMapPlayOrder;
+
+//-----------------------------------------------------------------------------
+// Purpose: Load the user's played map order off the disk, disallowing duplicates and allowing us to know what's already been played
+// FIXME:	For lack of a better place, I'm putting this here
+//-----------------------------------------------------------------------------
+bool LoadLocalMapPlayOrder( void )
 {
+	// Load our keyvalues from disk
+	KeyValues *pKV = new KeyValues( "MapPlayOrder" );
+	if ( pKV->LoadFromFile( g_pFullFileSystem, LOCAL_MAP_PLAY_ORDER_FILENAME, "MOD" ) == false )
+		return false;
+
+	// Grab all of our subkeys (should all be maps)
+	for ( KeyValues *sub = pKV->GetFirstSubKey(); sub != NULL; sub = sub->GetNextKey() )
+	{
+		if ( !Q_stricmp( sub->GetName(), "map" ) )
+		{
+			// Add the map's ID to our list
+			PublishedFileId_t mapID = sub->GetUint64();
+			if ( g_vecLocalMapPlayOrder.Find( mapID ) == g_vecLocalMapPlayOrder.InvalidIndex() )
+			{
+				g_vecLocalMapPlayOrder.AddToTail( mapID );
+			}
+		}
+		else
+		{
+			Warning("Ill-formed parameter found in map progress file!\n" );
+		}
+	}
+
+	pKV->deleteThis();
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: Load the user's played map order off the disk, disallowing duplicates and allowing us to know what's already been played
+// FIXME:	For lack of a better place, I'm putting this here
+//-----------------------------------------------------------------------------
+bool SaveLocalMapPlayOrder( void )
+{
+	// Load our keyvalues from disk
+	KeyValues *pKV = new KeyValues( "MapPlayOrder" );
+	KeyValues *pSubKeyTemplate = new KeyValues( "Map" );
+	pSubKeyTemplate->SetUint64( "map", 0 );
+
+	// Take all the maps in our list and dump them to the file
+	for ( int i=0; i < g_vecLocalMapPlayOrder.Count(); i++ )
+	{
+		KeyValues *pNewKey = pSubKeyTemplate->MakeCopy();
+		pNewKey->SetUint64( "map", g_vecLocalMapPlayOrder[i] );
+		pKV->AddSubKey( pNewKey );
+		pKV->ElideSubKey( pNewKey ); // This strips the outer "map"{ } parent and leaves the sub-keys as peers to one another in the final file
+	}
+
+	// Serialize it
+	if ( pKV->SaveToFile( g_pFullFileSystem, LOCAL_MAP_PLAY_ORDER_FILENAME, "MOD" ) == false )
+	{
+		Assert( 0 );
+		return false;
+	}
+
+	pSubKeyTemplate->deleteThis();
+	pKV->deleteThis();
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: Get the order index of the local map (order played) by its published file ID
+//-----------------------------------------------------------------------------
+int GetLocalMapIndexByPublishedFileID( PublishedFileId_t unFileID )
+{
+	int nIndex = g_vecLocalMapPlayOrder.Find( unFileID );
+	if ( nIndex == g_vecLocalMapPlayOrder.InvalidIndex() )
+		return -1;
+
+	return nIndex;
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: Get the order index of the local map (order played) by its published file ID
+//-----------------------------------------------------------------------------
+bool SetLocalMapPlayed( PublishedFileId_t unFileID )
+{
+	// Don't allow dupes
+	int nIndex = g_vecLocalMapPlayOrder.Find( unFileID );
+	if ( nIndex != g_vecLocalMapPlayOrder.InvalidIndex() )
+		return false;
+
+	// New entry, take it
+	g_vecLocalMapPlayOrder.AddToTail( unFileID );
+
+	return SaveLocalMapPlayOrder();	// FIXME: We probably don't need to do this every time and right away, but convenient for now
+}
+
+ConVar cm_current_community_map( "cm_current_community_map", "0", FCVAR_HIDDEN | FCVAR_REPLICATED );
+
+void RequestMapRating( void )
+{
+	// Request this blindly and make the listener decide if it's valid
 	g_pMatchFramework->GetEventsSubscription()->BroadcastEvent( new KeyValues( "OnRequestMapRating" ) );
 	g_Portal2ResearchDataTracker.Event_LevelCompleted();
 }
 
-static int GetMapIndexInPlayOrder()
+//
+// Get the index of the map in our play order (-1 if not there, -2 if the current map isn't a community map)
+//
+
+int GetMapIndexInPlayOrder( void )
 {
-	extern ConVar cm_current_community_map;
-	long mapIndex = atol(cm_current_community_map.GetString());
+	PublishedFileId_t nMapID = (uint64) atol(cm_current_community_map.GetString());
 
-	if (mapIndex == 0 || g_pGameRules->IsCoOp())
-		return -2;
+	// Coop maps will NOT play dialog.  The hooks remain in the maps, so we can change this in
+	// the future if we need to.
+	if ( nMapID == 0 || GameRules()->IsCoOp() )
+		return -2;	// This map isn't a known community map!
 
-	return GetLocalMapIndexByPublishedFileID( mapIndex );
+	// Returns -1 if it's not found (but IS a valid community map. The user needs to add it at this point).
+	return GetLocalMapIndexByPublishedFileID( nMapID );
 }
 
-static int GetNumMapsPlayed()
+//
+// Get the number of maps the player has played through
+//
+
+int GetNumMapsPlayed( void )
 {
-	return g_vecLocalMapPlayOrder.m_Size;
+	return g_vecLocalMapPlayOrder.Count();
 }
 
-static int SetMapAsPlayed()
+//
+// Set the currently map has having been "played" in the eyes of the VO (-1 denotes a failure, -2 if the current map isn't a community map)
+//
+
+int SetMapAsPlayed( void )
 {
-	extern ConVar cm_current_community_map;
-	long mapIndex = atol(cm_current_community_map.GetString());
+	PublishedFileId_t nMapID = (uint64) atol(cm_current_community_map.GetString());
+	if ( nMapID == 0 )
+		return -2;	// This map isn't a known community map!
 
-	if (mapIndex == 0)
-		return -2;
-
-	if (SetLocalMapPlayed(mapIndex))
-		return GetLocalMapIndexByPublishedFileID( mapIndex );
+	// Add our map as being "played" in the eyes of the VO scripts
+	if ( SetLocalMapPlayed( nMapID ) )
+		return GetLocalMapIndexByPublishedFileID( nMapID );
 
 	return -1;
 }
 #else
 
-// Since some scripts expect these to be present, we need stubbed versions for when PORTAL2_PUZZLEMAKER is turned off
+// P2ASW: Some existing scripts expect these to be present, so we need stubbed versions for when PORTAL2_PUZZLEMAKER is turned off
 
 static void RequestMapRating()
 {
@@ -509,7 +627,7 @@ static void RequestMapRating()
 
 static int GetMapIndexInPlayOrder()
 {
-	return -2;
+	return -2; // not a workshop map
 }
 
 static int GetNumMapsPlayed()
@@ -519,7 +637,7 @@ static int GetNumMapsPlayed()
 
 static int SetMapAsPlayed()
 {
-	return -2;
+	return -2; // not a workshop map
 }
 #endif // PORTAL2_PUZZLEMAKER
 
@@ -586,13 +704,17 @@ bool VScriptServerInit()
 				ScriptRegisterFunctionNamed( g_pScriptVM, ScriptDispatchParticleEffect, "DispatchParticleEffect", "Dispatches a one-off particle system" );
 #if defined ( PORTAL2 )
 				ScriptRegisterFunction( g_pScriptVM, SetDucking, "Set the level of an audio ducking channel" );
-
-				// Workshop stuff
-				// Some portal 2 scripts expect these to be present, so we need stubbed versions when PORTAL2_PUZZLEMAKER is disabled
+#if defined( PORTAL2_PUZZLEMAKER )
 				ScriptRegisterFunction( g_pScriptVM, RequestMapRating, "Pops up the map rating dialog for user input" );
 				ScriptRegisterFunction( g_pScriptVM, GetMapIndexInPlayOrder, "Determines which index (by order played) this map is. Returns -1 if entry is not found. -2 if this is not a known community map." );
 				ScriptRegisterFunction( g_pScriptVM, GetNumMapsPlayed, "Returns how many maps the player has played through." );
 				ScriptRegisterFunction( g_pScriptVM, SetMapAsPlayed, "Adds the current map to the play order and returns the new index therein. Returns -2 if this is not a known community map." );
+#else
+				ScriptRegisterFunction( g_pScriptVM, RequestMapRating, "Stub function to prevent errors in existing scripts" );
+				ScriptRegisterFunction( g_pScriptVM, GetMapIndexInPlayOrder, "Stub function to prevent errors in existing scripts" );
+				ScriptRegisterFunction( g_pScriptVM, GetNumMapsPlayed, "Stub function to prevent errors in existing scripts" );
+				ScriptRegisterFunction( g_pScriptVM, SetMapAsPlayed, "Stub function to prevent errors in existing scripts" );
+#endif	// PORTAL2_PUZZLEMAKER
 #endif
 
 				

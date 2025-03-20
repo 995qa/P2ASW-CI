@@ -17,10 +17,12 @@
 //#include "vscript_client_nut.h"
 #endif
 
-#if defined ( PORTAL2 )
 #include "usermessages.h"
 #include "hud_macros.h"
-#endif
+
+#if defined( PORTAL2_PUZZLEMAKER )
+#include "matchmaking/imatchframework.h"
+#endif // PORTAL2_PUZZLEMAKER
 
 extern IScriptManager *scriptmanager;
 extern ScriptClassDesc_t * GetScriptDesc( CBaseEntity * );
@@ -69,6 +71,24 @@ bool DoIncludeScript( const char *pszScript, HSCRIPT hScope )
 	return true;
 }
 
+#if defined( PORTAL2_PUZZLEMAKER )
+void RequestMapRating( void )
+{
+	g_pMatchFramework->GetEventsSubscription()->BroadcastEvent( new KeyValues( "OnRequestMapRating" ) );		
+}
+
+//
+//  Hack solution for the moment
+//
+
+void OpenVoteDialog( void )
+{
+	RequestMapRating();
+}
+
+ConCommand cm_open_vote_dialog( "cm_open_vote_dialog", OpenVoteDialog, "Opens the map voting dialog for testing purposes" );
+#endif // PORTAL2_PUZZLEMAKER
+
 int GetDeveloperLevel()
 {
 	return developer.GetInt();
@@ -116,7 +136,10 @@ bool VScriptClientInit()
 				ScriptRegisterFunction( g_pScriptVM, Time, "Get the current server time" );
 				ScriptRegisterFunction( g_pScriptVM, DoIncludeScript, "Execute a script (internal)");
 				ScriptRegisterFunction( g_pScriptVM, GetDeveloperLevel, "Gets the level of 'develoer'" );
-				
+#if defined( PORTAL2_PUZZLEMAKER )
+				ScriptRegisterFunction( g_pScriptVM, RequestMapRating, "Pops up the map rating dialog for user input" );
+#endif // PORTAL2_PUZZLEMAKER
+
 				if ( GameRules() )
 				{
 					GameRules()->RegisterScriptFunctions();
