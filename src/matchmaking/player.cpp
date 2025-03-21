@@ -29,6 +29,9 @@
 ConVar cl_names_debug( "cl_names_debug", "0", FCVAR_DEVELOPMENTONLY );
 #define PLAYER_DEBUG_NAME "WWWWWWWWWWWWWWW"
 
+#define OFFLINE_TITLEDATA_FILE "save/titledata_%llu.kv"
+#define OFFLINE_TITLEDATA_FILE_NOSTEAM "save/titledata.kv"
+
 #ifndef NO_STEAM
 static float s_flSteamStatsRequestTime = 0;
 static bool s_bSteamStatsRequestFailed = false;
@@ -1051,6 +1054,116 @@ void PlayerLocal::LoadTitleData()
 	else
 		OnProfileTitleDataLoaded( 1 );
 
+#elif defined( OFFLINE_TITLEDATA )
+
+	// Load title data from keyvalues
+	char szFilename[64];
+#ifndef NO_STEAM
+	if ( steamapicontext->SteamUser()->BLoggedOn() )
+		V_snprintf( szFilename, 64, OFFLINE_TITLEDATA_FILE, steamapicontext->SteamUser()->GetSteamID().ConvertToUint64());
+	else
+#endif
+		V_snprintf( szFilename, 64, OFFLINE_TITLEDATA_FILE_NOSTEAM );
+
+	KeyValues* pKV = new KeyValues("TitleData");
+	if ( !pKV->LoadFromFile(g_pFullFileSystem, szFilename, "MOD") )
+	{
+		pKV->deleteThis();
+		return;
+	}
+
+	//
+	// Achievements state
+	// TODO: reimplement this later when achievements are working on the game side
+	//for ( TitleAchievementsDescription_t const *pAchievement = g_pMatchFramework->GetMatchTitle()->DescribeTitleAchievements();
+	//	  pAchievement && pAchievement->m_szAchievementName; ++ pAchievement )
+	//{
+	//	bool bAchieved;
+	//	if ( steamapicontext->SteamUserStats()->GetAchievement( pAchievement->m_szAchievementName, &bAchieved ) && bAchieved )
+	//	{
+	//		m_arrAchievementsEarned.FindAndFastRemove( pAchievement->m_idAchievement );
+	//		m_arrAchievementsEarned.AddToTail( pAchievement->m_idAchievement );
+	//	}
+	//}
+
+	//
+	// Load all our stats data
+	//
+	TitleDataFieldsDescription_t const *pTitleDataTable = g_pMatchFramework->GetMatchTitle()->DescribeTitleDataStorage();
+	for ( ; pTitleDataTable && pTitleDataTable->m_szFieldName; ++ pTitleDataTable )
+	{
+		switch( pTitleDataTable->m_eDataType )
+		{
+			case TitleDataFieldsDescription_t::DT_uint8:
+			case TitleDataFieldsDescription_t::DT_uint16:
+			case TitleDataFieldsDescription_t::DT_uint32:
+			{
+				uint32 i32field[3] = { 0 };
+				i32field[0] = pKV->GetInt( pTitleDataTable->m_szFieldName, 0 );
+
+				*(uint16*)( &i32field[1] ) = uint16( i32field[0] );
+				*(uint8*)( &i32field[2] ) = uint8( i32field[0] );
+
+				memcpy( &m_bufTitleData[pTitleDataTable->m_iTitleDataBlock][pTitleDataTable->m_numBytesOffset],
+						&i32field[2 - ( pTitleDataTable->m_eDataType / 16 )], pTitleDataTable->m_eDataType / 8 );
+			}
+			break;
+
+			case TitleDataFieldsDescription_t::DT_float:
+			{
+				float flField = 0.0f;
+				flField = pKV->GetFloat( pTitleDataTable->m_szFieldName, 0.0f );
+
+				memcpy( &m_bufTitleData[pTitleDataTable->m_iTitleDataBlock][pTitleDataTable->m_numBytesOffset],
+						&flField, pTitleDataTable->m_eDataType / 8 );
+			}
+			break;
+
+			case TitleDataFieldsDescription_t::DT_uint64:
+			{
+				uint32 i32field[2] = { 0 };
+
+				char chBuffer[ 256 ] = {0};
+
+				for ( int k = 0; k < ARRAYSIZE( i32field ); ++ k )
+				{
+					Q_snprintf( chBuffer, ARRAYSIZE( chBuffer ), "%s.%d", pTitleDataTable->m_szFieldName, k );
+					i32field[k] = pKV->GetInt(pTitleDataTable->m_szFieldName, 0);
+				}
+
+				memcpy( &m_bufTitleData[ pTitleDataTable->m_iTitleDataBlock ][ pTitleDataTable->m_numBytesOffset ],
+						&i32field[0], pTitleDataTable->m_eDataType / 8 );
+			}
+			break;
+
+			case TitleDataFieldsDescription_t::DT_BITFIELD:
+			{
+#ifdef STEAM_PACK_BITFIELDS // applying this to keyvalues too
+				char chStatField[64] = {0};
+				uint32 uiOffsetInTermsOfUINT32 = pTitleDataTable->m_numBytesOffset/32;
+				V_snprintf( chStatField, sizeof( chStatField ), "bitfield_%02u_%03X", pTitleDataTable->m_iTitleDataBlock + 1, uiOffsetInTermsOfUINT32*4 );
+				int32 iCombinedBitValue = 0;
+				iCombinedBitValue = pKV->GetInt(pTitleDataTable->m_szFieldName, 0);
+
+				( reinterpret_cast< uint32 * >( &m_bufTitleData[pTitleDataTable->m_iTitleDataBlock][0] ) )[ uiOffsetInTermsOfUINT32 ] = iCombinedBitValue;
+#else
+				int i32field = 0;
+				i32field = pKV->GetInt(pTitleDataTable->m_szFieldName, 0);
+
+				char &rByte = m_bufTitleData[ pTitleDataTable->m_iTitleDataBlock ][ pTitleDataTable->m_numBytesOffset/8 ];
+				char iMask = ( 1 << ( pTitleDataTable->m_numBytesOffset % 8 ) );
+				if ( i32field )
+					rByte |= iMask;
+				else
+					rByte &=~iMask;
+#endif
+			}
+			break;
+		}
+	}
+
+	pKV->deleteThis();
+
 #elif !defined ( NO_STEAM )
 
 	// Always request user stats from Steam
@@ -1084,6 +1197,8 @@ void PlayerLocal::LoadTitleData()
 }
 
 #if !defined( _X360 ) && !defined ( NO_STEAM )
+
+#ifndef OFFLINE_TITLEDATA
 
 ConVar mm_cfgoverride_file( "mm_cfgoverride_file", "", FCVAR_DEVELOPMENTONLY );
 ConVar mm_cfgoverride_commit( "mm_cfgoverride_commit", "", FCVAR_DEVELOPMENTONLY );
@@ -1356,6 +1471,8 @@ void PlayerLocal::Steam_OnUserStatsReceived( UserStatsReceived_t *pParam )
 #endif
 
 }
+
+#endif // OFFLINE_TITLEDATA
 
 void PlayerLocal::Steam_OnPersonaStateChange( PersonaStateChange_t *pParam )
 {
@@ -1703,7 +1820,9 @@ void PlayerLocal::Destroy()
 
 #ifdef _X360
 #elif !defined( NO_STEAM )
+#ifndef OFFLINE_TITLEDATA
 	m_CallbackOnUserStatsReceived.Unregister();
+#endif // !OFFLINE_TITLEDATA
 	m_CallbackOnPersonaStateChange.Unregister();
 #endif
 
@@ -2131,7 +2250,97 @@ void PlayerLocal::UpdatePlayerTitleData( TitleDataFieldsDescription_t const *fdK
 	// Mark stats to be stored at next available opportunity
 	m_bSaveTitleData[ fdKey->m_iTitleDataBlock ] = true;
 
+#ifdef OFFLINE_TITLEDATA
+
+	// Save title data to keyvalues
+	// Need to make sure all the title data fields get written in
+	KeyValues* pKV = new KeyValues("TitleData");
+
+	TitleDataFieldsDescription_t const *pTitleDataTable = g_pMatchFramework->GetMatchTitle()->DescribeTitleDataStorage();
+	for ( ; pTitleDataTable && pTitleDataTable->m_szFieldName; ++ pTitleDataTable )
+	{
+		switch( pTitleDataTable->m_eDataType )
+		{
+			case TitleDataFieldsDescription_t::DT_uint8:
+			case TitleDataFieldsDescription_t::DT_uint16:
+			case TitleDataFieldsDescription_t::DT_uint32:
+			{
+				uint32 i32field[4] = {0};
+
+				memcpy( &i32field[3],
+						&m_bufTitleData[ pTitleDataTable->m_iTitleDataBlock ][ pTitleDataTable->m_numBytesOffset ],
+						pTitleDataTable->m_eDataType / 8 );
+
+				i32field[0] = *( uint32 * )( &i32field[3] );
+				i32field[1] = *( uint16 * )( &i32field[3] );
+				i32field[2] = *( uint8  * )( &i32field[3] );
+
+				pKV->SetInt(pTitleDataTable->m_szFieldName, ( int32 ) i32field[ 2 - ( pTitleDataTable->m_eDataType / 16 ) ] );
+			}
+			break;
+
+			case TitleDataFieldsDescription_t::DT_float:
+			{
+				float flField = 0.0f;
+
+				memcpy( &flField,
+						&m_bufTitleData[ pTitleDataTable->m_iTitleDataBlock ][ pTitleDataTable->m_numBytesOffset ],
+						pTitleDataTable->m_eDataType / 8 );
+
+				pKV->SetFloat( pTitleDataTable->m_szFieldName, flField );
+			}
+			break;
+
+			case TitleDataFieldsDescription_t::DT_uint64:
+			{
+				uint32 i32field[2] = { 0 };
+
+				memcpy( &i32field[0],
+						&m_bufTitleData[ pTitleDataTable->m_iTitleDataBlock ][ pTitleDataTable->m_numBytesOffset ],
+						pTitleDataTable->m_eDataType / 8 );
+
+				char chBuffer[ 256 ] = {0};
+
+				for ( int k = 0; k < ARRAYSIZE( i32field ); ++ k )
+				{
+					Q_snprintf( chBuffer, ARRAYSIZE( chBuffer ), "%s.%d", pTitleDataTable->m_szFieldName, k );
+					pKV->SetInt( chBuffer, ( int32 ) i32field[k] );
+				}
+			}
+			break;
+
+			case TitleDataFieldsDescription_t::DT_BITFIELD:
+			{
+#ifdef STEAM_PACK_BITFIELDS
+				char chStatField[64] = {0};
+				uint32 uiOffsetInTermsOfUINT32 = pTitleDataTable->m_numBytesOffset/32;
+				V_snprintf( chStatField, sizeof( chStatField ), "bitfield_%02u_%03X", pTitleDataTable->m_iTitleDataBlock + 1, uiOffsetInTermsOfUINT32*4 );
+				int32 iCombinedBitValue = ( reinterpret_cast< uint32 * >( &m_bufTitleData[pTitleDataTable->m_iTitleDataBlock][0] ) )[ uiOffsetInTermsOfUINT32 ];
+				pKV->SetInt( chStatField, iCombinedBitValue );
+#else
+				int32 i32field = !!(
+					m_bufTitleData[ pTitleDataTable->m_iTitleDataBlock ][ pTitleDataTable->m_numBytesOffset/8 ]
+					& ( 1 << ( pTitleDataTable->m_numBytesOffset % 8 ) ) );
+				pKV->SetInt( pTitleDataTable->m_szFieldName, i32field );
+#endif
+			}
+			break;
+		}
+	}
+
+	char szFilename[64];
 #ifndef NO_STEAM
+	if ( steamapicontext->SteamUser()->BLoggedOn() )
+		V_snprintf( szFilename, 64, OFFLINE_TITLEDATA_FILE, steamapicontext->SteamUser()->GetSteamID().ConvertToUint64());
+	else
+#endif
+		V_snprintf( szFilename, 64, OFFLINE_TITLEDATA_FILE_NOSTEAM );
+
+	if ( !pKV->SaveToFile( g_pFullFileSystem, szFilename, "MOD" ) )
+		Warning("Failed to write title data file '%s'!", szFilename);
+	pKV->deleteThis();
+
+#elif !defined( NO_STEAM )
 	// On Steam we can freely upload stats rights now
 	//
 	// Prepare the data

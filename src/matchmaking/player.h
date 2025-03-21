@@ -274,7 +274,9 @@ protected:
 #elif !defined( NO_STEAM )
 	void UpdatePlayersSteamLogon();
 
+#ifndef OFFLINE_TITLEDATA
 	STEAM_CALLBACK_MANUAL( PlayerLocal, Steam_OnUserStatsReceived, UserStatsReceived_t, m_CallbackOnUserStatsReceived );
+#endif
 	STEAM_CALLBACK_MANUAL( PlayerLocal, Steam_OnPersonaStateChange, PersonaStateChange_t, m_CallbackOnPersonaStateChange );
 	STEAM_CALLBACK_MANUAL( PlayerLocal, Steam_OnServersConnected, SteamServersConnected_t, m_CallbackOnServersConnected );
 	STEAM_CALLBACK_MANUAL( PlayerLocal, Steam_OnServersDisconnected, SteamServersDisconnected_t, m_CallbackOnServersDisconnected );

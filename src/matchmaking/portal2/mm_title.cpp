@@ -259,6 +259,9 @@ bool CMatchTitle::StartServerMap( KeyValues *pSettings )
 
 void CMatchTitle::RunFrame()
 {
+	// Doesn't work right because sv_cheats_flagged doesn't exist
+	// Currently cheats can't be used in MM sessions in release builds anyway
+#ifndef P2ASW
 	IMatchSession *pIMatchSession = g_pMatchFramework->GetMatchSession();
 	if ( !pIMatchSession )
 		return;
@@ -274,6 +277,7 @@ void CMatchTitle::RunFrame()
 	// Bypassing session update rules, each client can flag sv_cheats
 	// separately once they see it before server session sees sv_cheats
 	pIMatchSession->GetSessionSettings()->SetInt( "game/sv_cheats", 1 );
+#endif
 }
 
 static KeyValues * GetCurrentMatchSessionSettings()
