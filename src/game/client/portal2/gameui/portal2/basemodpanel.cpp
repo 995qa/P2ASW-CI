@@ -4156,33 +4156,19 @@ int CBaseModPanel::GetChapterProgress()
 		// Check if player has unlocked "ACH.SHOOT_THE_MOON", then all chapters should be available
 		KeyValues *kvAwards = new KeyValues( "read_awards", "ACH.SHOOT_THE_MOON", int(0) );
 		KeyValues::AutoDelete autodelete_kvAwards( kvAwards );
-#ifndef P2ASW
 		pPlayer->GetAwardsData( kvAwards );
-#endif
 		if ( kvAwards->GetInt( "ACH.SHOOT_THE_MOON" ) )
 			return nNumChapters; // player has unlocked all chapters
 
 		// Read players progress
-		// 
-		// This is normally done through "title data", which on PC gets mapped to Steam stats.
-		// Swarm doesn't have those stats, which means chapters would never stay unlocked.
-		// I just hooked it up to the old sv_unlockedchapters cvar, that should be better for mods anyway.
-		
-		static ConVarRef sv_unlockedchapters("sv_unlockedchapters");
-		if ( sv_unlockedchapters.IsValid() && nNumChapters )
+		// P2ASW: This could be changed to use sv_unlockedchapters for a mod if you wanted
+		TitleData1 const *pTitleData = ( TitleData1 const * )pPlayer->GetPlayerTitleData( 0 );
+		if ( pTitleData && nNumChapters )
 		{			
-			nNumChapters = MIN( nNumChapters, sv_unlockedchapters.GetInt() );
+			nNumChapters = MIN( (unsigned int)nNumChapters, pTitleData->uiSinglePlayerProgressChapter );
 			nNumChapters = MAX( nNumChapters, 0 );
 			return nNumChapters;
 		}
-
-		//TitleData1 const *pTitleData = ( TitleData1 const * )pPlayer->GetPlayerTitleData( 0 );
-		//if ( pTitleData && nNumChapters )
-		//{			
-		//	nNumChapters = MIN( (unsigned int)nNumChapters, pTitleData->uiSinglePlayerProgressChapter );
-		//	nNumChapters = MAX( nNumChapters, 0 );
-		//	return nNumChapters;
-		//}
 	}
 
 	// no progress

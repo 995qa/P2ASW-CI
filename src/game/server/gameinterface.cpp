@@ -2524,21 +2524,6 @@ ConVar sv_unlockedchapters( "sv_unlockedchapters", "1", FCVAR_ARCHIVE | FCVAR_AR
 //-----------------------------------------------------------------------------
 void UpdateChapterRestrictions( const char *mapname )
 {
-#ifdef P2ASW
-
-	// P2ASW: Use the Portal 2 SP map list to unlock chapters
-	// Portal 2 itself does this using title data through code in matchmaking.dll
-	int currentChapter = 0;
-#define CFG( spmap, chapternum, ... ) if ( !V_stricmp( mapname, #spmap ) ) currentChapter = chapternum;
-#include "xlast_portal2/inc_sp_maps.inc"
-#undef CFG
-
-	if (currentChapter > sv_unlockedchapters.GetInt())
-	{
-		sv_unlockedchapters.SetValue(currentChapter);
-		engine->ServerCommand( "host_writeconfig\n" );
-	}
-#else
 	// look at the chapter for this map
 	char chapterTitle[64];
 	chapterTitle[0] = 0;
@@ -2624,7 +2609,6 @@ void UpdateChapterRestrictions( const char *mapname )
 
 		g_nCurrentChapterIndex = nNewChapter;
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
