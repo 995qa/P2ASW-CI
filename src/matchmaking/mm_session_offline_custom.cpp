@@ -227,7 +227,7 @@ void CMatchSessionOfflineCustom::OnEvent( KeyValues *pEvent )
 			{
 #if defined( P2ASW ) && defined( DEBUG )
 				// This gets hit when autosaving because of the hack we use, so just show a message instead of asserting
-				DevMsg("OnEngineClientSignonStatePrepareChange called twice");
+				DevMsg("Enabling session reload flag\n");
 #else
 				Assert( !m_bExpectingServerReload );
 #endif
@@ -239,6 +239,9 @@ void CMatchSessionOfflineCustom::OnEvent( KeyValues *pEvent )
 #ifdef P2ASW
 	else if ( !Q_stricmp( "Hack_OnPostSave", szEvent ) )
 	{
+#ifdef DEBUG
+		DevMsg("Disabling session reload flag\n");
+#endif
 		m_bExpectingServerReload = false;
 		return;
 	}
