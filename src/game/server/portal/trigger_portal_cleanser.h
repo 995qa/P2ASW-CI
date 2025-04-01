@@ -128,7 +128,7 @@ public:
 
 	DECLARE_DATADESC();
 	
-	CNetworkVar( bool, m_bDisabled );	
+	IMPLEMENT_NETWORK_VAR_FOR_DERIVED( m_bDisabled );	
 	
 private:	
 	
