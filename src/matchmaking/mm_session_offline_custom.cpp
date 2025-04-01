@@ -8,6 +8,10 @@
 
 #include "fmtstr.h"
 
+#ifndef _X360
+#include "xbox/xboxstubs.h"
+#endif
+
 // Located in protocol.h pre-CSGO
 //#include "netmessages_signon.h"
 // memdbgon must be the last include file in a .cpp file!!!
@@ -291,7 +295,8 @@ void CMatchSessionOfflineCustom::InitializeGameSettings()
 		{
 			IPlayerLocal *pPriPlayer = g_pPlayerManager->GetLocalPlayer( XBX_GetPrimaryUserId() );
 
-			pMachine->SetUint64( "id", ( /*pPriPlayer ?*/ pPriPlayer->GetXUID() /*: INVALID_XUID*/ ) ); // CSGO?
+			// I think the invalid xuid check here is technically a CSGO change, but it fixes a crash when running without steam so I'm keeping it
+			pMachine->SetUint64( "id", ( pPriPlayer ? pPriPlayer->GetXUID() : INVALID_XUID ) );
 			pMachine->SetUint64( "flags", MatchSession_GetMachineFlags() );
 			pMachine->SetInt( "numPlayers", numPlayers );
 			pMachine->SetUint64( "dlcmask", g_pMatchFramework->GetMatchSystem()->GetDlcManager()->GetDataInfo()->GetUint64( "@info/installed" ) );
