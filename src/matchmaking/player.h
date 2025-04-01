@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2009, Valve Corporation, All rights reserved. ============//
+//========= Copyright ï¿½ 1996-2009, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: 
 //
@@ -274,7 +274,7 @@ protected:
 #elif !defined( NO_STEAM )
 	void UpdatePlayersSteamLogon();
 
-#ifndef OFFLINE_TITLEDATA
+#ifndef OFFLINE_ACHIEVEMENTS_AND_STATS
 	STEAM_CALLBACK_MANUAL( PlayerLocal, Steam_OnUserStatsReceived, UserStatsReceived_t, m_CallbackOnUserStatsReceived );
 #endif
 	STEAM_CALLBACK_MANUAL( PlayerLocal, Steam_OnPersonaStateChange, PersonaStateChange_t, m_CallbackOnPersonaStateChange );

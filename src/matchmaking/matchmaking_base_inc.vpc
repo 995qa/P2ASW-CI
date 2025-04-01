@@ -14,7 +14,7 @@ $Configuration
 	{
 		$AdditionalIncludeDirectories	"$BASE,..\common,$SRCDIR\gcsdk\steamextra,$SRCDIR\game\shared,$SRCDIR\thirdparty\protobuf-2.5.0\src"
 		// TODO: Do we want an easier way for modders to re-enable steam achievements/stats? P2ASW mods won't be on steam though...
-		$PreprocessorDefinitions		"$BASE;NO_STRING_T;VECTOR;VERSION_SAFE_STEAM_API_INTERFACES;PROTECTED_THINGS_ENABLE;NO_STEAM_GAMECOORDINATOR;OFFLINE_TITLEDATA;OFFLINE_ACHIEVEMENTS"
+		$PreprocessorDefinitions		"$BASE;NO_STRING_T;VECTOR;VERSION_SAFE_STEAM_API_INTERFACES;PROTECTED_THINGS_ENABLE;NO_STEAM_GAMECOORDINATOR;OFFLINE_ACHIEVEMENTS_AND_STATS"
 		$PreprocessorDefinitions		"$BASE;strncpy=use_Q_strncpy_instead;_snprintf=use_Q_snprintf_instead" [!$PS3]
 	}
 }
