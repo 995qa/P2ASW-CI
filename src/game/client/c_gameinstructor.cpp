@@ -8,12 +8,26 @@
 
 #include "c_gameinstructor.h"
 #include "c_baselesson.h"
+#include "c_keyvalue_saver.h"
 #include "filesystem.h"
 #include "vprof.h"
 #include "ixboxsystem.h"
 #include "tier0/icommandline.h"
 #include "iclientmode.h"
+#include "isaverestore.h"
+#include "saverestoretypes.h"
+
 #include "matchmaking/imatchframework.h"
+#include "matchmaking/mm_helpers.h"
+
+#if defined( PORTAL2 )
+#include "matchmaking/portal2/imatchext_portal2.h"
+#endif
+
+#if defined( CSTRIKE15 )
+#include "cs_gamerules.h"
+#include "matchmaking/cstrike15/imatchext_cstrike15.h"
+#endif
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -29,6 +43,8 @@ PRECACHE_REGISTER_END()
 #define GAMEINSTRUCTOR_SCRIPT_FILE "scripts/instructor_lessons.txt"
 #define GAMEINSTRUCTOR_MOD_SCRIPT_FILE "scripts/mod_lessons.txt"
 
+#define GAMEINSTRUCTOR_SAVE_FILE "game_instructor_counts.txt"
+
 
 // Game instructor auto game system instantiation
 C_GameInstructor g_GameInstructor[ MAX_SPLITSCREEN_PLAYERS ];
@@ -38,6 +54,7 @@ C_GameInstructor &GetGameInstructor()
 	return g_GameInstructor[ GET_ACTIVE_SPLITSCREEN_SLOT() ];
 }
 
+ConVar gameinstructor_save_restore_lessons( "gameinstructor_save_restore_lessons", "1", FCVAR_CHEAT, "Set to 0 to disable save/load of open lesson opportunities in single player." );
 ConVar gameinstructor_verbose( "gameinstructor_verbose", "0", FCVAR_CHEAT, "Set to 1 for standard debugging or 2 (in combo with gameinstructor_verbose_lesson) to show update actions." );
 ConVar gameinstructor_verbose_lesson( "gameinstructor_verbose_lesson", "", FCVAR_CHEAT, "Display more verbose information for lessons have this name." );
 ConVar gameinstructor_find_errors( "gameinstructor_find_errors", "0", FCVAR_CHEAT, "Set to 1 and the game instructor will run EVERY scripted command to uncover errors." );
@@ -49,10 +66,34 @@ extern ConVar sv_gameinstructor_disable;
 
 ConVar gameinstructor_start_sound_cooldown( "gameinstructor_start_sound_cooldown", "4.0", FCVAR_NONE, "Number of seconds forced between similar lesson start sounds." );
 
+static void FixGameInstructorLessonNameForTitleData( char *chBuffer )
+{
+	for ( ; chBuffer && *chBuffer; ++ chBuffer )
+	{
+		char const ch = *chBuffer;
+		if ( ch >= 'a' && ch <= 'z' )
+			continue;
+		if ( ch >= 'A' && ch <= 'Z' )
+			continue;
+		if ( ch >= '0' && ch <= '9' )
+			continue;
+		if ( ch == '.' || ch == '_' )
+			continue;
+		*chBuffer = '_';
+	}
+}
+
 // Enable or Disable the game instructor based on the client setting
 void EnableDisableInstructor( void )
 {
 	bool bEnabled = (!sv_gameinstructor_disable.GetBool() && gameinstructor_enable.GetBool());
+
+#if defined( CSTRIKE15 )
+	if ( CSGameRules() && CSGameRules()->IsPlayingTraining() )
+	{
+		bEnabled = true;
+	}
+#endif
 
 	if ( bEnabled )
 	{
@@ -79,7 +120,7 @@ void GameInstructorEnable_ChangeCallback( IConVar *var, const char *pOldValue, f
 }
 
 void SVGameInstructorDisable_ChangeCallback( IConVar *var, const char *pOldValue, float flOldValue );
-ConVar sv_gameinstructor_disable( "sv_gameinstructor_disable", "0", FCVAR_REPLICATED, "Force all clients to disable their game instructors.", SVGameInstructorDisable_ChangeCallback );
+ConVar sv_gameinstructor_disable( "sv_gameinstructor_disable", "0", FCVAR_REPLICATED | FCVAR_RELEASE, "Force all clients to disable their game instructors.", SVGameInstructorDisable_ChangeCallback );
 void SVGameInstructorDisable_ChangeCallback( IConVar *var, const char *pOldValue, float flOldValue )
 {
 	if ( !engine )
@@ -95,7 +136,7 @@ void SVGameInstructorDisable_ChangeCallback( IConVar *var, const char *pOldValue
 
 void GameInstructor_KeyValueBuilder( KeyValues *pKeyValues )
 {
-	//GetGameInstructor().KeyValueBuilder( pKeyValues );
+	GetGameInstructor().KeyValueBuilder( pKeyValues );
 }
 
 
@@ -192,6 +233,7 @@ void GameInstructor_Shutdown()
 	s_GameInstructorUserNotificationsListener.RefCount( -1 );
 }
 
+
 //
 // C_GameInstructor
 //
@@ -211,7 +253,11 @@ bool C_GameInstructor::Init( void )
 
 	ACTIVE_SPLITSCREEN_PLAYER_GUARD( m_nSplitScreenSlot );
 
+#if defined( CSTRIKE15 )
+	if ( (!gameinstructor_enable.GetBool() || sv_gameinstructor_disable.GetBool()) && !(CSGameRules() && CSGameRules()->IsPlayingTraining()) )
+#else
 	if ( !gameinstructor_enable.GetBool() || sv_gameinstructor_disable.GetBool() )
+#endif
 	{
 		// Don't init if it's disabled
 		return true;
@@ -222,6 +268,17 @@ bool C_GameInstructor::Init( void )
 		ConColorMsg( CBaseLesson::m_rgbaVerboseHeader, "GAME INSTRUCTOR: " );
 		ConColorMsg( CBaseLesson::m_rgbaVerbosePlain, "Initializing...\n" );
 	}
+
+	if ( m_bEnsureThatInitIsNotCalledMultipleTimes )
+	{
+		if ( gameinstructor_verbose.GetInt() > 0 )
+		{
+			ConColorMsg( CBaseLesson::m_rgbaVerboseHeader, "GAME INSTRUCTOR: " );
+			ConColorMsg( CBaseLesson::m_rgbaVerbosePlain, "Initializing is prevented by reentry guard, high level code probably has a problem...\n" );
+		}
+		return true;
+	}
+	m_bEnsureThatInitIsNotCalledMultipleTimes = true;
 
 	m_bNoDraw = false;
 	m_bHiddenDueToOtherElements = false;
@@ -238,7 +295,7 @@ bool C_GameInstructor::Init( void )
 
 	InitLessonPrerequisites();
 
-	ReadSaveData();
+	KeyValueSaver().InitKeyValues( GAMEINSTRUCTOR_SAVE_FILE, GameInstructor_KeyValueBuilder );
 
 	ListenForGameEvent( "gameinstructor_draw" );
 	ListenForGameEvent( "gameinstructor_nodraw" );
@@ -251,7 +308,16 @@ bool C_GameInstructor::Init( void )
 	ListenForGameEvent( "map_transition" );
 	ListenForGameEvent( "game_newmap" );
 
+#if defined( _X360 )
+	ListenForGameEvent( "reset_game_titledata" );
+	ListenForGameEvent( "read_game_titledata" );
+	ListenForGameEvent( "write_game_titledata" );
+#endif
 
+#ifdef TERROR
+	ListenForGameEvent( "player_bot_replace" );
+	ListenForGameEvent( "bot_player_replace" );
+#endif
 
 	ListenForGameEvent( "set_instructor_group_enabled" );
 
@@ -290,6 +356,8 @@ void C_GameInstructor::Shutdown( void )
 
 	// Stop listening for events
 	StopListeningForAllEvents();
+
+	m_bEnsureThatInitIsNotCalledMultipleTimes = false;
 }
 
 void C_GameInstructor::UpdateHiddenByOtherElements( void )
@@ -312,7 +380,11 @@ void C_GameInstructor::Update( float frametime )
 
 	UpdateHiddenByOtherElements();
 
+#if defined( CSTRIKE15 )
+	if ( (!gameinstructor_enable.GetBool() || m_bNoDraw || m_bHiddenDueToOtherElements) && !(CSGameRules() && CSGameRules()->IsPlayingTraining()) )
+#else
 	if ( !gameinstructor_enable.GetBool() || m_bNoDraw || m_bHiddenDueToOtherElements )
+#endif
 	{
 		// Don't update if disabled or hidden
 		return;
@@ -323,25 +395,6 @@ void C_GameInstructor::Update( float frametime )
 		FindErrors();
 
 		gameinstructor_find_errors.SetValue( 0 );
-	}
-
-	if ( IsConsole() )
-	{
-		// On X360 we want to save when they're not connected
-		if ( !engine->IsInGame() )
-		{
-			// They aren't in game
-			WriteSaveData();
-		}
-		else
-		{
-			const char *levelName = engine->GetLevelName();
-			if ( levelName && levelName[0] && engine->IsLevelMainMenuBackground() )
-			{
-				// The are in game, but it's a background map
-				WriteSaveData();
-			}
-		}
 	}
 
 	if ( m_bSpectatedPlayerChanged )
@@ -381,6 +434,7 @@ void C_GameInstructor::Update( float frametime )
 		{
 			// This opportunity has closed
 			CloseOpportunity( pLesson );
+			RANDOM_CEG_TEST_SECRET_PERIOD( 11, 23 );
 			continue;
 		}
 
@@ -480,12 +534,6 @@ void C_GameInstructor::FireGameEvent( IGameEvent *event )
 		}
 
 		CloseAllOpenOpportunities();
-
-		if ( IsPC() )
-		{
-			// Good place to backup our counts
-			WriteSaveData();
-		}
 	}
 	else if ( Q_strcmp( name, "round_start" ) == 0 )
 	{
@@ -501,6 +549,8 @@ void C_GameInstructor::FireGameEvent( IGameEvent *event )
 	}
 	else if ( Q_strcmp( name, "player_death" ) == 0 )
 	{
+		STEAMWORKS_TESTSECRET_AMORTIZE( 37 ); 
+
 		C_BasePlayer *pLocalPlayer = GetLocalPlayer();
 		if ( pLocalPlayer && pLocalPlayer == UTIL_PlayerByUserId( event->GetInt( "userid" ) ) )
 		{
@@ -549,6 +599,8 @@ void C_GameInstructor::FireGameEvent( IGameEvent *event )
 				ConColorMsg( CBaseLesson::m_rgbaVerbosePlain, "Local player disconnected...\n" );
 			}
 
+			STEAMWORKS_SELFCHECK();
+
 			CloseAllOpenOpportunities();
 		}
 	}
@@ -572,12 +624,6 @@ void C_GameInstructor::FireGameEvent( IGameEvent *event )
 
 			m_bNoDraw = false;
 		}
-
-		if ( IsPC() )
-		{
-			// Good place to backup our counts
-			WriteSaveData();
-		}
 	}
 	else if ( Q_strcmp( name, "game_newmap" ) == 0 )
 	{
@@ -599,14 +645,41 @@ void C_GameInstructor::FireGameEvent( IGameEvent *event )
 
 			m_bNoDraw = false;
 		}
-
-		if ( IsPC() )
+	}
+#ifdef TERROR
+	else if ( Q_strcmp( name, "player_bot_replace" ) == 0 )
+	{
+		C_BasePlayer *pLocalPlayer = GetLocalPlayer();
+		if ( pLocalPlayer && pLocalPlayer == UTIL_PlayerByUserId( event->GetInt( "player" ) ) )
 		{
-			// Good place to backup our counts
-			WriteSaveData();
+			CloseAllOpenOpportunities();
+		}
+		else
+		{
+			for ( int i = m_OpenOpportunities.Count() - 1; i >= 0; --i )
+			{
+				CBaseLesson *pLesson = m_OpenOpportunities[ i ];
+				pLesson->SwapOutPlayers( event->GetInt( "player" ), event->GetInt( "bot" ) );
+			}
 		}
 	}
-
+	else if ( Q_strcmp( name, "bot_player_replace" ) == 0 )
+	{
+		C_BasePlayer *pLocalPlayer = GetLocalPlayer();
+		if ( pLocalPlayer && pLocalPlayer == UTIL_PlayerByUserId( event->GetInt( "player" ) ) )
+		{
+			CloseAllOpenOpportunities();
+		}
+		else
+		{
+			for ( int i = m_OpenOpportunities.Count() - 1; i >= 0; --i )
+			{
+				CBaseLesson *pLesson = m_OpenOpportunities[ i ];
+				pLesson->SwapOutPlayers( event->GetInt( "bot" ), event->GetInt( "player" ) );
+			}
+		}
+	}
+#endif
 	else if ( Q_strcmp( name, "set_instructor_group_enabled" ) == 0 )
 	{
 		const char *pszGroup = event->GetString( "group" );
@@ -617,6 +690,21 @@ void C_GameInstructor::FireGameEvent( IGameEvent *event )
 			SetLessonGroupEnabled( pszGroup, bEnabled );
 		}
 	}
+#if defined( _X360 )
+	else if ( Q_strcmp( name, "read_game_titledata" ) == 0 )
+	{
+		ReadSaveData();
+	}
+	else if ( Q_strcmp( name, "write_game_titledata" ) == 0 )
+	{
+		KeyValueSaver().MarkKeyValuesDirty( GAMEINSTRUCTOR_SAVE_FILE );
+		WriteSaveData();
+	}
+	else if ( Q_strcmp( name, "reset_game_titledata" ) == 0 )
+	{
+		ResetDisplaysAndSuccesses();
+	}
+#endif
 }
 
 void C_GameInstructor::DefineLesson( CBaseLesson *pLesson )
@@ -655,6 +743,81 @@ bool C_GameInstructor::IsLessonOfSameTypeOpen( const CBaseLesson *pLesson ) cons
 	return false;
 }
 
+void C_GameInstructor::SaveGameBlock( ISave *pSave )
+{
+	ACTIVE_SPLITSCREEN_PLAYER_GUARD( m_nSplitScreenSlot );
+
+	if ( gameinstructor_save_restore_lessons.GetBool() )
+	{
+		// Save the lessons
+		int nCount = m_OpenOpportunities.Count();
+		pSave->WriteInt( &nCount );
+		for ( int i = 0; i < nCount; i++ )
+		{
+			pSave->StartBlock();
+			pSave->WriteAll( static_cast< CScriptedIconLesson * >( m_OpenOpportunities[ i ] ) );
+			pSave->EndBlock();
+		}
+	}
+	else
+	{
+		int nCount = 0;
+		pSave->WriteInt( &nCount );
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+// Input  : *pRestore - 
+//			fCreatePlayers - 
+//-----------------------------------------------------------------------------
+void C_GameInstructor::RestoreGameBlock( IRestore *pRestore, bool fCreatePlayers )
+{
+	ACTIVE_SPLITSCREEN_PLAYER_GUARD( m_nSplitScreenSlot );
+
+	CGameSaveRestoreInfo *pSaveData = pRestore->GetGameSaveRestoreInfo();
+
+	// Game Instructor is a singleton so we only need to restore it once,
+	// from the level that we are going into.
+	if( !pSaveData->levelInfo.fUseLandmark )
+	{
+		CloseAllOpenOpportunities();
+
+		if ( gameinstructor_save_restore_lessons.GetBool() )
+		{
+			// Read in the lessons
+			int nCount = pRestore->ReadInt();
+			for ( int i = 0; i < nCount; i++ )
+			{
+				CScriptedIconLesson *pOpenLesson = new CScriptedIconLesson( "", false, true, m_nSplitScreenSlot );
+
+				pRestore->StartBlock();
+				pRestore->ReadAll( pOpenLesson );
+				pRestore->EndBlock();
+
+				const CScriptedIconLesson *pRootLesson = static_cast<const CScriptedIconLesson *>( GetLesson( pOpenLesson->GetName() ) );
+				pOpenLesson->SetRoot( const_cast<CScriptedIconLesson *>( pRootLesson ) );
+
+				GetGameInstructor().OpenOpportunity( pOpenLesson );
+			}
+		}
+		else
+		{
+			CScriptedIconLesson *pOpenLessonDummy = new CScriptedIconLesson( "", false, true, m_nSplitScreenSlot );
+
+			int nCount = pRestore->ReadInt();
+			for ( int i = 0; i < nCount; i++ )
+			{
+				pRestore->StartBlock();
+				pRestore->ReadAll( pOpenLessonDummy );
+				pRestore->EndBlock();
+			}
+
+			delete pOpenLessonDummy;
+		}
+	}	
+}
+
 bool C_GameInstructor::ReadSaveData( void )
 {
 	// for external playtests, don't ever read in persisted instructor state, always start fresh
@@ -668,82 +831,80 @@ bool C_GameInstructor::ReadSaveData( void )
 	// was declined or ends up in faulty state
 	ResetDisplaysAndSuccesses();
 
-	m_bHasLoadedSaveData = true;
+	if ( m_nSplitScreenSlot < 0 || m_nSplitScreenSlot >= (int) XBX_GetNumGameUsers() )
+		return true;
 
-#ifdef _X360
-	DevMsg( "Read Game Instructor for splitscreen slot %d\n", m_nSplitScreenSlot );
+	IPlayerLocal *pPlayer = g_pMatchFramework->GetMatchSystem()->GetPlayerManager()->GetLocalPlayer( XBX_GetUserId( m_nSplitScreenSlot ) );
+	if ( !pPlayer )
+		return true;
 
-	if ( m_nSplitScreenSlot < 0 )
-		return false;
+	TitleDataFieldsDescription_t const *fields = g_pMatchFramework->GetMatchTitle()->DescribeTitleDataStorage();
 
-	if ( m_nSplitScreenSlot >= (int) XBX_GetNumGameUsers() )
-		return false;
-
-	int iController = XBX_GetUserId( m_nSplitScreenSlot );
-
-	if ( iController < 0 || XBX_GetUserIsGuest( iController ) )
+#if defined( _X360 )
+	// check version number is valid to ensure there is good data before reading
+	ConVarRef cl_titledataversionblock3 ( "cl_titledataversionblock3" );
+	TitleDataFieldsDescription_t const *versionField = TitleDataFieldsDescriptionFindByString( fields, "TITLEDATA.BLOCK3.VERSION" );
+	if ( !versionField || versionField->m_eDataType != TitleDataFieldsDescription_t::DT_uint16 )
 	{
-		// Can't read data for guests
-		return false;
-	}
-
-	DWORD nStorageDevice = XBX_GetStorageDeviceId( iController );
-	if ( !XBX_DescribeStorageDevice( nStorageDevice ) )
-		return false;
-#endif
-
-	char szFilename[_MAX_PATH];
-
-#ifdef _X360
-	if ( IsX360() )
-	{
-		XBX_MakeStorageContainerRoot( iController, XBX_USER_SETTINGS_CONTAINER_DRIVE, szFilename, sizeof( szFilename ) );
-		int nLen = strlen( szFilename );
-		Q_snprintf( szFilename + nLen, sizeof( szFilename ) - nLen, ":\\game_instructor_counts.txt" );
-	}
-	else
-#endif
-	{
-		Q_snprintf( szFilename, sizeof( szFilename ), "save/game_instructor_counts.txt" );
-	}
-
-	KeyValues *data = new KeyValues( "Game Instructor Counts" );
-	KeyValues::AutoDelete autoDelete(data);
-
-	if ( data->LoadFromFile( g_pFullFileSystem, szFilename, NULL ) )
-	{
-		int nVersion = 0;
-
-		for ( KeyValues *pKey = data->GetFirstSubKey(); pKey; pKey = pKey->GetNextTrueSubKey() )
-		{
-			CBaseLesson *pLesson = GetLesson_Internal( pKey->GetName() );
-
-			if ( pLesson )
-			{
-				pLesson->SetDisplayCount( pKey->GetInt( "display", 0 ) );
-				pLesson->SetSuccessCount( pKey->GetInt( "success", 0 ) );
-
-				if ( Q_strcmp( pKey->GetName(), "version number" ) == 0 )
-				{
-					nVersion = pLesson->GetSuccessCount();
-				}
-			}
-		}
-
-		CBaseLesson *pLessonVersionNumber = GetLesson_Internal( "version number" );
-		if ( pLessonVersionNumber && !pLessonVersionNumber->IsLearned() )
-		{
-			ResetDisplaysAndSuccesses();
-			pLessonVersionNumber->SetSuccessCount( pLessonVersionNumber->GetSuccessLimit() );
-			m_bDirtySaveData = true;
-		}
-
-
+		Warning( "C_GameInstructor::ReadSaveData TITLEDATA.BLOCK3.VERSION is expected to be defined as DT_uint16\n" );
 		return true;
 	}
 
-	// Couldn't read from the file
-	return false;
+	int versionNumber = TitleDataFieldsDescriptionGetValue<uint16>( versionField, pPlayer );
+	if ( versionNumber != cl_titledataversionblock3.GetInt() )
+	{
+		Warning ( "C_GameInstructor::ReadSaveData wrong version # for TITLEDATA.BLOCK3.VERSION; expected %d, got %d\n", cl_titledataversionblock3.GetInt(), versionNumber );
+		return true;
+	}
+#endif
+
+	m_bHasLoadedSaveData = true;
+
+	int nVersion = 0;
+
+	for ( int i = 0; i < m_Lessons.Count();++i )
+	{
+		CBaseLesson *pLesson = m_Lessons[i];
+		if ( !pLesson || ( pLesson->GetDisplayLimit() == 0 && pLesson->GetSuccessLimit() == 0 ) )
+			continue;
+
+		CFmtStr tdKey( "GI.lesson.%s", pLesson->GetName() );
+		FixGameInstructorLessonNameForTitleData( tdKey.Access() );
+		TitleDataFieldsDescription_t const *fdKey = TitleDataFieldsDescriptionFindByString( fields, tdKey );
+		if ( !fdKey )
+		{
+			Warning( "C_GameInstructor::ReadSaveData failed to read %s\n", tdKey.Access() );
+			continue;
+		}
+
+		TitleData1::GameInstructorData_t::LessonInfo_t li;
+		li.u8dummy = TitleDataFieldsDescriptionGetValue<uint8>( fdKey, pPlayer );
+		
+		pLesson->SetDisplayCount( li.display );
+		pLesson->SetSuccessCount( li.success );
+
+		if ( Q_strcmp( pLesson->GetName(), "version number" ) == 0 )
+		{
+			nVersion = pLesson->GetSuccessCount();
+		}
+	}
+
+	CBaseLesson *pLessonVersionNumber = GetLesson_Internal( "version number" );
+	if ( pLessonVersionNumber && !pLessonVersionNumber->IsLearned() )
+	{
+		ResetDisplaysAndSuccesses();
+		pLessonVersionNumber->SetSuccessCount( pLessonVersionNumber->GetSuccessLimit() );
+		KeyValueSaver().MarkKeyValuesDirty( GAMEINSTRUCTOR_SAVE_FILE );
+	}
+#ifdef TERROR
+	else if ( IsPressDemoMode() )
+	{
+		ResetDisplaysAndSuccesses();
+		KeyValueSaver().MarkKeyValuesDirty( GAMEINSTRUCTOR_SAVE_FILE );
+	}
+#endif
+
+	return true;
 }
 
 bool C_GameInstructor::WriteSaveData( void )
@@ -751,114 +912,41 @@ bool C_GameInstructor::WriteSaveData( void )
 	if ( engine->IsPlayingDemo() )
 		return false;
 
-	if ( !m_bDirtySaveData )
-		return true;
+	return KeyValueSaver().WriteDirtyKeyValues( GAMEINSTRUCTOR_SAVE_FILE );
+}
 
-#ifdef _X360
-	float flPlatTime = Plat_FloatTime();
+void C_GameInstructor::KeyValueBuilder( KeyValues *pKeyValues )
+{
+	if ( m_nSplitScreenSlot < 0 || m_nSplitScreenSlot >= (int) XBX_GetNumGameUsers() )
+		return;
+	
+	IPlayerLocal *pPlayer = g_pMatchFramework->GetMatchSystem()->GetPlayerManager()->GetLocalPlayer( XBX_GetUserId( m_nSplitScreenSlot ) );
+	if ( !pPlayer )
+		return;
 
-	static ConVarRef host_write_last_time( "host_write_last_time" );
-	if ( host_write_last_time.IsValid() )
-	{
-		float flTimeSinceLastWrite = flPlatTime - host_write_last_time.GetFloat();
-		if ( flTimeSinceLastWrite < 3.5f )
-		{
-			// Prevent writing to the same storage device twice in less than 3 second succession for TCR success!
-			// This happens after leaving a game in splitscreen.
-			//DevMsg( "Waiting to write Game Instructor for splitscreen slot %d... (%.1f seconds remain)\n", m_nSplitScreenSlot, 3.5f - flTimeSinceLastWrite );
-			return false;
-		}
-	}
-#endif
-
-	// Always mark as clean state to avoid re-entry on
-	// subsequent frames when storage device might be
-	// in a yet-unmounted state.
-	m_bDirtySaveData = false;
-
-#ifdef _X360
-	DevMsg( "Write Game Instructor for splitscreen slot %d at time: %.1f\n", m_nSplitScreenSlot, flPlatTime );
-
-	if ( m_nSplitScreenSlot < 0 )
-		return false;
-
-	if ( m_nSplitScreenSlot >= (int) XBX_GetNumGameUsers() )
-		return false;
-
-	int iController = XBX_GetUserId( m_nSplitScreenSlot );
-
-	if ( iController < 0 || XBX_GetUserIsGuest( iController ) )
-	{
-		// Can't save data for guests
-		return false;
-	}
-
-	DWORD nStorageDevice = XBX_GetStorageDeviceId( iController );
-	if ( !XBX_DescribeStorageDevice( nStorageDevice ) )
-		return false;
-#endif
+	TitleDataFieldsDescription_t const *fields = g_pMatchFramework->GetMatchTitle()->DescribeTitleDataStorage();
 
 	// Build key value data to save
-	KeyValues *data = new KeyValues( "Game Instructor Counts" );
-	KeyValues::AutoDelete autoDelete(data);
-
 	for ( int i = 0; i < m_Lessons.Count();++i )
 	{
 		CBaseLesson *pLesson = m_Lessons[ i ];
-		
-		int iDisplayCount = pLesson->GetDisplayCount();
-		int iSuccessCount = pLesson->GetSuccessCount();
+		TitleData1::GameInstructorData_t::LessonInfo_t li;
+		li.u8dummy = 0;
+		li.display = pLesson->GetDisplayCount() & 0xF;
+		li.success = pLesson->GetSuccessCount() & 0xF;
 
-		if ( iDisplayCount || iSuccessCount )
+		CFmtStr tdKey( "GI.lesson.%s", pLesson->GetName() );
+		FixGameInstructorLessonNameForTitleData( tdKey.Access() );
+		TitleDataFieldsDescription_t const *fdKey = TitleDataFieldsDescriptionFindByString( fields, tdKey );
+		if ( fdKey )
 		{
-			// We've got some data worth saving
-			KeyValues *pKVData = new KeyValues( pLesson->GetName() );
-
-			if ( iDisplayCount )
-			{
-				pKVData->SetInt( "display", iDisplayCount );
-			}
-
-			if ( iSuccessCount )
-			{
-				pKVData->SetInt( "success", iSuccessCount );
-			}
-
-			data->AddSubKey( pKVData );
+			TitleDataFieldsDescriptionSetValue<uint8>( fdKey, pPlayer, li.u8dummy );
+		}
+		else
+		{
+			DevWarning( "C_GameInstructor::KeyValueBuilder did not save %s; is it missing from inc_gameinstructor_lessons.inc\n", tdKey.Access() );
 		}
 	}
-
-	// Save it!
-	CUtlBuffer buf( 0, 0, CUtlBuffer::TEXT_BUFFER );
-
-	data->RecursiveSaveToFile( buf, 0 );
-
-	char	szFilename[_MAX_PATH];
-
-#ifdef _X360
-	if ( IsX360() )
-	{
-		XBX_MakeStorageContainerRoot( iController, XBX_USER_SETTINGS_CONTAINER_DRIVE, szFilename, sizeof( szFilename ) );
-		int nLen = strlen( szFilename );
-		Q_snprintf( szFilename + nLen, sizeof( szFilename ) - nLen, ":\\game_instructor_counts.txt" );
-	}
-	else
-#endif
-	{
-		Q_snprintf( szFilename, sizeof( szFilename ), "save/game_instructor_counts.txt" );
-		filesystem->CreateDirHierarchy( "save", "MOD" );
-	}
-
-	bool bWriteSuccess = filesystem->WriteFile( szFilename, MOD_DIR, buf );
-
-#ifdef _X360
-	if ( xboxsystem )
-	{
-		xboxsystem->FinishContainerWrites( iController );
-	}
-#endif
-
-	return bWriteSuccess;
 }
 
 void C_GameInstructor::RefreshDisplaysAndSuccesses( void )
@@ -880,8 +968,6 @@ void C_GameInstructor::ResetDisplaysAndSuccesses( void )
 	{
 		m_Lessons[ i ]->ResetDisplaysAndSuccesses();
 	}
-
-	m_bDirtySaveData = false;
 }
 
 void C_GameInstructor::MarkDisplayed( const char *pchLessonName )
@@ -901,7 +987,7 @@ void C_GameInstructor::MarkDisplayed( const char *pchLessonName )
 
 	if ( pLesson->IncDisplayCount() )
 	{
-		m_bDirtySaveData = true;
+		KeyValueSaver().MarkKeyValuesDirty( GAMEINSTRUCTOR_SAVE_FILE );
 	}
 }
 
@@ -922,7 +1008,7 @@ void C_GameInstructor::MarkSucceeded( const char *pchLessonName )
 
 	if ( pLesson->IncSuccessCount() )
 	{
-		m_bDirtySaveData = true;
+		KeyValueSaver().MarkKeyValuesDirty( GAMEINSTRUCTOR_SAVE_FILE );
 	}
 }
 
@@ -935,7 +1021,7 @@ void C_GameInstructor::PlaySound( const char *pchSoundName )
 		// Local player exists
 		if ( pchSoundName[ 0 ] != '\0' && Q_strcmp( m_szPreviousStartSound, pchSoundName ) != 0 )
 		{
-			Q_strcpy( m_szPreviousStartSound, pchSoundName );
+			V_strcpy( m_szPreviousStartSound, pchSoundName );
 			m_fNextStartSoundTime = 0.0f;
 		}
 
@@ -977,6 +1063,21 @@ bool C_GameInstructor::OpenOpportunity( CBaseLesson *pLesson )
 			ConColorMsg( CBaseLesson::m_rgbaVerbosePlain, "Opportunity " );
 			ConColorMsg( CBaseLesson::m_rgbaVerboseClose, "\"%s\" ", pLesson->GetName() );
 			ConColorMsg( CBaseLesson::m_rgbaVerbosePlain, "NOT opened (because player is dead and can_open_when_dead not set).\n" );
+		}
+
+		delete pLesson;
+		return false;
+	}
+
+	if ( !pRootLesson->CanOpenOnceLearned() && pRootLesson->IsLearned() )
+	{
+		// If the player has learned this and we don't want it to open onced learned
+		if ( gameinstructor_verbose.GetInt() > 0 )
+		{
+			ConColorMsg( CBaseLesson::m_rgbaVerboseHeader, "GAME INSTRUCTOR: " );
+			ConColorMsg( CBaseLesson::m_rgbaVerbosePlain, "Opportunity " );
+			ConColorMsg( CBaseLesson::m_rgbaVerboseClose, "\"%s\" ", pLesson->GetName() );
+			ConColorMsg( CBaseLesson::m_rgbaVerbosePlain, "NOT opened (because this is learned and ONCE_LEARNED_NEVER_OPEN is set).\n" );
 		}
 
 		delete pLesson;
@@ -1232,6 +1333,8 @@ bool C_GameInstructor::UpdateActiveLesson( CBaseLesson *pLesson, const CBaseLess
 
 	bool bIsOpen = pLesson->IsInstructing();
 
+	RANDOM_CEG_TEST_SECRET()
+
 	if ( !bIsOpen && !pRootLesson->IsLearned() )
 	{
 		pLesson->SetStartTime();
@@ -1378,7 +1481,7 @@ void C_GameInstructor::ReadLessonsFromFile( const char *pchFileName )
 			// Add convar group toggler to the list
 			int nLessonGroupConVarToggle = m_LessonGroupConVarToggles.AddToTail( LessonGroupConVarToggle_t( m_pScriptKeys->GetString( "convar" ) ) );
 			LessonGroupConVarToggle_t *pLessonGroupConVarToggle = &(m_LessonGroupConVarToggles[ nLessonGroupConVarToggle ]);
-			Q_strcpy( pLessonGroupConVarToggle->szLessonGroupName, m_pScriptKeys->GetString( "group" ) );
+			V_strcpy( pLessonGroupConVarToggle->szLessonGroupName, m_pScriptKeys->GetString( "group" ) );
 
 			continue;
 		}
@@ -1403,6 +1506,63 @@ void C_GameInstructor::InitLessonPrerequisites( void )
 	{
 		m_Lessons[ i ]->InitPrerequisites();
 	}
+}
+
+
+//====================================================================================================
+// CLIENTSIDE GAME INSTRUCTOR SAVE/RESTORE 
+//====================================================================================================
+static short GAMEINSTRUCTOR_SAVE_RESTORE_VERSION = 1;
+
+class CGameInstructorSaveRestoreBlockHandler :	public CDefSaveRestoreBlockHandler
+{
+	struct QueuedItem_t;
+public:
+	CGameInstructorSaveRestoreBlockHandler()
+	{
+	}
+
+	const char *GetBlockName()
+	{
+		return "GameInstructor";
+	}
+
+	virtual void Save( ISave *pSave ) 
+	{
+		ACTIVE_SPLITSCREEN_PLAYER_GUARD( 0 );
+		GetGameInstructor().SaveGameBlock( pSave );
+	}
+
+	virtual void WriteSaveHeaders( ISave *pSave )
+	{
+		pSave->WriteShort( &GAMEINSTRUCTOR_SAVE_RESTORE_VERSION );
+	}
+
+	virtual void ReadRestoreHeaders( IRestore *pRestore )
+	{
+		// No reason why any future version shouldn't try to retain backward compatibility. The default here is to not do so.
+		short version = pRestore->ReadShort();
+		m_bDoLoad = ( version == GAMEINSTRUCTOR_SAVE_RESTORE_VERSION );
+	}
+
+	virtual void Restore( IRestore *pRestore, bool fCreatePlayers ) 
+	{
+		if ( m_bDoLoad )
+		{
+			ACTIVE_SPLITSCREEN_PLAYER_GUARD( 0 );
+			GetGameInstructor().RestoreGameBlock( pRestore, fCreatePlayers );
+		}
+	}
+
+private:
+	bool	m_bDoLoad;
+};
+
+CGameInstructorSaveRestoreBlockHandler g_GameInstructorSaveRestoreBlockHandler;
+
+ISaveRestoreBlockHandler *GetGameInstructorRestoreBlockHandler()
+{
+	return &g_GameInstructorSaveRestoreBlockHandler;
 }
 
 

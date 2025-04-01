@@ -1,8 +1,8 @@
-//========= Copyright © 1996-2008, Valve Corporation, All rights reserved. ============//
+//========= Copyright (c) Valve Corporation, All rights reserved. ============//
 //
 // Purpose:		Client handler implementations for instruction players how to play
 //
-//=============================================================================//
+//============================================================================//
 
 #include "cbase.h"
 
@@ -107,7 +107,7 @@ void CBaseLesson::SetRoot( CBaseLesson *pRoot )
 {
 	m_pRoot = pRoot;
 
-	if ( m_pRoot->m_OpenOpportunities.Find( this ) == -1 )
+	if ( m_pRoot && m_pRoot->m_OpenOpportunities.Find( this ) == -1 )
 	{
 		m_pRoot->m_OpenOpportunities.AddToTail( this );
 	}
@@ -259,6 +259,7 @@ void CBaseLesson::Init( void )
 	m_iTeam = TEAM_ANY;
 	m_bOnlyKeyboard = false;
 	m_bOnlyGamepad = false;
+	m_bNoSplitscreen = false;
 
 	m_iDisplayLimit = 0;
 	m_iDisplayCount = 0;
@@ -270,7 +271,9 @@ void CBaseLesson::Init( void )
 	m_fLockDuration = 0.0f;
 	m_bCanOpenWhenDead = false;
 	m_bBumpWithTimeoutWhenLearned = false;
+	m_bOnceLearnedNeverOpen = false;
 	m_bCanTimeoutWhileInactive = false;
+	m_bUsableInMidair = false;
 	m_fTimeout = 0.0f;
 
 	m_fInitTime = gpGlobals->curtime;
@@ -648,6 +651,23 @@ bool CIconLesson::ShouldDisplay( void ) const
 		}
 	}
 
+	C_BasePlayer *pLocalPlayer = GetGameInstructor().GetLocalPlayer();
+	if ( !IsUsableInMidair() )
+	{
+		if ( !pLocalPlayer )
+		{
+			return false;
+		}
+		else
+		{
+			float flAirTime = pLocalPlayer->GetAirTime();
+			if ( flAirTime > 0.75f )
+			{
+				return false;
+			}
+		}
+	}
+
 	// Ok to display
 	return true;
 }
@@ -725,7 +745,7 @@ void CIconLesson::TakePlaceOf( CBaseLesson *pLesson )
 
 void CIconLesson::SetLocatorBinding( CLocatorTarget * pLocatorTarget )
 {
-	if ( IsX360() || input->ControllerModeActive() )
+	if ( IsGameConsole() || input->ControllerModeActive() )
 	{
 		// Try to use gamepad bindings first
 		if ( m_szGamepadBinding.String()[ 0 ] != '\0' )
@@ -951,7 +971,9 @@ void CIconLesson::UpdateLocatorTarget( CLocatorTarget *pLocatorTarget, C_BaseEnt
 	LESSON_VARIABLE_MACRO( LOCK_DURATION, m_fLockDuration, float )										\
 	LESSON_VARIABLE_MACRO_BOOL( CAN_OPEN_WHEN_DEAD, m_bCanOpenWhenDead, bool )							\
 	LESSON_VARIABLE_MACRO_BOOL( BUMP_WITH_TIMEOUT_WHEN_LEARNED, m_bBumpWithTimeoutWhenLearned, bool )	\
+	LESSON_VARIABLE_MACRO_BOOL( ONCE_LEARNED_NEVER_OPEN, m_bOnceLearnedNeverOpen, bool )				\
 	LESSON_VARIABLE_MACRO_BOOL( CAN_TIMEOUT_WHILE_INACTIVE, m_bCanTimeoutWhileInactive, bool )			\
+	LESSON_VARIABLE_MACRO_BOOL( USABLE_IN_MIDAIR, m_bUsableInMidair, bool)								\
 	LESSON_VARIABLE_MACRO( TIMEOUT, m_fTimeout, float )													\
 	LESSON_VARIABLE_MACRO( UPDATE_INTERVAL, m_fUpdateInterval, float )									\
 	LESSON_VARIABLE_MACRO_STRING( START_SOUND, m_szStartSound, CGameInstructorSymbol )					\
@@ -962,42 +984,55 @@ void CIconLesson::UpdateLocatorTarget( CLocatorTarget *pLocatorTarget, C_BaseEnt
 
 #define LESSON_VARIABLE_INIT_SYMBOL( _varEnum, _varName, _varType ) g_n##_varEnum##Symbol = KeyValuesSystem()->GetSymbolForString( #_varEnum );
 
-#define LESSON_SCRIPT_STRING_ADD_TO_MAP( _varEnum, _varName, _varType ) g_NameToTypeMap.Insert( #_varEnum, LESSON_VARIABLE_##_varEnum## );
+#define LESSON_SCRIPT_STRING_ADD_TO_MAP( _varEnum, _varName, _varType ) g_NameToTypeMap.Insert( #_varEnum, LESSON_VARIABLE_##_varEnum );
 
 // Create enum value
-#define LESSON_VARIABLE_ENUM( _varEnum, _varName, _varType ) LESSON_VARIABLE_##_varEnum##,
+#define LESSON_VARIABLE_ENUM( _varEnum, _varName, _varType ) LESSON_VARIABLE_##_varEnum,
 
 // Init info call
-#define LESSON_VARIABLE_INIT_INFO_CALL( _varEnum, _varName, _varType ) g_pLessonVariableInfo[ LESSON_VARIABLE_##_varEnum## ].Init_##_varEnum##();
+#define LESSON_VARIABLE_INIT_INFO_CALL( _varEnum, _varName, _varType ) g_pLessonVariableInfo[ LESSON_VARIABLE_##_varEnum ].Init_##_varEnum();
 
 // Init info
 #define LESSON_VARIABLE_INIT_INFO( _varEnum, _varName, _varType ) \
-	void Init_##_varEnum##( void ) \
+	void Init_##_varEnum( void ) \
 	{ \
-		iOffset = offsetof( CScriptedIconLesson, CScriptedIconLesson::##_varName## ); \
+		iOffset = offsetof( CScriptedIconLesson, CScriptedIconLesson::_varName ); \
 		varType = LessonParamTypeFromString( #_varType ); \
 	}
 
 #define LESSON_VARIABLE_INIT_INFO_BOOL( _varEnum, _varName, _varType ) \
-	void Init_##_varEnum##( void ) \
+	void Init_##_varEnum( void ) \
 	{ \
-		iOffset = offsetof( CScriptedIconLesson, CScriptedIconLesson::##_varName## ); \
+		iOffset = offsetof( CScriptedIconLesson, CScriptedIconLesson::_varName ); \
 		varType = FIELD_BOOLEAN; \
 	}
 
 #define LESSON_VARIABLE_INIT_INFO_EHANDLE( _varEnum, _varName, _varType ) \
-	void Init_##_varEnum##( void ) \
+	void Init_##_varEnum( void ) \
 	{ \
-		iOffset = offsetof( CScriptedIconLesson, CScriptedIconLesson::##_varName## ); \
+		iOffset = offsetof( CScriptedIconLesson, CScriptedIconLesson::_varName ); \
 		varType = FIELD_EHANDLE; \
 	}
 
 #define LESSON_VARIABLE_INIT_INFO_STRING( _varEnum, _varName, _varType ) \
-	void Init_##_varEnum##( void ) \
+	void Init_##_varEnum( void ) \
 	{ \
-		iOffset = offsetof( CScriptedIconLesson, CScriptedIconLesson::##_varName## ); \
+		iOffset = offsetof( CScriptedIconLesson, CScriptedIconLesson::_varName ); \
 		varType = FIELD_STRING; \
 	}
+
+// Data desc
+#define DEFINE_GAMEINSTRUCTOR_SYMBOL(name) \
+	{ FIELD_CUSTOM, #name, offsetof(classNameTypedef,name), 1, FTYPEDESC_SAVE, NULL, GetGameInstructorSymbolSaveRestoreOps( ), NULL }
+
+#define LESSON_VARIABLE_DATADESC_INFO( _varEnum, _varName, _varType ) \
+	DEFINE_FIELD( _varName, LessonParamTypeFromString( #_varType ) ),
+
+#define LESSON_VARIABLE_DATADESC_INFO_EHANDLE( _varEnum, _varName, _varType ) \
+	DEFINE_FIELD( _varName, FIELD_EHANDLE ),
+
+#define LESSON_VARIABLE_DATADESC_INFO_STRING( _varEnum, _varName, _varType ) \
+	DEFINE_GAMEINSTRUCTOR_SYMBOL(_varName),
 
 // Copy defaults into this scripted lesson into a new one
 #define LESSON_VARIABLE_DEFAULT( _varEnum, _varName, _varType ) ( _varName = m_pDefaultHolder->_varName );
@@ -1013,19 +1048,19 @@ void CIconLesson::UpdateLocatorTarget( CLocatorTarget *pLocatorTarget, C_BaseEnt
 	}
 
 // Wrapper for using this macro in the factory
-#define LESSON_SCRIPT_STRING_GENERAL( _varEnum, _varName, _varType ) LESSON_SCRIPT_STRING( LESSON_VARIABLE_##_varEnum##, #_varEnum )
+#define LESSON_SCRIPT_STRING_GENERAL( _varEnum, _varName, _varType ) LESSON_SCRIPT_STRING( LESSON_VARIABLE_##_varEnum, #_varEnum )
 
 // Process the element action on this variable 
 #define PROCESS_LESSON_ACTION( _varEnum, _varName, _varType ) \
-	case LESSON_VARIABLE_##_varEnum##:\
+	case LESSON_VARIABLE_##_varEnum:\
 		return ProcessElementAction( pLessonElement->iAction, pLessonElement->bNot, #_varName, _varName, &pLessonElement->szParam, eventParam_float );
 
 #define PROCESS_LESSON_ACTION_EHANDLE( _varEnum, _varName, _varType ) \
-	case LESSON_VARIABLE_##_varEnum##:\
+	case LESSON_VARIABLE_##_varEnum:\
 		return ProcessElementAction( pLessonElement->iAction, pLessonElement->bNot, #_varName, _varName, &pLessonElement->szParam, eventParam_float, eventParam_BaseEntity, eventParam_string );
 
 #define PROCESS_LESSON_ACTION_STRING( _varEnum, _varName, _varType ) \
-	case LESSON_VARIABLE_##_varEnum##:\
+	case LESSON_VARIABLE_##_varEnum:\
 		return ProcessElementAction( pLessonElement->iAction, pLessonElement->bNot, #_varName, &_varName, &pLessonElement->szParam, eventParam_string );
 
 // Init the variable from the script (or a convar)
@@ -1177,6 +1212,74 @@ const LessonVariableInfo *GetLessonVariableInfo( int iLessonVariable )
 static CUtlDict< LessonVariable, int > g_NameToTypeMap;
 static CUtlDict< fieldtype_t, int > g_TypeToParamTypeMap;
 CUtlDict< int, int > CScriptedIconLesson::LessonActionMap;
+
+
+//-----------------------------------------------------------------------------
+// Queues up game instructor symbols to save/load
+//-----------------------------------------------------------------------------
+class CGameInstructorSymbolSaveRestoreOps : public CDefSaveRestoreOps
+{
+public:
+	virtual void Save( const SaveRestoreFieldInfo_t &fieldInfo, ISave *pSave )
+	{
+		pSave->StartBlock();
+
+		CGameInstructorSymbol *pSymbol = (CGameInstructorSymbol*)fieldInfo.pField;
+
+		int nNumChars = pSymbol->String() != NULL ? V_strlen( pSymbol->String() ) + 1 : 0;
+		pSave->WriteInt( &nNumChars );
+
+		if ( nNumChars > 0 )
+		{
+			pSave->WriteData( pSymbol->String(), nNumChars );
+		}
+
+		pSave->EndBlock();
+	}
+
+	virtual void Restore( const SaveRestoreFieldInfo_t &fieldInfo, IRestore *pRestore )
+	{
+		pRestore->StartBlock();
+
+		int nNumChars;
+		pRestore->ReadInt( &nNumChars );
+
+		if ( nNumChars > 0 )
+		{
+			char *pchTemp = ((char*)stackalloc(nNumChars));
+			pRestore->ReadData( pchTemp, nNumChars, nNumChars );
+
+			CGameInstructorSymbol *pSymbol = (CGameInstructorSymbol*)fieldInfo.pField;
+			*pSymbol = pchTemp;
+		}
+
+		pRestore->EndBlock();
+	}
+};
+
+static CGameInstructorSymbolSaveRestoreOps s_GameInstructorSymbolSaveRestoreOps;
+ISaveRestoreOps *GetGameInstructorSymbolSaveRestoreOps( )
+{
+	return &s_GameInstructorSymbolSaveRestoreOps;
+}
+
+
+BEGIN_SIMPLE_DATADESC( CScriptedIconLesson )
+
+	DEFINE_GAMEINSTRUCTOR_SYMBOL( m_stringName ),
+
+#define LESSON_VARIABLE_MACRO			LESSON_VARIABLE_DATADESC_INFO
+#define LESSON_VARIABLE_MACRO_BOOL		LESSON_VARIABLE_DATADESC_INFO
+#define LESSON_VARIABLE_MACRO_EHANDLE	LESSON_VARIABLE_DATADESC_INFO_EHANDLE
+#define LESSON_VARIABLE_MACRO_STRING	LESSON_VARIABLE_DATADESC_INFO_STRING
+	LESSON_VARIABLE_FACTORY
+#undef LESSON_VARIABLE_MACRO
+#undef LESSON_VARIABLE_MACRO_BOOL
+#undef LESSON_VARIABLE_MACRO_EHANDLE
+#undef LESSON_VARIABLE_MACRO_STRING
+
+END_DATADESC()
+
 
 CScriptedIconLesson::~CScriptedIconLesson( void )
 {
@@ -1454,6 +1557,9 @@ void CScriptedIconLesson::FireGameEvent( IGameEvent *event )
 	if( m_bOnlyGamepad && !input->ControllerModeActive() )
 		return;
 
+	if( m_bNoSplitscreen && XBX_GetNumGameUsers() > 1 )
+		return;
+
 	// Check that this lesson is for the proper team
 	CBasePlayer *pLocalPlayer = GetGameInstructor().GetLocalPlayer();
 
@@ -1635,6 +1741,11 @@ LessonVariable LessonVariableFromString( const char *pchName, bool bWarnOnInvali
 
 _fieldtypes LessonParamTypeFromString( const char *pchName )
 {
+	if ( g_TypeToParamTypeMap.Count() == 0 )
+	{
+		CScriptedIconLesson::PreReadLessonsFromFile();
+	}
+
 	int slot = g_TypeToParamTypeMap.Find( pchName );
 	if ( slot != g_TypeToParamTypeMap.InvalidIndex() )
 		return g_TypeToParamTypeMap[ slot ];
@@ -1659,7 +1770,7 @@ void CScriptedIconLesson::InitElementsFromKeys( CUtlVector< LessonElement_t > *p
 	for ( pSubKey = pKey->GetFirstSubKey(); pSubKey; pSubKey = pSubKey->GetNextKey() )
 	{
 		char szSubKeyName[ 256 ];
-		Q_strcpy( szSubKeyName, pSubKey->GetName() );
+		V_strcpy( szSubKeyName, pSubKey->GetName() );
 
 		char *pchToken = strtok( szSubKeyName, " " );
 		LessonVariable iVariable = LessonVariableFromString( pchToken );
@@ -1690,7 +1801,7 @@ void CScriptedIconLesson::InitElementsFromKeys( CUtlVector< LessonElement_t > *p
 			iAction = LessonActionFromString( pchToken );
 		}
 
-		Q_strcpy( szSubKeyName, pSubKey->GetString() );
+		V_strcpy( szSubKeyName, pSubKey->GetString() );
 
 		pchToken = strtok( szSubKeyName, " " );
 		_fieldtypes paramType = LessonParamTypeFromString( pchToken );
@@ -1742,6 +1853,7 @@ void CScriptedIconLesson::InitFromKeys( KeyValues *pKey )
 	static int s_nTeamSymbol = KeyValuesSystem()->GetSymbolForString( "team" );
 	static int s_nOnlyKeyboardSymbol = KeyValuesSystem()->GetSymbolForString( "only_keyboard" );
 	static int s_nOnlyGamepadSymbol = KeyValuesSystem()->GetSymbolForString( "only_gamepad" );
+	static int s_nNoSplitscreenSymbol = KeyValuesSystem()->GetSymbolForString( "no_splitscreen" );
 	static int s_nDisplayLimitSymbol = KeyValuesSystem()->GetSymbolForString( "display_limit" );
 	static int s_nSuccessLimitSymbol = KeyValuesSystem()->GetSymbolForString( "success_limit" );
 	static int s_nPreReqSymbol = KeyValuesSystem()->GetSymbolForString( "prereq" );
@@ -1781,6 +1893,10 @@ void CScriptedIconLesson::InitFromKeys( KeyValues *pKey )
 		else if ( pSubKey->GetNameSymbol() == s_nOnlyGamepadSymbol )
 		{
 			m_bOnlyGamepad = pSubKey->GetBool();
+		}
+		else if ( pSubKey->GetNameSymbol() == s_nNoSplitscreenSymbol )
+		{
+			m_bNoSplitscreen = pSubKey->GetBool();
 		}
 		else if ( pSubKey->GetNameSymbol() == s_nDisplayLimitSymbol )
 		{
@@ -2055,6 +2171,20 @@ bool CScriptedIconLesson::ProcessElement( IGameEvent *event, const LessonElement
 		PresentEnd();
 		return true;
 	}
+	else if ( pLessonElement->iAction == LESSON_ACTION_IS_MULTIPLAYER )
+	{
+		// Special case for checking if the gamerules are multiplayer
+		bool bIsMultiplayer = ( GameRules() && GameRules()->IsMultiplayer() );
+
+		if ( gameinstructor_verbose.GetInt() > 0 && ShouldShowSpew() )
+		{
+			ConColorMsg( CBaseLesson::m_rgbaVerbosePlain, "\tGameRules()->IsMultiplayer() " );
+			ConColorMsg( CBaseLesson::m_rgbaVerboseName, "%s ", ( bIsMultiplayer ) ? ( "true" ) : ( "false" ) );
+			ConColorMsg( CBaseLesson::m_rgbaVerbosePlain, ( pLessonElement->bNot ) ? ( "!= true\n" ) : ( "== true\n" ) );
+		}
+
+		return ( pLessonElement->bNot ) ? ( !bIsMultiplayer ) : ( bIsMultiplayer );
+	}
 
 	// These values temporarily hold the parameter's value
 	const char *pParamName = pLessonElement->szParam.String();
@@ -2195,7 +2325,7 @@ bool CScriptedIconLesson::ProcessElement( IGameEvent *event, const LessonElement
 
 			if ( pchEventString && pchEventString[0] )
 			{
-				Q_strcpy( eventParam_string, pchEventString );
+				V_strcpy( eventParam_string, pchEventString );
 			}
 			else if ( pLessonElement->bOptionalParam )
 			{
@@ -2246,7 +2376,7 @@ bool CScriptedIconLesson::ProcessElement( IGameEvent *event, const LessonElement
 		else if ( pParamName[ 0 ] == '0' || pParamName[ 0 ] == '1' )
 		{
 			// This param doesn't exist, try parsing the string
-			eventParam_float = Q_atof( pParamName ) != 0.0f;
+			eventParam_float = ( Q_atof( pParamName ) != 0.0f ) ? 1.0f : 0.0f;
 		}
 		else
 		{
@@ -2885,7 +3015,7 @@ bool CScriptedIconLesson::ProcessElementAction( int iAction, bool bNot, const ch
 			{
 				if ( gameinstructor_verbose.GetInt() > 0 && ShouldShowSpew() )
 				{
-					ConColorMsg( CBaseLesson::m_rgbaVerbosePlain, "\t[%s]->HealthFraction() ", pchVarName, pchVarName );
+					ConColorMsg( CBaseLesson::m_rgbaVerbosePlain, "\t[%s]->HealthFraction() ", pchVarName );
 					ConColorMsg( CBaseLesson::m_rgbaVerboseName, "... " );
 					ConColorMsg( CBaseLesson::m_rgbaVerbosePlain, ( bNot ) ? ( ">= [%s] " ) : ( "< [%s] " ), pchParamName->String() );
 					ConColorMsg( CBaseLesson::m_rgbaVerboseName, "%f\n", fParam );
@@ -2897,7 +3027,7 @@ bool CScriptedIconLesson::ProcessElementAction( int iAction, bool bNot, const ch
 
 			if ( gameinstructor_verbose.GetInt() > 0 && ShouldShowSpew() )
 			{
-				ConColorMsg( CBaseLesson::m_rgbaVerbosePlain, "\t[%s]->HealthFraction() ", pchVarName, pchVarName );
+				ConColorMsg( CBaseLesson::m_rgbaVerbosePlain, "\t[%s]->HealthFraction() ", pchVarName );
 				ConColorMsg( CBaseLesson::m_rgbaVerboseName, "%f ", pVar->HealthFraction() );
 				ConColorMsg( CBaseLesson::m_rgbaVerbosePlain, ( bNot ) ? ( ">= [%s] " ) : ( "< [%s] " ), pchParamName->String() );
 				ConColorMsg( CBaseLesson::m_rgbaVerboseName, "%f\n", fParam );
@@ -3088,7 +3218,7 @@ bool CScriptedIconLesson::ProcessElementAction( int iAction, bool bNot, const ch
 				return false;
 			}
 
-			m_fOutput = pBaseCombatCharacter->Weapon_GetSlot( pWeapon->GetWpnData().szClassName );
+			m_fOutput = pWeapon->GetSlot();
 
 			if ( gameinstructor_verbose.GetInt() > 0 && ShouldShowSpew() )
 			{
@@ -3121,7 +3251,8 @@ bool CScriptedIconLesson::ProcessElementAction( int iAction, bool bNot, const ch
 				return false;
 			}
 
-			m_fOutput = pBaseCombatCharacter->Weapon_GetSlot( pchParam );
+			C_BaseCombatWeapon *pWeapon = pBaseCombatCharacter->Weapon_OwnsThisType( pchParam );
+			m_fOutput = (pWeapon != NULL) ? pWeapon->GetSlot() : 0.0f;
 
 			if ( gameinstructor_verbose.GetInt() > 0 && ShouldShowSpew() )
 			{
@@ -3276,9 +3407,9 @@ bool CScriptedIconLesson::ProcessElementAction( int iAction, bool bNot, const ch
 			}
 
 			// Check if the ammo is full
-			int iAmmoType = pBaseCombatWeapon->GetPrimaryAmmoType();
-			int iMaxAmmo = GetAmmoDef()->MaxCarry( iAmmoType, pBasePlayer );
-			int iPlayerAmmo = pBasePlayer->ActivePlayerCombatCharacter()->GetAmmoCount( iAmmoType );
+			int iMaxAmmo = GetAmmoDef()->MaxCarry(pBaseCombatWeapon->GetPrimaryAmmoType(), pBasePlayer);
+			int iPlayerAmmo = pBasePlayer->GetAmmoCount(pBaseCombatWeapon->GetPrimaryAmmoType());
+
 
 			bool bAmmoLow = ( iPlayerAmmo < ( iMaxAmmo / 3 ) );
 
@@ -3347,9 +3478,8 @@ bool CScriptedIconLesson::ProcessElementAction( int iAction, bool bNot, const ch
 			}
 
 			// Check if the ammo is full
-			int iAmmoType = pBaseCombatWeapon->GetPrimaryAmmoType();
-			int iMaxAmmo = GetAmmoDef()->MaxCarry( iAmmoType, pBasePlayer );
-			int iPlayerAmmo = pBasePlayer->ActivePlayerCombatCharacter()->GetAmmoCount( iAmmoType );
+			int iMaxAmmo = GetAmmoDef()->MaxCarry(pBaseCombatWeapon->GetPrimaryAmmoType(), pBasePlayer);
+			int iPlayerAmmo = pBasePlayer->GetAmmoCount(pBaseCombatWeapon->GetPrimaryAmmoType());
 
 			bool bAmmoFull = ( iPlayerAmmo >= iMaxAmmo );
 
@@ -3413,8 +3543,7 @@ bool CScriptedIconLesson::ProcessElementAction( int iAction, bool bNot, const ch
 			}
 
 			// Check if the ammo is empty
-			int iAmmoType = pBaseCombatWeapon->GetPrimaryAmmoType();
-			int iPlayerAmmo = pBasePlayer->ActivePlayerCombatCharacter()->GetAmmoCount( iAmmoType );
+			int iPlayerAmmo = pBasePlayer->GetAmmoCount(pBaseCombatWeapon->GetPrimaryAmmoType());
 
 			bool bAmmoEmpty = ( iPlayerAmmo <= 0 );
 
@@ -3780,6 +3909,8 @@ void CScriptedIconLesson::PreReadLessonsFromFile()
 	CScriptedIconLesson::LessonActionMap.Insert( "present end", LESSON_ACTION_PRESENT_END );
 
 	CScriptedIconLesson::LessonActionMap.Insert( "reference open", LESSON_ACTION_REFERENCE_OPEN );
+
+	CScriptedIconLesson::LessonActionMap.Insert( "is multiplayer", LESSON_ACTION_IS_MULTIPLAYER );
 
 	CScriptedIconLesson::LessonActionMap.Insert( "set", LESSON_ACTION_SET );
 	CScriptedIconLesson::LessonActionMap.Insert( "add", LESSON_ACTION_ADD );

@@ -9,7 +9,7 @@
 
 
 #include "GameEventListener.h"
-#include "vgui_controls/phandle.h"
+#include "vgui_controls/PHandle.h"
 
 class CBaseLesson;
 
@@ -19,7 +19,7 @@ struct LessonGroupConVarToggle_t
 	ConVarRef var;
 	char szLessonGroupName[ 64 ];
 
-	LessonGroupConVarToggle_t( const char *pchConVarName ) :
+	explicit LessonGroupConVarToggle_t( const char *pchConVarName ) :
 		var( pchConVarName )
 	{
 	}
@@ -34,7 +34,7 @@ public:
 		m_nSplitScreenSlot = -1;
 
 		m_bHasLoadedSaveData = false;
-		m_bDirtySaveData = false;
+		m_bEnsureThatInitIsNotCalledMultipleTimes = false;
 	}
 
 	void SetSlot( int nSlot ) { m_nSplitScreenSlot = nSlot; }
@@ -54,8 +54,13 @@ public:
 	const CBaseLesson * GetLesson( const char *pchLessonName );
 	bool IsLessonOfSameTypeOpen( const CBaseLesson *pLesson ) const;
 
+	// Save / Restore
+	void SaveGameBlock( ISave *pSave );
+	void RestoreGameBlock( IRestore *pRestore, bool );
+
 	bool ReadSaveData( void );
 	bool WriteSaveData( void );
+	void KeyValueBuilder( KeyValues *pKeyValues );
 	void RefreshDisplaysAndSuccesses( void );
 	void ResetDisplaysAndSuccesses( void );
 	void MarkDisplayed( const char *pchLessonName );
@@ -109,13 +114,11 @@ private:
 	int		m_nSplitScreenSlot;
 
 	bool	m_bHasLoadedSaveData;
-	bool	m_bDirtySaveData;
+	bool	m_bEnsureThatInitIsNotCalledMultipleTimes;
 };
 
-C_GameInstructor &GetGameInstructor();
 
-void GameInstructor_Init();
-void GameInstructor_Shutdown();
+C_GameInstructor &GetGameInstructor();
 
 
 #endif // _C_GAMEINSTRUCTOR_H_

@@ -99,6 +99,8 @@ $Project
 		$File	"c_func_movelinear.cpp"
 		$File	"c_gameinstructor.cpp"
 		$File	"c_gameinstructor.h"
+		$File	"c_keyvalue_saver.cpp"
+		$File	"c_keyvalue_saver.h"
 		$File	"c_movie_display.cpp"
 		$File	"c_physics_prop_statue.cpp"
 		$File	"c_physics_prop_statue.h"

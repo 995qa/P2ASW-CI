@@ -52,6 +52,7 @@ struct delayed_player_swap_t
 abstract_class CBaseLesson : public CGameEventListener
 {
 public:
+
 	CBaseLesson( const char *pchName, bool bIsDefaultHolder, bool bIsOpenOpportunity, int nSplitScreenSlot );
 	virtual ~CBaseLesson( void );
 
@@ -77,6 +78,8 @@ public:
 	bool IsOpenOpportunity( void ) const { return m_bIsOpenOpportunity; }
 	bool IsLocked( void ) const;
 	bool CanOpenWhenDead( void ) const { return m_bCanOpenWhenDead; }
+	bool CanOpenOnceLearned( void ) const { return !m_bOnceLearnedNeverOpen; }
+	bool IsUsableInMidair( void ) const { return m_bUsableInMidair; }
 	bool IsInstructing( void ) const { return ( m_fStartTime > 0.0f ); }
 	bool IsLearned( void ) const;
 	bool PrerequisitesHaveBeenMet( void ) const;
@@ -120,6 +123,7 @@ public:
 	void	SetEnabled( bool bEnabled ) { m_bDisabled = !bEnabled; }
 
 protected:
+
 	void MarkSucceeded( void );
 	void CloseOpportunity( const char *pchReason );
 	bool DoDelayedPlayerSwaps( void ) const;
@@ -131,7 +135,12 @@ private:
 	CUtlVector < const CBaseLesson * >	m_Prerequisites;
 
 	CGameInstructorSymbol		m_stringCloseReason;
+
+protected:
+
 	CGameInstructorSymbol		m_stringName;
+
+private:
 
 	bool		m_bInstanceActive : 1;
 	bool		m_bSuccessCounted : 1;
@@ -139,6 +148,7 @@ private:
 	bool		m_bIsOpenOpportunity : 1;
 
 protected:
+
 	LessonInstanceType	m_iInstanceType;
 
 	int						m_iPriority;
@@ -148,6 +158,7 @@ protected:
 	int						m_iTeam;
 	bool					m_bOnlyKeyboard;
 	bool					m_bOnlyGamepad;
+	bool					m_bNoSplitscreen;
 
 	int		m_iDisplayLimit;
 	int		m_iDisplayCount;
@@ -169,8 +180,10 @@ protected:
 
 	bool	m_bCanOpenWhenDead;
 	bool	m_bBumpWithTimeoutWhenLearned;
+	bool	m_bOnceLearnedNeverOpen;
 	bool	m_bCanTimeoutWhileInactive;
 	bool	m_bDisabled;
+	bool	m_bUsableInMidair;
 
 	// Right now we can only queue up 4 swaps...
 	// this number can be increased if more entity handle scripted variables are added
@@ -281,6 +294,8 @@ enum LessonAction
 
 	LESSON_ACTION_REFERENCE_OPEN,
 
+	LESSON_ACTION_IS_MULTIPLAYER,
+
 	LESSON_ACTION_SET,
 	LESSON_ACTION_ADD,
 	LESSON_ACTION_SUBTRACT,
@@ -362,6 +377,7 @@ class CScriptedIconLesson : public CIconLesson
 {
 public:
 	DECLARE_LESSON( CScriptedIconLesson, CIconLesson )
+	DECLARE_SIMPLE_DATADESC();
 
 	virtual ~CScriptedIconLesson( void );
 
@@ -412,7 +428,7 @@ private:
 	LessonEvent_t * AddUpdateEvent( void );
 
 private:
-	static CUtlDict< int, int > CScriptedIconLesson::LessonActionMap;
+	static CUtlDict< int, int > LessonActionMap;
 
 	EHANDLE					m_hLocalPlayer;
 	float					m_fOutput;
