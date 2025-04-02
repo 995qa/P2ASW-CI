@@ -1554,8 +1554,6 @@ void CPortalMPGameRules::SetMapCompleteData( int nPlayer )
 
 void CPortalMPGameRules::StartPlayerTransitionThinks( void )
 {
-	// FIXME: - Wonderland_War
-	/*
 	// Turn off video for all players once they've all connected
 	for( int i = 1; i <= gpGlobals->maxClients; ++i )
 	{
@@ -1582,9 +1580,10 @@ void CPortalMPGameRules::StartPlayerTransitionThinks( void )
 		}
 	}
 
-	ResetAllPlayersStats();
-	g_portal_ui_controller.OnLevelStart();
-	*/
+	// P2ASW FIXME
+	//ResetAllPlayersStats();
+	//g_portal_ui_controller.OnLevelStart();
+	
 }
 
 
@@ -2438,8 +2437,6 @@ USER_MESSAGE_REGISTER( MPMapCompletedData );
 
 void CPortalMPGameRules::LoadMapCompleteData( void )
 {
-	// FIXME: - Wonderland_War
-#if 0
 	if ( !m_bMapNamesLoaded )
 		return;
 
@@ -2479,8 +2476,6 @@ void CPortalMPGameRules::LoadMapCompleteData( void )
 				if ( m_szLevelNames[ nBranch ][ nLevel ][ 0 ] == '\0' )
 					continue;
 
-				// FIXME: - Wonderland_War
-				/*
 				CFmtStr tdKey( "MP.complete.%s", m_szLevelNames[ nBranch ][ nLevel ] );
 				TitleDataFieldsDescription_t const *fdKey = TitleDataFieldsDescriptionFindByString( fields, tdKey );
 				int nComplete = 0;
@@ -2494,14 +2489,12 @@ void CPortalMPGameRules::LoadMapCompleteData( void )
 				}
 
 				m_bLevelCompletions[ nPlayer ][ nBranch ][ nLevel ] = ( nComplete != 0 );
-				*/
 			}
 		}
 	}
 
 	// Let the server know that we loaded completion data on the client for this player
 	engine->ClientCmd( szCommand );
-#endif
 }
 
 static void __MsgFunc_MPTauntEarned( bf_read &msg )
