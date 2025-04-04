@@ -151,9 +151,9 @@
 
 #ifdef PORTAL2
 #include "portal_util_shared.h"
-#include "prop_portal_shared.h"
-#include "c_gameinstructor.h"
-//#include "portal2/gameui/portal2/steamoverlay/isteamoverlaymgr.h"
+#include "portal_base2d_shared.h"
+#include "c_keyvalue_saver.h"
+#include "portal2/gameui/portal2/steamoverlay/isteamoverlaymgr.h"
 extern void ProcessPortalTeleportations( void );
 #if defined( PORTAL2_PUZZLEMAKER )
 #include "puzzlemaker/puzzlemaker.h"
