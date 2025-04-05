@@ -252,5 +252,9 @@ private:
 CSteam3Server &Steam3Server();
 #endif
 
+#ifdef P2ASW
+const bool IsSteamDeck();
+#endif
+
 #endif // GAMEINTERFACE_H
 

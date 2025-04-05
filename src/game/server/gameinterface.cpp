@@ -894,6 +894,24 @@ void UpdateSavesDisabledCallback( IConVar *pConVar, const char *pOldString, floa
 }
 
 ConVar map_wants_save_disable("map_wants_save_disable", "0", FCVAR_CHEAT, "Same as save_disable, but is cleared on disconnect", UpdateSavesDisabledCallback);
+
+// Copied from GamepadUI open source release - seems like this was in tier1 originally
+const bool IsSteamDeck()
+{
+	// In the official games, -nogamepadui takes priority
+	// the open source release reversed this for some reason
+	if ( CommandLine()->FindParm( "-nogamepadui" ) )
+		return false;
+
+	if ( CommandLine()->FindParm( "-gamepadui" ) )
+		return true;
+
+	const char *pszSteamDeckEnv = getenv( "SteamDeck" );
+	if ( pszSteamDeckEnv && *pszSteamDeckEnv )
+		return atoi( pszSteamDeckEnv ) != 0;
+
+	return false;
+}
 #endif // P2ASW
 
 bool CServerGameDLL::DLLInit(CreateInterfaceFn appSystemFactory,
@@ -1013,7 +1031,7 @@ bool CServerGameDLL::DLLInit(CreateInterfaceFn appSystemFactory,
 	KeyValuesSystem()->SetKeyValuesExpressionSymbol( "LINUX", IsLinux() );
 
 	// Used to change the size of some UI elements
-	KeyValuesSystem()->SetKeyValuesExpressionSymbol( "DECK", !!CommandLine()->FindParm( "-gamepadui" ) );
+	KeyValuesSystem()->SetKeyValuesExpressionSymbol( "DECK", IsSteamDeck() );
 
 	// These were renamed
 	KeyValuesSystem()->SetKeyValuesExpressionSymbol( "GAMECONSOLEWIDE", KeyValuesSystem()->GetKeyValuesExpressionSymbol("X360WIDE") );
