@@ -18,6 +18,8 @@
 #include "c_weapon_portalgun.h"
 #include "igameuifuncs.h"
 #include "iinput.h"
+#include "radialmenu.h"
+#include "ivieweffects.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -57,8 +59,8 @@ public:
 	virtual void ApplySchemeSettings( vgui::IScheme *scheme );	
 private:
 
-	void 	DrawCrosshair(class Color ,float );
-    void 	DrawPortalHint(class Vector & ,bool );
+	void 	DrawCrosshair( Color color, float flApparentZ );
+    void 	DrawPortalHint( Vector& vecPosition, bool bBluePortal );
     void 	DrawPortalHints();
 	void	DrawWarning( int x, int y, CHudTexture *icon, float &time );
     void 	UpdateEventTime();
@@ -93,8 +95,11 @@ CHUDQuickInfo::CHUDQuickInfo( const char *pElementName ) :
 
 	SetHiddenBits( HIDEHUD_CROSSHAIR );
 
-	m_fLastPlacedAlpha[0] = m_fLastPlacedAlpha[1] = 80;
+	m_fLastPlacedAlpha[0] = m_fLastPlacedAlpha[1] = 0.0f;
+	m_nCursorRadius = m_nPortalIconOffsetX = m_nPortalIconOffsetY = 0;
 	m_bLastPlacedAlphaCountingUp[0] = m_bLastPlacedAlphaCountingUp[1] = true;
+	m_nArrowTexture = -1; // TODO should this be a constant?
+	m_flPortalIconScale = 1.0f;
 }
 
 CHUDQuickInfo::~CHUDQuickInfo()
@@ -110,6 +115,11 @@ void CHUDQuickInfo::ApplySchemeSettings( vgui::IScheme *scheme )
 {
 	BaseClass::ApplySchemeSettings( scheme );
 
+	m_nCursorRadius = 10;
+	m_nPortalIconOffsetX = 6;
+	m_nPortalIconOffsetY = 10;
+	m_flPortalIconScale = 1.0f;
+
 	SetPaintBackgroundEnabled( false );
 }
 
@@ -117,6 +127,12 @@ void CHUDQuickInfo::ApplySchemeSettings( vgui::IScheme *scheme )
 void CHUDQuickInfo::Init( void )
 {
 	m_flLastEventTime   = 0.0f;
+
+	if ( m_nArrowTexture == -1 )
+	{
+		m_nArrowTexture = vgui::surface()->CreateNewTextureID();
+		vgui::surface()->DrawSetTextureFile(m_nArrowTexture, "HUD/hud_icon_arrow", 1, false);
+	}
 }
 
 
@@ -168,6 +184,9 @@ bool CHUDQuickInfo::ShouldDraw( void )
 	if (!m_icon_rb || !m_icon_rbn || !m_icon_lb || !m_icon_lbn)
 		return false;
 
+	if ( !GetClientMode()->ShouldDrawCrosshair() )
+		return false;
+
 	C_BasePlayer *player = C_BasePlayer::GetLocalPlayer();
 	if ( player == NULL )
 		return false;
@@ -175,69 +194,116 @@ bool CHUDQuickInfo::ShouldDraw( void )
 	if ( !crosshair.GetBool() )
 		return false;
 
+	if ( IsRadialMenuOpen() )
+		return false;
+
+	if ( player->GetPlayerRenderMode( player->GetSplitScreenPlayerSlot() ) == PLAYER_RENDER_THIRDPERSON ||
+		 ( player->GetViewEntity() && player->GetViewEntity() != player ) )
+		return false;
+
 	return ( CHudElement::ShouldDraw() && !engine->IsDrawingLoadingImage() );
 }
 
+void CHUDQuickInfo::DrawPortalHint( Vector& vecPosition, bool bBluePortal )
+{
+	// TODO: Unused function. Only found in Linux bins, optimized out of others.
+}
+
+void CHUDQuickInfo::DrawPortalHints()
+{
+	C_Portal_Player *pPortalPlayer = C_Portal_Player::GetLocalPortalPlayer();
+	if ( !pPortalPlayer )
+		return;
+	
+	C_BaseCombatWeapon *pWeapon = pPortalPlayer->GetActiveWeapon();
+	if ( !pWeapon )
+		return;
+
+	C_WeaponPortalgun *pPortalgun = dynamic_cast<C_WeaponPortalgun*>( pWeapon );
+	if ( !pPortalgun )
+		return;
+
+	DrawPortalHint( pPortalgun->m_vecBluePortalPos, true );
+	DrawPortalHint( pPortalgun->m_vecOrangePortalPos, false );
+}
+
+void CHUDQuickInfo::DrawCrosshair( Color color, float flApparentZ )
+{
+	int centerX = ScreenWidth() / 2;
+	int centerY = ScreenHeight() / 2;
+
+#ifndef P2ASW // Not in Swarm
+	vgui::surface()->DrawSetApparentDepth(flApparentZ);
+#endif
+	vgui::surface()->DrawSetColor(color);
+
+	g_pVGuiSurface->DrawFilledRect( centerX, centerY, centerX + 1, centerY + 1);
+	g_pVGuiSurface->DrawFilledRect( centerX + m_nCursorRadius,centerY,centerX + m_nCursorRadius + 1,centerY + 1);
+	g_pVGuiSurface->DrawFilledRect( centerX - m_nCursorRadius,centerY,centerX - m_nCursorRadius + 1,centerY + 1);
+	g_pVGuiSurface->DrawFilledRect( centerX,centerY + m_nCursorRadius,centerX + 1,centerY + m_nCursorRadius + 1);
+	g_pVGuiSurface->DrawFilledRect( centerX,centerY - m_nCursorRadius,centerX + 1,centerY - m_nCursorRadius + 1);
+
+#ifndef P2ASW
+	vgui::surface()->DrawClearApparentDepth();
+#endif
+}
 
 void CHUDQuickInfo::Paint()
 {
-	C_Portal_Player *pPortalPlayer = (C_Portal_Player*)( C_BasePlayer::GetLocalPlayer() );
+	C_Portal_Player *pPortalPlayer = (C_Portal_Player*)( GetSplitScreenViewPlayer( engine->GetActiveSplitScreenPlayerSlot() ) );
 	if ( pPortalPlayer == NULL )
 		return;
 
 	C_BaseCombatWeapon *pWeapon = pPortalPlayer->GetActiveWeapon();
+
+	// Find any full-screen fades
+	byte color[4];
+	bool blend;
+	GetViewEffects()->GetFadeParams( &color[0], &color[1], &color[2], &color[3], &blend );
+	float flFadeAlpha = color[3];
+	Color clrCrosshair(255, 255, 255, 255 - flFadeAlpha);
+
+#ifndef P2ASW
+	float flApparentZ = vgui::STEREO_NOOP;
+	if ( materials->IsStereoActiveThisFrame() )
+	{
+		// P2P2 TODO
+		// Do we even need to support this? It's for some nvidia stereoscopic 3D thing
+	}
+#else
+	float flApparentZ = 1.0f;
+#endif
+
+	// Crosshair dots are drawn by the quickinfo hud element in portal2
+	DrawCrosshair(clrCrosshair, flApparentZ);
+
 	if ( pWeapon == NULL )
 		return;
-	
+
 	int		xCenter	= ( ScreenWidth() ) / 2;
 	int		yCenter = ( ScreenHeight() ) / 2;
 
-	Color clrNormal = GetHud().m_clrNormal;
-	clrNormal[3] = 255;
-
-	SetActive( true );
-
-	//m_icon_c->DrawSelf( xCenter, yCenter, clrNormal );
-
-	// adjust center for the bigger crosshairs
-	xCenter	= ScreenWidth() / 2;
-	yCenter = ( ScreenHeight() - m_icon_lb->Height() ) / 2;
-
 	C_WeaponPortalgun *pPortalgun = dynamic_cast<C_WeaponPortalgun*>( pWeapon );
-
-	bool bPortalPlacability[2];
-
-	// NOTE: This may not be accurate, but it's good enough for now.
-	if ( pPortalgun )
-	{
-		// Crosshair hides when an object is picked up in Portal 2
-		if (pPortalgun->IsHoldingObject())
-			return;
-
-		if ( pPortalgun->GetAssociatedPortal( false ) )
-			bPortalPlacability[0] = pPortalgun->GetAssociatedPortal( false )->IsActive();
-
-		if ( pPortalgun->GetAssociatedPortal( true ) )
-		bPortalPlacability[1] = pPortalgun->GetAssociatedPortal( true )->IsActive();
-
-		//bPortalPlacability[0] = pPortalgun->GetPortal1Placablity() > 0.5f;
-		//bPortalPlacability[1] = pPortalgun->GetPortal2Placablity() > 0.5f;
-	}
 
 	if ( !hud_quickinfo.GetInt() || !pPortalgun || ( !pPortalgun->CanFirePortal1() && !pPortalgun->CanFirePortal2() ) )
 	{
-		// no quickinfo or we can't fire either portal, just draw the small versions of the crosshairs
-		clrNormal[3] = 196;
-		//m_icon_lbnone->DrawSelf(xCenter - (m_icon_lbnone->Width() * 2), yCenter, clrNormal);
-		//m_icon_rbnone->DrawSelf(xCenter + m_icon_rbnone->Width(), yCenter, clrNormal);
+		// no quickinfo or we can't fire either portal, just draw the basic crosshair dots
 		return;
 	}
 
+	int iTeamNumber = pPortalPlayer->GetTeamNumber();
+	bool bCanFireBoth = pPortalgun->CanFirePortal1() && pPortalgun->CanFirePortal2();
+	bool bSwaped = hud_quickinfo_swap.GetBool();
+
+	if ( input->ControllerModeActive() )
+		bSwaped = bCanFireBoth ^ bSwaped; // TODO?
+
 	const unsigned char iAlphaStart = 150;	   
+	
+	Color portal1Color = UTIL_Portal_Color( bSwaped ? 2 : 1, iTeamNumber );
+	Color portal2Color = UTIL_Portal_Color( bSwaped ? 1 : 2, iTeamNumber );
 
-	Color portal1Color = UTIL_Portal_Color( 1, pPortalPlayer->GetTeamNumber() );
-	Color portal2Color = UTIL_Portal_Color( 2, pPortalPlayer->GetTeamNumber() );
-
+	// TODO
 	portal1Color[ 3 ] = iAlphaStart;
 	portal2Color[ 3 ] = iAlphaStart;
 
@@ -245,108 +311,69 @@ void CHUDQuickInfo::Paint()
 	Color lastPlaced1Color = Color( portal1Color[0], portal1Color[1], portal1Color[2], iBaseLastPlacedAlpha );
 	Color lastPlaced2Color = Color( portal2Color[0], portal2Color[1], portal2Color[2], iBaseLastPlacedAlpha );
 
-	const float fLastPlacedAlphaLerpSpeed = 300.0f;
-
-	
-	float fLeftPlaceBarFill = 0.0f;
-	float fRightPlaceBarFill = 0.0f;
-
 	if ( pPortalgun->CanFirePortal1() && pPortalgun->CanFirePortal2() )
 	{
-		int iDrawLastPlaced = 0;
+		bool bPortal1Placed = ( bSwaped ? pPortalgun->m_vecOrangePortalPos : pPortalgun->m_vecBluePortalPos ) != vec3_invalid;
+		bool bPortal2Placed = ( bSwaped ? pPortalgun->m_vecBluePortalPos : pPortalgun->m_vecOrangePortalPos ) != vec3_invalid;
 
-		//do last placed indicator effects
-		if ( pPortalgun->GetLastFiredPortal() == 1 )
-		{
-			iDrawLastPlaced = 0;
-			fLeftPlaceBarFill = 1.0f;
-		}
-		else if ( pPortalgun->GetLastFiredPortal() == 2 )
-		{
-			iDrawLastPlaced = 1;
-			fRightPlaceBarFill = 1.0f;			
-		}
+		int iPortal1Alpha = 255 - flFadeAlpha;
+		if ( !bPortal1Placed )
+			iPortal1Alpha = 0;
+		lastPlaced1Color[3] = iPortal1Alpha;
 
-		if( m_bLastPlacedAlphaCountingUp[iDrawLastPlaced] )
-		{
-			m_fLastPlacedAlpha[iDrawLastPlaced] += gpGlobals->absoluteframetime * fLastPlacedAlphaLerpSpeed * 2.0f;
-			if( m_fLastPlacedAlpha[iDrawLastPlaced] > 255.0f )
-			{
-				m_bLastPlacedAlphaCountingUp[iDrawLastPlaced] = false;
-				m_fLastPlacedAlpha[iDrawLastPlaced] = 255.0f - (m_fLastPlacedAlpha[iDrawLastPlaced] - 255.0f);
-			}
-		}
-		else
-		{
-			m_fLastPlacedAlpha[iDrawLastPlaced] -= gpGlobals->absoluteframetime * fLastPlacedAlphaLerpSpeed;
-			if( m_fLastPlacedAlpha[iDrawLastPlaced] < (float)iBaseLastPlacedAlpha )
-			{
-				m_fLastPlacedAlpha[iDrawLastPlaced] = (float)iBaseLastPlacedAlpha;
-			}
-		}
-
-		//reset the last placed indicator on the other side
-		m_fLastPlacedAlpha[1 - iDrawLastPlaced] -= gpGlobals->absoluteframetime * fLastPlacedAlphaLerpSpeed;
-		if( m_fLastPlacedAlpha[1 - iDrawLastPlaced] < 0.0f )
-		{
-			m_fLastPlacedAlpha[1 - iDrawLastPlaced] = 0.0f;
-		}
-		m_bLastPlacedAlphaCountingUp[1 - iDrawLastPlaced] = true;
-
-		if ( pPortalgun->GetLastFiredPortal() != 0 )
-		{
-			lastPlaced1Color[3] = m_fLastPlacedAlpha[0];
-			lastPlaced2Color[3] = m_fLastPlacedAlpha[1];
-		}
-		else
-		{
-			lastPlaced1Color[3] = 0.0f;
-			lastPlaced2Color[3] = 0.0f;
-		}
+		int iPortal2Alpha = 255 - flFadeAlpha;
+		if ( !bPortal2Placed )
+			iPortal2Alpha = 0;
+		lastPlaced2Color[3] = iPortal2Alpha;
 	}
 	//can't fire both portals, and we want the crosshair to remain somewhat symmetrical without being confusing
+	// This might not be totally accurate, but it seems to be functionally the same - Kelsey
 	else if ( !pPortalgun->CanFirePortal1() )
 	{
 		// clone portal2 info to portal 1
 		portal1Color = portal2Color;
-		lastPlaced1Color[3] = 0.0f;
-		lastPlaced2Color[3] = 0.0f;
-		bPortalPlacability[0] = bPortalPlacability[1];
+		lastPlaced1Color = lastPlaced2Color;
 	}
 	else if ( !pPortalgun->CanFirePortal2() )
 	{
 		// clone portal1 info to portal 2
 		portal2Color = portal1Color;
-		lastPlaced1Color[3] = 0.0f;
-		lastPlaced2Color[3] = 0.0f;
-		bPortalPlacability[1] = bPortalPlacability[0];
+		lastPlaced2Color = lastPlaced1Color;
 	}
-		
-	// Matches Portal 2 behavior
-	if ( hud_quickinfo_swap.GetBool() == input->ControllerModeActive() )
-	{
-		if ( bPortalPlacability[0] )
-			m_icon_lb->DrawSelf(xCenter - (m_icon_lb->Width() * 0.64f ), yCenter - ( m_icon_rb->Height() * 0.17f ), portal1Color);
-		else
-			m_icon_lbn->DrawSelf(xCenter - (m_icon_lbn->Width() * 0.64f ), yCenter - ( m_icon_rb->Height() * 0.17f ), portal1Color);
 
-		if ( bPortalPlacability[1] )
-			m_icon_rb->DrawSelf(xCenter + ( m_icon_rb->Width() * -0.35f ), yCenter + ( m_icon_rb->Height() * 0.17f ), portal2Color);
-		else
-			m_icon_rbn->DrawSelf(xCenter + ( m_icon_rbn->Width() * -0.35f ), yCenter + ( m_icon_rb->Height() * 0.17f ), portal2Color);
-	}
-	else
-	{
-		if ( bPortalPlacability[1] )
-			m_icon_lb->DrawSelf(xCenter - (m_icon_lb->Width() * 0.64f ), yCenter - ( m_icon_rb->Height() * 0.17f ), portal2Color);
-		else
-			m_icon_lbn->DrawSelf(xCenter - (m_icon_lbn->Width() * 0.64f ), yCenter - ( m_icon_rb->Height() * 0.17f ), portal2Color);
+	// P2 code seems to draw all of these always, but the placed indicators have alpha 0 when not placed
+	// The ifdefs here really suck for readability... P2P2 FIXME: remove
+	m_icon_lbn->DrawSelf( xCenter - m_nPortalIconOffsetX - ( m_icon_lbn->EffectiveWidth( m_flPortalIconScale ) / 2 ),
+						  yCenter - m_nPortalIconOffsetY - ( m_icon_lbn->EffectiveHeight( m_flPortalIconScale ) / 2 ),
+						  m_icon_lbn->EffectiveWidth( m_flPortalIconScale ), m_icon_lbn->EffectiveHeight( m_flPortalIconScale ), portal1Color
+#ifndef P2ASW
+						  , flApparentZ
+#endif
+						  );
 
-		if ( bPortalPlacability[0] )
-			m_icon_rb->DrawSelf(xCenter + ( m_icon_rb->Width() * -0.35f ), yCenter + ( m_icon_rb->Height() * 0.17f ), portal1Color);
-		else
-			m_icon_rbn->DrawSelf(xCenter + ( m_icon_rbn->Width() * -0.35f ), yCenter + ( m_icon_rb->Height() * 0.17f ), portal1Color);
-	}
+	m_icon_rbn->DrawSelf( xCenter + m_nPortalIconOffsetX - ( m_icon_rbn->EffectiveWidth( m_flPortalIconScale ) / 2 ),
+						  yCenter + m_nPortalIconOffsetY - ( m_icon_rbn->EffectiveHeight( m_flPortalIconScale ) / 2 ),
+						  m_icon_rbn->EffectiveWidth( m_flPortalIconScale ), m_icon_rbn->EffectiveHeight( m_flPortalIconScale ), portal2Color
+#ifndef P2ASW
+						  , flApparentZ
+#endif
+						  );
+
+	m_icon_lb->DrawSelf( xCenter - m_nPortalIconOffsetX - ( m_icon_lb->EffectiveWidth( m_flPortalIconScale ) / 2 ),
+						  yCenter - m_nPortalIconOffsetY - ( m_icon_lb->EffectiveHeight( m_flPortalIconScale ) / 2 ),
+						  m_icon_lb->EffectiveWidth( m_flPortalIconScale ), m_icon_lb->EffectiveHeight( m_flPortalIconScale ), lastPlaced1Color
+#ifndef P2ASW
+						  , flApparentZ
+#endif
+						  );
+
+	m_icon_rb->DrawSelf( xCenter + m_nPortalIconOffsetX - ( m_icon_rb->EffectiveWidth( m_flPortalIconScale ) / 2 ),
+						  yCenter + m_nPortalIconOffsetY - ( m_icon_rb->EffectiveHeight( m_flPortalIconScale ) / 2 ),
+						  m_icon_rb->EffectiveWidth( m_flPortalIconScale ), m_icon_rb->EffectiveHeight( m_flPortalIconScale ), lastPlaced2Color
+#ifndef P2ASW
+						  , flApparentZ
+#endif
+						  );
 }
 
 //-----------------------------------------------------------------------------

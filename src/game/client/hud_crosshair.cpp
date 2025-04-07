@@ -72,7 +72,10 @@ void CHudCrosshair::ApplySchemeSettings( IScheme *scheme )
 //-----------------------------------------------------------------------------
 bool CHudCrosshair::ShouldDraw( void )
 {
-#if defined ( CSTRIKE15 )
+#if defined ( PORTAL2 )
+	// P2ASW FIXME: This isn't accurate, but I'm not sure how to do it correctly.
+	// In P2 this returns true, and the Paint function runs all the way through (seen with IDA debugger),
+	// but this crosshair doesn't actually render for reasons I cannot for the life of me figure out. - Kelsey
 	return false;
 #else
 
@@ -258,19 +261,10 @@ void CHudCrosshair::Paint( void )
 	if ( !pPlayer )
 		return;
 
-	float flWeaponScale = 1.f;
-	float flW = m_pCrosshair->Width();
-	float flH = m_pCrosshair->Height();
-	C_BaseCombatWeapon *pWeapon = pPlayer->GetActiveWeapon();
-	if ( pWeapon )
-	{
-		pWeapon->GetWeaponCrosshairScale( flWeaponScale );
-	}
-
-	m_pCrosshair->DrawSelfCropped( 
-		x - 0.5f * m_pCrosshair->Width() * flWeaponScale + 0.5, 
-		y - 0.5f * m_pCrosshair->Height() * flWeaponScale + 0.5,
-		0, 0, flW, flH, flW*flWeaponScale, flH*flWeaponScale,
+	// P2P2 TODO: apparentZ stuff
+	m_pCrosshair->DrawSelf( 
+		x - 0.5f * m_pCrosshair->Width(), 
+		y - 0.5f * m_pCrosshair->Height(),
 		m_clrCrosshair );
 }
 
