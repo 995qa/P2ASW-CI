@@ -404,6 +404,7 @@ public:
 	float						GetMaxValue() const;
 
 	const char					*GetDefault( void ) const;
+	void						SetDefault( const char *pszDefault ) { m_pszDefaultValue = pszDefault; }
 
 	// Value
 	struct CVValue_t

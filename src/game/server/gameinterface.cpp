@@ -1050,6 +1050,14 @@ bool CServerGameDLL::DLLInit(CreateInterfaceFn appSystemFactory,
 	{
 		cl_language->InstallChangeCallback( LanguageCvarChangeCallback );
 	}
+
+	// Change fps_max default value to match literally every other game
+	ConVar* fps_max = g_pCVar->FindVar("fps_max");
+	if ( fps_max )
+	{
+		fps_max->SetDefault("300");
+		fps_max->Revert();
+	}
 #endif // P2ASW
 
 #ifdef SERVER_USES_VGUI
