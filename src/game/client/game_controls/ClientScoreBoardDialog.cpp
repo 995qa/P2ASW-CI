@@ -327,6 +327,16 @@ bool CClientScoreBoardDialog::NeedsUpdate( void )
 //-----------------------------------------------------------------------------
 void CClientScoreBoardDialog::Update( void )
 {
+#ifdef P2ASW
+	// This is also needed here if the scoreboard isn't the first panel created by baseviewport
+	// (in portal2 the radial menu is created first)
+	// P2ASW TODO: This check isn't here in actual portal 2, so why does it work there?
+	if ( m_pImageList == NULL )
+	{
+		InvalidateLayout( true, true );
+	}
+#endif // P2ASW
+
 	// Set the title
 	
 	// Reset();
