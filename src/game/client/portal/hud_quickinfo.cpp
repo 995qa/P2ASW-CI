@@ -38,6 +38,20 @@ extern ConVar crosshair;
 #define	QUICKINFO_FADE_IN_TIME		0.5f
 #define QUICKINFO_FADE_OUT_TIME		2.0f
 
+// P2ASW TODO: This was probably an existing function that got inlined, but I couldn't find one which matched
+// It's needed for the crosshair colors to match P2 - Kelsey
+int QuickInfo_ColorTransform( int input )
+{
+	if ( input < 5 )
+		return 5;
+	
+	float retVal = input + ((1.0 - (input / 255.0)) * 64.0);
+	if ( retVal > 255.0 )
+		return 255;
+		
+	return retVal;
+}
+
 /*
 ==================================================
 CHUDQuickInfo 
@@ -207,6 +221,65 @@ bool CHUDQuickInfo::ShouldDraw( void )
 void CHUDQuickInfo::DrawPortalHint( Vector& vecPosition, bool bBluePortal )
 {
 	// TODO: Unused function. Only found in Linux bins, optimized out of others.
+	// I couldn't be bothered to figure this out for now, but it seems to share a lot of code with
+	// CHudCoopPingIndicator::DrawIndicatorHint(), which IS compiled into Windows/Mac - Kelsey
+#if 0
+	if ( vecPosition == vec3_invalid )
+		return;
+
+	Vector vecScreen;
+	ScreenTransform(vecPosition, vecScreen);
+
+	// math
+	float xCenter = ScreenWidth() / 2;
+	float yCenter = ScreenWidth() / 2;
+
+	float posX = xCenter + ScreenWidth() * ( vecScreen.x * 0.5f ) + 0.5f;
+	float posY = yCenter - ScreenHeight() * ( vecScreen.y * 0.5f ) + 0.5f;
+
+	float offsetX = posX - xCenter;
+	float offsetY = posY - yCenter;
+
+	float flDist = sqrtf( ( offsetY * offsetY ) + ( offsetX * offsetX ) );
+
+	float flInnerCircle;
+	if ( ScreenWidth() < ScreenHeight() )
+		flInnerCircle = ( ScreenWidth() * 0.9f ) * 0.5f;
+	else
+		flInnerCircle = ( ScreenHeight() * 0.9f ) * 0.5f;
+
+	float atan2Result = atan2(offsetY, offsetX);
+
+	float ca = cos(atan2Result);
+	float sa = sin(atan2Result);
+
+	if ( flInnerCircle <= ( flDist * 0.5f ) )
+		offsetY = flInnerCircle;
+	else
+		offsetY = flDist * 0.5f;
+
+	float finalX = ( ScreenWidth() / 2 ) + (offsetY * ca);
+
+	C_BasePlayer* pPlayer = GetSplitScreenViewPlayer( GET_ACTIVE_SPLITSCREEN_SLOT() );
+	Assert(pPlayer);
+	Color colorPortal = UTIL_Portal_Color( bBluePortal ? 1 : 2, pPlayer->GetTeamNumber() );
+	colorPortal[3] = 255;
+
+	// numbers
+	vgui::Vertex_t verts[4];
+
+	verts[0].m_TexCoord.Init( 0, 0 );
+	verts[1].m_TexCoord.Init( 1, 0 );
+	verts[2].m_TexCoord.Init( 1, 1 );
+	verts[3].m_TexCoord.Init( 0, 1 );
+
+	vgui::surface()->DrawSetColor( colorPortal );
+	vgui::surface()->DrawSetTexture( m_nArrowTexture );
+	vgui::surface()->DrawTexturedPolygon( 4, verts );
+
+	// TEMP
+	//vgui::surface()->DrawOutlinedCircle( ( vecScreen.x + 1 ) / 2 * ScreenWidth(), ( -vecScreen.y + 1 ) / 2 * ScreenHeight(), 30, 30 );
+#endif
 }
 
 void CHUDQuickInfo::DrawPortalHints()
@@ -250,7 +323,7 @@ void CHUDQuickInfo::DrawCrosshair( Color color, float flApparentZ )
 
 void CHUDQuickInfo::Paint()
 {
-	C_Portal_Player *pPortalPlayer = (C_Portal_Player*)( GetSplitScreenViewPlayer( engine->GetActiveSplitScreenPlayerSlot() ) );
+	C_Portal_Player *pPortalPlayer = (C_Portal_Player*)( GetSplitScreenViewPlayer( GET_ACTIVE_SPLITSCREEN_SLOT() ) );
 	if ( pPortalPlayer == NULL )
 		return;
 
@@ -295,15 +368,22 @@ void CHUDQuickInfo::Paint()
 	bool bCanFireBoth = pPortalgun->CanFirePortal1() && pPortalgun->CanFirePortal2();
 	bool bSwaped = hud_quickinfo_swap.GetBool();
 
-	if ( input->ControllerModeActive() )
-		bSwaped = bCanFireBoth ^ bSwaped; // TODO?
+	if ( input->ControllerModeActive() && bCanFireBoth )
+		bSwaped = !bSwaped;
 
 	const unsigned char iAlphaStart = 150;	   
 	
 	Color portal1Color = UTIL_Portal_Color( bSwaped ? 2 : 1, iTeamNumber );
 	Color portal2Color = UTIL_Portal_Color( bSwaped ? 1 : 2, iTeamNumber );
 
-	// TODO
+	// p2asw todo
+	portal1Color[0] = QuickInfo_ColorTransform( portal1Color[0] );
+	portal1Color[1] = QuickInfo_ColorTransform( portal1Color[1] );
+	portal1Color[2] = QuickInfo_ColorTransform( portal1Color[2] );
+	portal2Color[0] = QuickInfo_ColorTransform( portal2Color[0] );
+	portal2Color[1] = QuickInfo_ColorTransform( portal2Color[1] );
+	portal2Color[2] = QuickInfo_ColorTransform( portal2Color[2] );
+
 	portal1Color[ 3 ] = iAlphaStart;
 	portal2Color[ 3 ] = iAlphaStart;
 
