@@ -16,8 +16,8 @@
 
 #include "tier1/utlsortvector.h"
 
-#undef FCVAR_DEVELOPMENTONLY
-#define FCVAR_DEVELOPMENTONLY FCVAR_NONE
+//#undef FCVAR_DEVELOPMENTONLY
+//#define FCVAR_DEVELOPMENTONLY FCVAR_NONE
 
 ConVar portal_laser_normal_update( "portal_laser_normal_update", "0.05f", FCVAR_REPLICATED | FCVAR_DEVELOPMENTONLY );
 ConVar portal_laser_high_precision_update( "portal_laser_high_precision_update", "0.03f", FCVAR_REPLICATED | FCVAR_DEVELOPMENTONLY );
@@ -37,19 +37,39 @@ typedef CUtlSortVector<LaserVictimInfo_t, CLaserVictimLess> LaserVictimSortVecto
 
 BEGIN_DATADESC(CPortalLaser)
 
-	DEFINE_KEYFIELD( m_bNoPlacementHelper, FIELD_BOOLEAN, "NoPlacementHelper" ),
-	DEFINE_KEYFIELD( m_bStartOff, FIELD_BOOLEAN, "StartState" ),
-	DEFINE_KEYFIELD( m_bIsLethal, FIELD_BOOLEAN, "LethalDamage" ),
-	DEFINE_KEYFIELD( m_bAutoAimEnabled, FIELD_BOOLEAN, "AutoAimEnabled" ),
-	
+	DEFINE_THINKFUNC( StrikeThink ),
+
+	DEFINE_FIELD( m_vStartPoint, FIELD_VECTOR ),
+	DEFINE_FIELD( m_vEndPoint, FIELD_VECTOR ),
 	DEFINE_FIELD( m_bShouldSpark, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_bUseParentDir, FIELD_BOOLEAN ),
 
+	DEFINE_FIELD( m_angParentAngles, FIELD_VECTOR ), // QAngle
+	DEFINE_FIELD( m_angPortalExitAngles, FIELD_VECTOR ), // QAngle
+
+	DEFINE_FIELD( m_bLaserOn, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_bIsAutoAiming, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_bFromReflectedCube, FIELD_BOOLEAN ),
+
+	DEFINE_FIELD( m_hReflector, FIELD_EHANDLE ),
+	DEFINE_FIELD( m_pParentLaser, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_pChildLaser, FIELD_CLASSPTR ),
+
+	DEFINE_ARRAY( m_pSoundProxy, FIELD_CLASSPTR, MAX_PLAYERS ),
+
+	DEFINE_FIELD( m_pPlacementHelper, FIELD_CLASSPTR ),
+
+	DEFINE_FIELD( m_iLaserAttachment, FIELD_INTEGER ),
+
+	DEFINE_KEYFIELD( m_ModelName, FIELD_MODELNAME, "model" ),
+	DEFINE_KEYFIELD( m_bStartOff, FIELD_BOOLEAN, "StartState" ),
+	DEFINE_KEYFIELD( m_bIsLethal, FIELD_BOOLEAN, "LethalDamage" ),
+	DEFINE_KEYFIELD( m_bAutoAimEnabled, FIELD_BOOLEAN, "AutoAimEnabled" ),
+	DEFINE_KEYFIELD( m_bNoPlacementHelper, FIELD_BOOLEAN, "NoPlacementHelper" ),
+	
 	DEFINE_INPUTFUNC( FIELD_VOID, "TurnOn", InputTurnOn ),
 	DEFINE_INPUTFUNC( FIELD_VOID, "TurnOff", InputTurnOff ),
 	DEFINE_INPUTFUNC( FIELD_VOID, "Toggle", InputToggle ),
-
-	DEFINE_THINKFUNC( StrikeThink )
 
 END_DATADESC()
 

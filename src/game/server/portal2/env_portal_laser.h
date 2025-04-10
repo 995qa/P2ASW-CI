@@ -16,7 +16,6 @@ public:
 
 	DECLARE_CLASS( CPortalLaser, CBaseAnimating );
 	DECLARE_SERVERCLASS();
-	DECLARE_DATADESC();
 	
 	CBaseEntity *GetEntity() { return this; }
 	CPortalLaser( const CPortalLaser & );
@@ -37,6 +36,31 @@ public:
 
     CPortalLaser *m_pParentLaser;
     CPortalLaser *m_pChildLaser;
+
+    // this is down here for some reason
+    DECLARE_DATADESC();
+
+private:
+    void RemoveChildLaser();
+    void UpdateNextLaser( Vector &vecStart, Vector &vecDirection, CPropWeightedCube *pReflector );
+    void FireLaser( Vector &vecStart, Vector &vecDirection, CPropWeightedCube *pReflector );
+    bool ReflectLaserFromEntity( CBaseEntity *pTarget );
+    bool InPVS();
+    void CreateHelperEntities();
+    void CreateSoundProxies();
+    void DamageEntity( CBaseEntity *pVictim, float flAmount );
+    void TurnOn();
+    void TurnOff();
+    bool IsOn();
+    void TurnOnGlow();
+    void TurnOffGlow();
+    void TurnOffLaserSound();
+    void StrikeThink();
+    void BeamDamage( trace_t &tr );
+    void UpdateSoundPosition( Vector &vecStart, Vector &vecEnd );
+    bool StrikeEntitiesAlongLaser( Vector &vecStart, Vector &vecEnd, Vector * );
+    bool ShouldAutoAim( CBaseEntity *pEntity );
+    void SetFromReflectedCube( bool bReflect );
 	
     struct PortalLaserInfo_t
     {
@@ -54,7 +78,22 @@ public:
 	
 	typedef CUtlVector<PortalLaserInfo_t> PortalLaserInfoList_t;
 
-private:
+    CBaseEntity *TraceLaser( bool bIsFirstTrace, Vector &vecStart, Vector &vecDirection, float &flTotalBeamLength, trace_t &tr, PortalLaserInfoList_t &infoList, Vector *pVecAutoAimOffset );
+
+    CBaseEntity *GetEntitiesAlongLaser( Vector &vecStart, Vector &vecEnd, Vector *pVecOut, PortalLaserInfoList_t &infoList, bool bIsFirstTrace );
+    void DamageEntitiesAlongLaser( const PortalLaserInfoList_t &infoList , bool bAutoAim );
+
+    Vector m_vecNearestSoundSource[MAX_PLAYERS];
+    CBaseEntity *m_pSoundProxy[MAX_PLAYERS];
+    CSoundPatch *m_pAmbientSound[MAX_PLAYERS];
+    CInfoPlacementHelper *m_pPlacementHelper;
+    int m_iLaserAttachment;
+    string_t m_ModelName;
+    bool m_bStartOff;
+    bool m_bFromReflectedCube;
+    bool m_bGlowInitialized;
+    bool m_bAutoAimEnabled;
+    bool m_bNoPlacementHelper;
 	
 	CNetworkHandle( CPropWeightedCube, m_hReflector );
 	
@@ -69,45 +108,6 @@ private:
 	CNetworkQAngle( m_angParentAngles );
 	
     QAngle m_angPortalExitAngles;
-	
-	CBaseEntity *TraceLaser( bool bIsFirstTrace, Vector &vecStart, Vector &vecDirection, float &flTotalBeamLength, trace_t &tr, PortalLaserInfoList_t &infoList, Vector *pVecAutoAimOffset );
-
-    CBaseEntity *GetEntitiesAlongLaser( Vector &vecStart, Vector &vecEnd, Vector *pVecOut, PortalLaserInfoList_t &infoList, bool bIsFirstTrace );
-    void DamageEntitiesAlongLaser( const PortalLaserInfoList_t &infoList , bool bAutoAim );
-
-    Vector m_vecNearestSoundSource[MAX_PLAYERS];
-    CBaseEntity *m_pSoundProxy[MAX_PLAYERS];
-	CSoundPatch *m_pAmbientSound[MAX_PLAYERS];
-    CInfoPlacementHelper *m_pPlacementHelper;
-    int m_iLaserAttachment;
-    string_t m_ModelName;
-    bool m_bStartOff;
-    bool m_bFromReflectedCube;
-    bool m_bGlowInitialized;
-    bool m_bAutoAimEnabled;
-    bool m_bNoPlacementHelper;
-	
-    void RemoveChildLaser();
-    void UpdateNextLaser( Vector &vecStart, Vector &vecDirection, CPropWeightedCube *pReflector );
-    void FireLaser( Vector &vecStart, Vector &vecDirection, CPropWeightedCube *pReflector );
-    void CreateHelperEntities();
-    void CreateSoundProxies();
-    void DamageEntity( CBaseEntity *pVictim, float flAmount );
-    void TurnOn();
-    void TurnOff();
-    void TurnOnGlow();
-    void TurnOffGlow();
-    void TurnOffLaserSound();
-    void StrikeThink();
-    void BeamDamage( trace_t &tr );
-    void UpdateSoundPosition( Vector &vecStart, Vector &vecEnd );
-    void SetFromReflectedCube( bool bReflect );
-	
-	bool StrikeEntitiesAlongLaser( Vector &vecStart, Vector &vecEnd, Vector * );
-    bool ShouldAutoAim( CBaseEntity *pEntity );
-    bool IsOn();
-    bool ReflectLaserFromEntity( CBaseEntity *pTarget );
-    bool InPVS();
 };
 
 struct LaserVictimInfo_t
