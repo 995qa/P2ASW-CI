@@ -88,6 +88,8 @@ private:
     CSoundPatch *m_pAmbientSound[MAX_PLAYERS];
     CInfoPlacementHelper *m_pPlacementHelper;
     int m_iLaserAttachment;
+
+    // Laser class has its own model var instead of using the baseanimating one
     string_t m_ModelName;
     bool m_bStartOff;
     bool m_bFromReflectedCube;

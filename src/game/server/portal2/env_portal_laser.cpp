@@ -131,9 +131,7 @@ void CPortalLaser::Spawn( void )
 	//CPortalPlayerInventory::ValidateInventoryPositions((vgui::ListViewPanel *)this);
 	BaseClass::Spawn();
 	
-	const char *pszModelName = GetModelName().ToCStr();
-	if (!pszModelName)
-		pszModelName = "";
+	const char *pszModelName = m_ModelName.ToCStr();
 
 	m_bGlowInitialized = false;
 
@@ -141,7 +139,7 @@ void CPortalLaser::Spawn( void )
 
 	if ( !m_bFromReflectedCube )
 	{
-		if (*pszModelName)
+		if (pszModelName && *pszModelName)
 		{
 			SetModel( pszModelName );
 		}
@@ -198,7 +196,7 @@ void CPortalLaser::Precache( void )
 
 	if ( !m_bFromReflectedCube )
 	{
-		const char *pszModel = GetModelName().ToCStr();
+		const char *pszModel = m_ModelName.ToCStr();
 		if ( *pszModel )
 			PrecacheModel( pszModel );
 		else

@@ -76,8 +76,8 @@ C_PortalLaser::~C_PortalLaser( void )
 }
 void C_PortalLaser::Precache( void )
 {
-	 PrecacheParticleSystem( LASER_SPARK_EFFECT_NAME );
-	 BaseClass::Precache();
+	PrecacheParticleSystem( LASER_SPARK_EFFECT_NAME );
+	BaseClass::Precache();
 }
 
 void C_PortalLaser::Spawn( void )
