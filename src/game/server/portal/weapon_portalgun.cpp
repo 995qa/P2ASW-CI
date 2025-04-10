@@ -59,12 +59,17 @@ BEGIN_DATADESC( CWeaponPortalgun )
 
 	DEFINE_KEYFIELD( m_bCanFirePortal1, FIELD_BOOLEAN, "CanFirePortal1" ),
 	DEFINE_KEYFIELD( m_bCanFirePortal2, FIELD_BOOLEAN, "CanFirePortal2" ),
+	DEFINE_KEYFIELD( m_bShowingPotatos, FIELD_BOOLEAN, "ShowingPotatos" ),
+	DEFINE_KEYFIELD( m_nStartingTeamNum, FIELD_INTEGER, "StartingTeamNum" ),
 	DEFINE_FIELD( m_iLastFiredPortal, FIELD_INTEGER ),
 	DEFINE_FIELD( m_bOpenProngs, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_fEffectsMaxSize1, FIELD_FLOAT ),
 	DEFINE_FIELD( m_fEffectsMaxSize2, FIELD_FLOAT ),
 	DEFINE_FIELD( m_EffectState, FIELD_INTEGER ),
 	DEFINE_FIELD( m_iPortalLinkageGroupID, FIELD_CHARACTER	),
+	DEFINE_FIELD( m_hFreezeEntity, FIELD_EHANDLE ),
+	DEFINE_FIELD( m_vecBluePortalPos, FIELD_VECTOR ),
+	DEFINE_FIELD( m_vecOrangePortalPos, FIELD_VECTOR ),
 
 	DEFINE_INPUTFUNC( FIELD_VOID, "ChargePortal1", InputChargePortal1 ),
 	DEFINE_INPUTFUNC( FIELD_VOID, "ChargePortal2", InputChargePortal2 ),
@@ -78,9 +83,8 @@ BEGIN_DATADESC( CWeaponPortalgun )
 	DEFINE_OUTPUT ( m_OnFiredPortal1, "OnFiredPortal1" ),
 	DEFINE_OUTPUT ( m_OnFiredPortal2, "OnFiredPortal2" ),
 
-	DEFINE_THINKFUNC( Think ),
-	DEFINE_THINKFUNC( TogglePotatosThink ),
 	DEFINE_THINKFUNC( GunEffectsThink ),
+	DEFINE_THINKFUNC( TogglePotatosThink ),
 	
 END_DATADESC()
 

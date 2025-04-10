@@ -33,13 +33,20 @@ private:
 	CNetworkVar( int,	m_iLastFiredPortal );	// Which portal was placed last
 	CNetworkVar( bool,	m_bOpenProngs );		// Which portal was placed last
 
+	CNetworkVector( m_vecBluePortalPos );
+	CNetworkVector( m_vecOrangePortalPos );
+
+	CHandle<CBaseEntity> m_hFreezeEntity;
+
+	CNetworkVar( unsigned char, m_iPortalLinkageGroupID );
+
 public:
-	unsigned char GetLinkageGroupID() { return m_iPortalLinkageGroupID; }
-	void SetLinkageGroupID( int iNewID );
-	
 	// HACK HACK! Used to make the gun visually change when going through a cleanser!
 	CNetworkVar( float,	m_fEffectsMaxSize1 );
 	CNetworkVar( float,	m_fEffectsMaxSize2 );
+
+protected:
+	void PostAttack( void );
 
 public:
 	virtual const Vector& GetBulletSpread( void )
@@ -64,6 +71,8 @@ public:
 	void SetLastFiredPortal( int iLastFiredPortal ) { m_iLastFiredPortal = iLastFiredPortal; }
 	int GetLastFiredPortal( void ) { return m_iLastFiredPortal; }
 
+	Activity GetPrimaryAttackActivity( void );
+
 	bool Reload( void );
 	void FillClip( void );
 	void CheckHolsterReload( void );
@@ -71,14 +80,15 @@ public:
 	bool Holster( CBaseCombatWeapon *pSwitchingTo = NULL );
 	bool Deploy( void );
 
+	void ResetRefireTime( void );
+
 	void SetCanFirePortal1( bool bCanFire = true );
 	void SetCanFirePortal2( bool bCanFire = true );
 	bool CanFirePortal1( void ) const;
 	bool CanFirePortal2( void ) const;
 
-	Activity GetPrimaryAttackActivity( void );
-
-	void ResetRefireTime( void );
+	void UnfreezeEntity();
+	void FreezeEntity( CBaseEntity* target );
 
 	void PrimaryAttack( void );
 	void SecondaryAttack( void );
@@ -91,8 +101,8 @@ public:
 
 	void OpenProngs( bool bOpenProngs );
 
-	void TogglePotatosThink( void );
-    static char *s_szTogglePotatosThinkContext;
+	void InputChargePortal1( inputdata_t &inputdata );
+	void InputChargePortal2( inputdata_t &inputdata );
 	
 	void FirePortal1( void );
 	void FirePortal2( void );
@@ -100,24 +110,17 @@ public:
 	void FirePortal1Helper( inputdata_t& inputdata );
 	void FirePortal2Helper( inputdata_t& inputdata );
 
-	void InputChargePortal1( inputdata_t &inputdata );
-	void InputChargePortal2( inputdata_t &inputdata );
 	void FirePortalDirection1( inputdata_t &inputdata );
 	void FirePortalDirection2( inputdata_t &inputdata );
 
+	void ClearPortalPositions( void );
+	void PortalPlaced( void );
+
 	bool TraceFirePortal( const Vector &vTraceStart, const Vector &vDirection, bool bPortal2, PortalPlacedBy_t ePlacedBy, TracePortalPlacementInfo_t &placementInfo );
 	PortalPlacementResult_t FirePortal( bool bPortal2, Vector *pVector = 0 );
-	
-	void PortalPlaced( void );
-	void UpdatePortalAssociation( void );
 
-	bool  PortalTraceClippedByBlockers( ComplexPortalTrace_t *pTraceResults, int nNumResultSegments, const Vector &vecDirection, bool bIsSecondPortal, TracePortalPlacementInfo_t &placementInfo );
-	bool AttemptStealCoopPortal( TracePortalPlacementInfo_t &placementInfo );
-	bool AttemptSnapToPlacementHelper( CProp_Portal *pPortal, ComplexPortalTrace_t *pTraceResults, int nNumResultSegments, PortalPlacedBy_t ePlacedBy, TracePortalPlacementInfo_t &placementInfo );
-	CProp_Portal *GetAssociatedPortal( bool bPortal2 );
-
-	CNetworkVector( m_vecOrangePortalPos );
-	CNetworkVector( m_vecBluePortalPos );
+	void SetLinkageGroupID( int iNewID );
+	unsigned int GetLinkageGroupID() { return m_iPortalLinkageGroupID; }
 
 	CSoundPatch		*m_pMiniGravHoldSound;
 
@@ -126,27 +129,30 @@ public:
 	COutputEvent m_OnFiredPortal2;		// Fires when the gun's second (red) portal is fired
 
 	void DryFire( void );
+	void UseDeny( void );
 	virtual float GetFireRate( void ) { return 0.7; };
 	void WeaponIdle( void );
 
 	int GetWeaponID( void ) const { return WEAPON_PORTALGUN; }
 
+	CProp_Portal *GetAssociatedPortal( bool bPortal2 );
+	void UpdatePortalAssociation( void );
+	virtual void	ChangeTeam( int iTeamNum );
 	void SetPotatosOnPortalgun( bool bShowPotatos );
 	
-	void PostAttack( void );
-
-	void UseDeny( void );
-	
-	virtual void	ChangeTeam( int iTeamNum );
-	
-	
-	void	ClearPortalPositions( void );
-
-	int m_nStartingTeamNum;
+	void TogglePotatosThink( void );
+	static char *s_szTogglePotatosThinkContext;
 
 	bool	m_bShowingPotatos;
 
+	int m_nStartingTeamNum;
+
 protected:
+
+	bool AttemptStealCoopPortal( TracePortalPlacementInfo_t &placementInfo );
+	bool  PortalTraceClippedByBlockers( ComplexPortalTrace_t *pTraceResults, int nNumResultSegments, const Vector &vecDirection, bool bIsSecondPortal, TracePortalPlacementInfo_t &placementInfo );
+	bool AttemptSnapToPlacementHelper( CProp_Portal *pPortal, ComplexPortalTrace_t *pTraceResults, int nNumResultSegments, PortalPlacedBy_t ePlacedBy, TracePortalPlacementInfo_t &placementInfo );
+
 
 	void	StartEffects( void );	// Initialize all sprites and beams
 	void	StopEffects( bool stopSound = true );	// Hide all effects temporarily
@@ -173,9 +179,6 @@ public:
 
 private:
 	CWeaponPortalgun( const CWeaponPortalgun & );
-
-	CNetworkVar( unsigned char, m_iPortalLinkageGroupID );
-
 };
 
 
