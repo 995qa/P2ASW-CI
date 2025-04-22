@@ -34,7 +34,9 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
 
     - name: Configure
-      run: ./src/creategameprojects.bat
+      run: |
+          cd ./src
+           ./src/creategameprojects.bat
       
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
