@@ -36,7 +36,7 @@ jobs:
     - name: Configure
       run: |
           cd ./src
-           ./src/creategameprojects.bat
+           creategameprojects.bat
       
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
