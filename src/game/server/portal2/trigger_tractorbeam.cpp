@@ -176,7 +176,7 @@ CTrigger_TractorBeam::CTrigger_TractorBeam()
 
 	m_hProxyEntity = NULL;
 	m_sndPlayerInBeam = NULL;
-	m_flRadius = 55.0;
+	m_flRadius = TRACTOR_BEAM_RADIUS;
 }
 
 CTrigger_TractorBeam::~CTrigger_TractorBeam()

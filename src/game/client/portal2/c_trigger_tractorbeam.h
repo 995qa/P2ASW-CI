@@ -6,10 +6,16 @@
 #include "c_triggers.h"
 #include "vphysics_interface.h"
 #include "c_baseprojectedentity.h"
+#include "functionproxy.h"
 
 #ifdef NO_TRACTOR_BEAM
 #error "THIS FILE SHOULDN'T BE INCLUDED"
 #endif
+
+// These were probably #defines
+#define TRACTOR_BEAM_RADIUS_INNER 58.0f
+#define TRACTOR_BEAM_RADIUS_OUTER 60.0f
+#define TRACTOR_BEAM_EXTEND_TIME  1.0f
 
 #define CTrigger_TractorBeam C_Trigger_TractorBeam
 
@@ -159,6 +165,13 @@ private:
 	float m_flStartTime;
 	int m_nLastUpdateFrame;
 	
+};
+
+class CTractorBeamProxy : public CResultProxy
+{
+public:
+	virtual bool Init( IMaterial *pMaterial, KeyValues *pKeyValues );
+	virtual void OnBind( void* pC_BaseEntity );
 };
 
 #endif

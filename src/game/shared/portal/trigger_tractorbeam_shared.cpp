@@ -204,7 +204,10 @@ void CTrigger_TractorBeam::UpdateBeam( const Vector& vStartPoint, const Vector& 
 		CollisionProp()->SetCollisionBounds( vMins, vMaxs );
 		CollisionProp()->SetSurroundingBoundsType( USE_OBB_COLLISION_BOUNDS );
 
-#ifdef CLIENT_DLL
+// P2ASW FIXME: Disabling this for now because it causes engine.dll access violations and I can't figure out why - Kelsey
+// Perhaps revisit after P2 port
+#if 0
+//#ifdef CLIENT_DLL
 		// need to add the entity to partition tree so we can trace against this on the client
 		Vector vWorldMins, vWorldMaxs;
 		CollisionProp()->WorldSpaceSurroundingBounds( &vWorldMins, &vWorldMaxs );

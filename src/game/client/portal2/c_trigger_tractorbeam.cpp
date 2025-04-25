@@ -2,6 +2,8 @@
 #include "trigger_tractorbeam_shared.h"
 #include "c_portal_player.h"
 #include "soundinfo.h"
+#include "c_trigger_tractorbeam.h"
+#include "imaterialproxydict.h"
 
 #undef CProjectedTractorBeamEntity // Just in case
 
@@ -187,44 +189,33 @@ void C_Trigger_TractorBeam::StartTouch( C_BaseEntity *pOther )
 
 int C_Trigger_TractorBeam::DrawModel( int flags, const RenderableInstance_t &instance )
 {
+	ConVarRef gpu_level("gpu_level");
+	bool bDrawOuterColumn = ( gpu_level.GetInt() > 1 );
 	
 	Vector vDir = m_vEnd - m_vStart;
 
 	float flLength = VectorNormalize(vDir);
 
-#if 0 // TODO: This is probably supposed to be the code that makes the funnel do its "extend" animation - disabling for now until we get it working
-	if ((gpGlobals->curtime - m_flStartTime) < 0.5)
-	{
-		float flMod1;
+	//if ( gpGlobals->curtime < ( m_flStartTime + TRACTOR_BEAM_EXTEND_TIME ) )
+	//{
+		//float flLengthMod;
 
-		// This code doesn't make any fucking sense
-		if (m_flStartTime == (m_flStartTime + 0.5))
-		{
-			if ( gpGlobals->curtime < ( m_flStartTime + 0.5 ) )
-				flMod1 = 0.0;
-			else
-				flMod1 = 1.0;
-		}
-		else
-		{
-			float flMod2;
-			float flRemainingTime = (gpGlobals->curtime - m_flStartTime) / ( ( m_flStartTime + 0.5 ) - m_flStartTime );
-			if (flRemainingTime >= 0.0)
-			{
-				if (flRemainingTime <= 1.0)
-					flMod2 = flRemainingTime;
-				else
-					flMod2 = 1.0;
-			}
-			else
-			{
-				flMod2 = 0.0;
-			}
-			flMod1 = ( (flMod2 * flMod2) * 3.0 ) - ( ( (flMod2 * flMod2) * 2.0 ) * flMod2 );
-		}
-		flLength = flMod1 * flLength;
-	}
-#endif
+		//float flMod2;
+		//float flRemainingTime = (gpGlobals->curtime - m_flStartTime) / ( ( m_flStartTime + 0.5 ) - m_flStartTime );
+		//if (flRemainingTime >= 0.0)
+		//{
+		//	if (flRemainingTime <= 1.0)
+		//		flMod2 = flRemainingTime;
+		//	else
+		//		flMod2 = 1.0;
+		//}
+		//else
+		//{
+		//	flMod2 = 0.0;
+		//}
+		//flLengthMod = ( (flMod2 * flMod2) * 3.0 ) - ( ( (flMod2 * flMod2) * 2.0 ) * flMod2 );
+		//flLength = flRemainingTime * flLength;
+	//}
 
 	matrix3x4_t xform;
 	QAngle angles;
@@ -237,12 +228,12 @@ int C_Trigger_TractorBeam::DrawModel( int flags, const RenderableInstance_t &ins
 	MatrixGetColumn( xform, 2, xAxis);
 	MatrixGetColumn( xform, 1, yAxis);
 
-	C_Trigger_TractorBeam::DrawColumn( m_pMaterial1, m_vStart, vDir, flLength, xAxis, yAxis, 58.0, 1.0, m_bFromPortal, m_bToPortal, 0.0 );
+	// This probably used the preprocessor definition
+	C_Trigger_TractorBeam::DrawColumn( m_pMaterial1, m_vStart, vDir, flLength, xAxis, yAxis, TRACTOR_BEAM_RADIUS_INNER, 1.0, m_bFromPortal, m_bToPortal, 0.0 );
 
 	// Outer column (tractor_beam2) is skipped on low GPU levels
-	ConVarRef gpu_level("gpu_level");
-	if (gpu_level.GetInt() > 1)
-		C_Trigger_TractorBeam::DrawColumn( m_pMaterial2, m_vStart, vDir, flLength, xAxis, yAxis, 60.0, 1.0, m_bFromPortal, m_bToPortal, 0.0 );
+	if (bDrawOuterColumn)
+		C_Trigger_TractorBeam::DrawColumn( m_pMaterial2, m_vStart, vDir, flLength, xAxis, yAxis, TRACTOR_BEAM_RADIUS_OUTER, 1.0, m_bFromPortal, m_bToPortal, 0.0 );
 
 	return 1;
 }
@@ -623,3 +614,30 @@ bool C_Trigger_TractorBeam::HasAirDensity( void )
 {
 	return m_addAirDensity != 0.0;
 }
+
+
+// Tractor Beam Proxy
+
+bool CTractorBeamProxy::Init( IMaterial* pMaterial, KeyValues* pKeyValues )
+{
+	// This doesn't really need to exist, but the decompiler indicates it might have
+	return CResultProxy::Init(pMaterial, pKeyValues);
+}
+
+void CTractorBeamProxy::OnBind( void* pC_BaseEntity )
+{
+	if ( !pC_BaseEntity )
+		return;
+
+	C_BaseEntity* pEntity = BindArgToEntity(pC_BaseEntity);
+	if ( !pEntity )
+		return;
+
+	C_Trigger_TractorBeam* pTractorBeam = dynamic_cast<C_Trigger_TractorBeam*>(pEntity);
+	if ( !pTractorBeam )
+		return;
+
+	SetFloatResult( pTractorBeam->GetLinearForce() / 512 );
+}
+
+EXPOSE_MATERIAL_PROXY(CTractorBeamProxy, TractorBeam);

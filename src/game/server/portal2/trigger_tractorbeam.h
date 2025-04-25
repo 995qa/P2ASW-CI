@@ -9,6 +9,10 @@
 //#include "trigger_tractorbeam_shared.h"
 
 
+// This was probably a #define, but it's not in the shared files...
+#define TRACTOR_BEAM_RADIUS 55.0f
+
+
 class CTrigger_TractorBeam;
 class CPaintBlob;
 
