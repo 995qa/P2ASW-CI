@@ -693,7 +693,7 @@ void CSysSessionBase::ReceiveMessage( KeyValues *msg, bool bValidatedLobbyMember
 		XUID xuidMachine = msg->GetUint64( "id" );
 		Assert( xuidMachine == xuidSrc );
 		// assuming that xuidMachine and xuid of primary user are same
-		OnPlayerLeave( xuidSrc );
+		OnPlayerLeave( xuidMachine );
 	}
 	else if ( !Q_stricmp( "SysSession::Command", szMsg ) )
 	{
