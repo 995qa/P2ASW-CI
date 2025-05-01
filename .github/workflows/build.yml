@@ -1,0 +1,48 @@
+name: Continuous integration
+on:
+  push:
+    branches:
+      - main
+
+# GitHub Actions usage is FREE for both public repositories and self-hosted runners.
+# We can use it to build our project and do some automated builds and in future quality tests.
+# https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions
+
+jobs:
+  release:
+    name: build release
+    runs-on: windows-2022
+    timeout-minutes: 30
+    steps:
+      #checkout project
+      - uses: actions/checkout@v3
+
+      # setup msbuild
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+        with:
+         vs-version: '(12.0)'
+
+      - name: Create project
+        working-directory: src/devtools/bin
+        run: ./vpc.exe /tf +game /2013
+
+      # client.dll
+      - name: Build client_tf
+        working-directory: src/game/client
+        run: MSBuild.exe client_tf.vcxproj -property:Configuration=Release
+
+        
+      # server.dll
+      - name: Build server_tf
+        working-directory: src/game/server
+        run: MSBuild.exe server_tf.vcxproj -property:Configuration=Release
+
+      # store artifacts
+      # make sure retention is low, this can become huge otherwise
+      - name: Store build
+        uses: actions/upload-artifact@v4
+        with:
+          name: Release
+          path: |
+            game/bin
